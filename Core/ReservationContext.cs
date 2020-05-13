@@ -14,7 +14,6 @@ namespace Core
        {
            //TODO Clear me before commit
            optionsBuilder.UseSqlServer("Server=127.0.0.1;Database=vvsdhDB;User Id=sa;Password=reallyStrongPwd123");
-           //https://database.guide/how-to-install-sql-server-on-a-mac/
            optionsBuilder.EnableDetailedErrors();
        }
     }

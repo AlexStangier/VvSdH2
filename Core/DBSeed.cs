@@ -22,7 +22,8 @@ namespace Core
                     },
                     Building = "A",
                     RoomNr = 100,
-                    Size = 30
+                    Size = 30,
+                    Floor = 1
                 },
                 new Room
                 {
@@ -32,7 +33,8 @@ namespace Core
                     },
                     Building = "A",
                     RoomNr = 101,
-                    Size = 45
+                    Size = 45,
+                    Floor = 1
                 },
                 new Room
                 {
@@ -42,7 +44,8 @@ namespace Core
                     },
                     Building = "A",
                     RoomNr = 102,
-                    Size = 30
+                    Size = 30,
+                    Floor = 1
                 },
                 new Room
                 {
@@ -52,7 +55,8 @@ namespace Core
                     },
                     Building = "A",
                     RoomNr = 103,
-                    Size = 70
+                    Size = 70,
+                    Floor = 1
                 },
                 new Room
                 {
@@ -62,7 +66,8 @@ namespace Core
                     },
                     Building = "A",
                     RoomNr = 104,
-                    Size = 35
+                    Size = 35,
+                    Floor = 1
                 },
                 new Room
                 {
@@ -72,7 +77,8 @@ namespace Core
                     },
                     Building = "A",
                     RoomNr = 105,
-                    Size = 30
+                    Size = 30,
+                    Floor = 1
                 },
                 new Room
                 {
@@ -82,7 +88,8 @@ namespace Core
                     },
                     Building = "A",
                     RoomNr = 106,
-                    Size = 30
+                    Size = 30,
+                    Floor = 1
                 },
                 new Room
                 {
@@ -92,7 +99,8 @@ namespace Core
                     },
                     Building = "A",
                     RoomNr = 107,
-                    Size = 30
+                    Size = 30,
+                    Floor = 1
                 },
                 new Room
                 {
@@ -102,7 +110,8 @@ namespace Core
                     },
                     Building = "A",
                     RoomNr = 108,
-                    Size = 70
+                    Size = 70,
+                    Floor = 1
                 },
                 new Room
                 {
@@ -112,7 +121,8 @@ namespace Core
                     },
                     Building = "A",
                     RoomNr = 109,
-                    Size = 50
+                    Size = 50,
+                    Floor = 1
                 }
             };
 

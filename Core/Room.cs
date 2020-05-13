@@ -8,6 +8,7 @@ namespace Core
             public int RoomNr { get; set; }
             public string Building { get; set; }
             public int Size { get; set; }
+            public int Floor { get; set; }
             public Attribute Attribute { get; set; }
         }
 }
