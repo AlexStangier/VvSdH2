@@ -14,9 +14,9 @@ namespace VvSdHCore
             Console.WriteLine("Hello World!");
             var context = new ReservationContext();
             var seeder = new DBSeed();
-            //seeder.SeedDataToDB();
+            seeder.SeedDataToDB();
 
-            var floor1 = context.Rooms.Where(x => x.Floor == 1).Include(y => y.Attribute).ToList();
+            /**var floor1 = context.Rooms.Where(x => x.Floor == 1).Include(y => y.Attribute).ToList();
             foreach (var el in floor1)
             {
                 Console.WriteLine($"{el.RoomNr}    {el.Size}    {el.Attribute.AirCon}    {el.Attribute.Computers}");
@@ -30,7 +30,7 @@ namespace VvSdHCore
                 User = context.Users.FirstOrDefault(x => x.Username.Equals("Peter"))
             });
 
-            context.SaveChanges();
+            context.SaveChanges();**/
         }
     }
 }
