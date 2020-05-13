@@ -1,0 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace Core
+{
+    public class Room
+        {
+            public int RoomId { get; set; }
+            public int RoomNr { get; set; }
+            public string Building { get; set; }
+            public int Size { get; set; }
+            public Attribute Attribute { get; set; }
+        }
+}
