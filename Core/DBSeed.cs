@@ -16,21 +16,30 @@ namespace Core
             {
                 new Room
                 {
-                    Attribute = new Attribute {AirCon = true, Computers = true, Jacks = true, Presenter = true},
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
                     Building = "A",
                     RoomNr = 100,
                     Size = 30
                 },
                 new Room
                 {
-                    Attribute = new Attribute {AirCon = true, Computers = true, Jacks = true, Presenter = true},
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
                     Building = "A",
                     RoomNr = 101,
                     Size = 45
                 },
                 new Room
                 {
-                    Attribute = new Attribute {AirCon = true, Computers = true, Jacks = true, Presenter = true},
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
                     Building = "A",
                     RoomNr = 102,
                     Size = 30
@@ -47,28 +56,40 @@ namespace Core
                 },
                 new Room
                 {
-                    Attribute = new Attribute {AirCon = true, Computers = true, Jacks = true, Presenter = true},
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
                     Building = "A",
                     RoomNr = 104,
                     Size = 35
                 },
                 new Room
                 {
-                    Attribute = new Attribute {AirCon = true, Computers = true, Jacks = true, Presenter = true},
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
                     Building = "A",
                     RoomNr = 105,
                     Size = 30
                 },
                 new Room
                 {
-                    Attribute = new Attribute {AirCon = true, Computers = true, Jacks = true, Presenter = true},
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
                     Building = "A",
                     RoomNr = 106,
                     Size = 30
                 },
                 new Room
                 {
-                    Attribute = new Attribute {AirCon = true, Computers = true, Jacks = true, Presenter = true},
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
                     Building = "A",
                     RoomNr = 107,
                     Size = 30
@@ -94,7 +115,24 @@ namespace Core
                     Size = 50
                 }
             };
-            
+
+            var userList = new List<User>
+            {
+                new User
+                {
+                    Username = "Peter", Password = "123", Reservations = new List<Reservation>()
+                },
+                new User
+                {
+                    Username = "Udo", Password = "456", Reservations = new List<Reservation>()
+                },
+                new User
+                {
+                    Username = "Sabine", Password = "789", Reservations = new List<Reservation>()
+                }
+            };
+
+
             //Seed Data into Rights Table 
             var rightsList = new List<Right>
             {
@@ -103,10 +141,6 @@ namespace Core
                     RightsName = "Verwaltung",
                     UserHasRight = new List<User>
                     {
-                        new User
-                        {
-                            Username = "Verwaltung",Password = "123",Reservations = new List<Reservation>()
-                        }
                     }
                 },
                 new Right
@@ -114,10 +148,6 @@ namespace Core
                     RightsName = "Professor",
                     UserHasRight = new List<User>
                     {
-                        new User
-                        {
-                            Username = "Professor",Password = "123",Reservations = new List<Reservation>()
-                        }
                     }
                 },
                 new Right
@@ -125,10 +155,6 @@ namespace Core
                     RightsName = "Student",
                     UserHasRight = new List<User>
                     {
-                        new User
-                        {
-                            Username = "Student",Password = "123",Reservations = new List<Reservation>()
-                        }
                     }
                 },
                 new Right
@@ -136,10 +162,6 @@ namespace Core
                     RightsName = "Lehrbeauftragter",
                     UserHasRight = new List<User>
                     {
-                        new User
-                        {
-                            Username = "Lehrbeauftragter",Password = "123",Reservations = new List<Reservation>()
-                        }
                     }
                 },
                 new Right
@@ -147,23 +169,32 @@ namespace Core
                     RightsName = "Sonstige",
                     UserHasRight = new List<User>
                     {
-                        new User
-                        {
-                            Username = "Sonstige",Password = "123",Reservations = new List<Reservation>()
-                        }
                     }
                 }
-                
             };
-            
-            
+
 
             if (context.Rights != null) context.Rights.AddRange(rightsList);
             if (context.Rooms != null) context.Rooms.AddRange(roomList);
+            if (context.Users != null) context.Users.AddRange(userList);
 
+            context.SaveChanges();
+            
+            var profRight = context.Rights.Where(x => x.RightsName.Equals("Professor")).FirstOrDefault();
+            var peter = context.Users.Where(x => x.Username.Equals("Peter")).FirstOrDefault();
 
+            peter.Rights = profRight;
+            profRight.UserHasRight.Append(peter);
+            
+            peter.Reservations.Append(new Reservation
+            {
+                Start = new DateTime(2020,5,8,12,30,0),
+                End = new DateTime(2020,5,8, 14,0,0),
+                Room = context.Rooms.Where(x => x.RoomNr == 107).FirstOrDefault()
+            });
+            
             //Commit changes
-            //context.SaveChanges();
+            context.SaveChanges();
         }
     }
 }
