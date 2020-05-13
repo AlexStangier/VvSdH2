@@ -29,8 +29,6 @@ namespace VvSdHCore
                 Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 100),
                 User = context.Users.FirstOrDefault(x => x.Username.Equals("Peter"))
             });
-            
-            Console.WriteLine($"{context.Reservations.FirstOrDefault()}");
 
             context.SaveChanges();
         }

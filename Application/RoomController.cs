@@ -1,21 +1,22 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core;
 
 namespace Application
 {
     public class RoomController
     {
-        public List<Room> getFloor()
+        public Task<List<Room>> getFloor()
         {
             throw new System.NotImplementedException();
         }
 
-        public List<Room> filter()
+        public async Task<List<Room>> filter()
         {
             throw new System.NotImplementedException();
         }
 
-        public Room getCurrentStatus()
+        public async Task<Room> getCurrentStatus()
         {
             throw new System.NotImplementedException();
         }

@@ -1,16 +1,17 @@
 using System;
+using System.Threading.Tasks;
 using Core;
 
 namespace Application
 {
     public class UserController
     {
-        public bool login(DateTime timestampLogin, User user)
+        public async Task<bool> login(DateTime timestampLogin, User user)
         {
             throw new NotImplementedException();
         }
 
-        public bool logout()
+        public async Task<bool> logout()
         {
             throw new NotImplementedException();
         }
