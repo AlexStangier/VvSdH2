@@ -12,7 +12,7 @@ namespace VvSdHCore
             Console.WriteLine("Hello World!");
             var x = new ReservationContext();
             var seeder = new DBSeed();
-            //seeder.SeedDataToDB();
+            seeder.SeedDataToDB();
         }
     }
 }
