@@ -1,11 +1,12 @@
 using System;
+using System.Threading.Tasks;
 using Core;
 
 namespace ApplicationShared
 {
     public interface IBooking
     {
-        bool reservation(DateTime timestamp, User user);
-        bool cancelReservation(User user, int Id);
+        Task<bool> reservation(DateTime timestamp, User user);
+        Task<bool> cancelReservation(User user, int Id);
     }
 }

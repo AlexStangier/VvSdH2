@@ -13,7 +13,7 @@ namespace Core
        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
        {
            //TODO Clear me before commit
-           optionsBuilder.UseSqlServer("Server=127.0.0.1;Database=vvsdhDB;User Id=sa;Password=reallyStrongPwd123");
+           optionsBuilder.UseSqlServer("Server=95.111.228.241;Database=vvsdhDB;User Id=sa;Password=vvsdhAdminPW123");
            optionsBuilder.EnableDetailedErrors();
        }
     }
