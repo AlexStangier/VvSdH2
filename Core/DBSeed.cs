@@ -190,7 +190,7 @@ namespace Core
             {
                 Start = new DateTime(2020,5,8,12,30,0),
                 End = new DateTime(2020,5,8, 14,0,0),
-                Room = context.Rooms.Where(x => x.RoomNr == 107).FirstOrDefault()
+                Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 107)
             });
             
             //Commit changes
