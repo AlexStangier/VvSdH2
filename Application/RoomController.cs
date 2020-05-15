@@ -6,7 +6,7 @@ namespace Application
 {
     public class RoomController
     {
-        public Task<List<Room>> getFloor()
+        public async Task<List<Room>> getFloor()
         {
             throw new System.NotImplementedException();
         }

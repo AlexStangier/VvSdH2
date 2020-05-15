@@ -28,9 +28,9 @@ namespace VvSdHCore
                 End = new DateTime(2020,5,13,16,30,0),
                 Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 100),
                 User = context.Users.FirstOrDefault(x => x.Username.Equals("Peter"))
-            });
+            });**/
 
-            context.SaveChanges();**/
+            context.SaveChanges();
         }
     }
 }
