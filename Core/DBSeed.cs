@@ -188,7 +188,7 @@ namespace Core
             if (context.Rooms != null) context.Rooms.AddRange(roomList);
             if (context.Users != null) context.Users.AddRange(userList);
 
-            context.SaveChanges();
+            context.SaveChanges();      
             
             var profRight = context.Rights.Where(x => x.RightsName.Equals("Professor")).FirstOrDefault();
             var peter = context.Users.Where(x => x.Username.Equals("Peter")).FirstOrDefault();
