@@ -10,7 +10,7 @@ namespace Core
         public string Password { get; set; }
         
         public Right Rights { get; set; }
-        public IEnumerable<Reservation> Reservations { get; set; }
+        public List<Reservation> Reservations { get; set; }
     }
 }
 

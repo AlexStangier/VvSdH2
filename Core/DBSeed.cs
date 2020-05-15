@@ -423,46 +423,52 @@ namespace Core
             if (context.Users != null) context.Users.AddRange(userList);
  
             context.SaveChanges();
-           
+            
             var verwRight = context.Rights.Where(x => x.RightsName.Equals("Verwaltung")).FirstOrDefault();
             var profRight = context.Rights.Where(x => x.RightsName.Equals("Professor")).FirstOrDefault();
             var lehrbRight = context.Rights.Where(x => x.RightsName.Equals("Lehrbeauftragter")).FirstOrDefault();
             var studRight = context.Rights.Where(x => x.RightsName.Equals("Student")).FirstOrDefault();
  
-            var alex = context.Users.Where(x => x.Username.Equals("alex@stud.hs-offenburg.de")).FirstOrDefault();
+            var alex = context.Users.Where(x => x.Username.Equals("alex@stud.hs-offenburg.de")).Include(e => e.Reservations).FirstOrDefault();
             alex.Rights = studRight;
-            studRight.UserHasRight.Append(alex);
-           
-            alex.Reservations.Append(new Reservation
+            studRight.UserHasRight.Add(alex);
+            
+            alex.Reservations?.Add(new Reservation
             {
                 Start = new DateTime(2020,6,1,12,30,0),
                 End = new DateTime(2020,6,6, 14,0,0),
-                Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 1)
+                Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 1),
+                User = context.Users.Where(x => x.Username.Equals("alex@stud.hs-offenburg.de")).FirstOrDefault()
             });
- 
-            alex.Reservations.Append(new Reservation
+
+            context.SaveChanges();
+            
+            alex.Reservations.Add(new Reservation
             {
                 Start = new DateTime(2020, 6, 11, 11, 30, 0),
                 End = new DateTime(2020, 6, 11, 16, 0, 0),
-                Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 2)
+                Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 2),
+                User = context.Users.Where(x => x.Username.Equals("alex@stud.hs-offenburg.de")).FirstOrDefault()
             });
  
-            alex.Reservations.Append(new Reservation
+            alex.Reservations.Add(new Reservation
             {
                 Start = new DateTime(2020, 5, 30, 12, 0, 0),
                 End = new DateTime(2020, 5, 31, 14, 0, 0),
-                Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 2)
+                Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 2),
+                User = context.Users.Where(x => x.Username.Equals("alex@stud.hs-offenburg.de")).FirstOrDefault()
             });
  
-            var andreas = context.Users.Where(x => x.Username.Equals("andreas@stud.hs-offenburg.de")).FirstOrDefault();
+            var andreas = context.Users.Where(x => x.Username.Equals("andreas@stud.hs-offenburg.de")).Include(e => e.Reservations).FirstOrDefault();
             andreas.Rights = studRight;
-            studRight.UserHasRight.Append(andreas);
+            studRight.UserHasRight.Add(andreas);
  
-            andreas.Reservations.Append(new Reservation
+            andreas.Reservations.Add(new Reservation
             {
                 Start = new DateTime(2020, 7, 2, 15, 0, 0),
                 End = new DateTime(2020, 7, 2, 17, 0, 0),
-                Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 3)
+                Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 3),
+                User = context.Users.Where(x => x.Username.Equals("andreas@stud.hs-offenburg.de")).FirstOrDefault()
             });
  
             //Commit changes
