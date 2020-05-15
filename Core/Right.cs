@@ -9,6 +9,6 @@ namespace Core
         public string RightsName { get; set; }
         
         public int PrivilegeLevel { get; set; }
-        public IEnumerable<User> UserHasRight { get; set; }
+        public List<User> UserHasRight { get; set; }
     }
 } 
