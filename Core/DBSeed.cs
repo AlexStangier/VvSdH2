@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-
+ 
 namespace Core
 {
     public class DBSeed
@@ -10,7 +10,7 @@ namespace Core
         public void SeedDataToDB()
         {
             using var context = new ReservationContext();
-
+ 
             //Seed Rooms with appropriate Attributes
             var roomList = new List<Room>
             {
@@ -123,27 +123,268 @@ namespace Core
                     RoomNr = 109,
                     Size = 50,
                     Floor = 1
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
+                    Building = "A",
+                    RoomNr = 200,
+                    Size = 30,
+                    Floor = 2
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
+                    Building = "A",
+                    RoomNr = 201,
+                    Size = 45,
+                    Floor = 2
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
+                    Building = "A",
+                    RoomNr = 202,
+                    Size = 30,
+                    Floor = 2
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = false, Jacks = false, Presenter = true
+                    },
+                    Building = "A",
+                    RoomNr = 203,
+                    Size = 70,
+                    Floor = 2
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
+                    Building = "A",
+                    RoomNr = 204,
+                    Size = 35,
+                    Floor = 2
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
+                    Building = "A",
+                    RoomNr = 205,
+                    Size = 30,
+                    Floor = 2
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
+                    Building = "A",
+                    RoomNr = 206,
+                    Size = 30,
+                    Floor = 2
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
+                    Building = "A",
+                    RoomNr = 207,
+                    Size = 30,
+                    Floor = 2
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = false, Jacks = false, Presenter = true
+                    },
+                    Building = "A",
+                    RoomNr = 208,
+                    Size = 70,
+                    Floor = 2
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = false, Jacks = false, Presenter = true
+                    },
+                    Building = "A",
+                    RoomNr = 209,
+                    Size = 50,
+                    Floor = 2
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = false, Jacks = false, Presenter = true
+                    },
+                    Building = "A",
+                    RoomNr = 300,
+                    Size = 25,
+                    Floor = 3
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
+                    Building = "B",
+                    RoomNr = 100,
+                    Size = 100,
+                    Floor = 1
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
+                    Building = "B",
+                    RoomNr = 101,
+                    Size = 80,
+                    Floor = 1
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
+                    Building = "B",
+                    RoomNr = 102,
+                    Size = 65,
+                    Floor = 1
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = false, Jacks = false, Presenter = true
+                    },
+                    Building = "B",
+                    RoomNr = 103,
+                    Size = 65,
+                    Floor = 1
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
+                    Building = "B",
+                    RoomNr = 104,
+                    Size = 70,
+                    Floor = 1
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
+                    Building = "B",
+                    RoomNr = 105,
+                    Size = 30,
+                    Floor = 1
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
+                    Building = "B",
+                    RoomNr = 106,
+                    Size = 45,
+                    Floor = 1
+                },
+                new Room
+                {
+                    Attribute = new Attribute
+                    {
+                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                    },
+                    Building = "B",
+                    RoomNr = 107,
+                    Size = 25,
+                    Floor = 1
                 }
             };
-
+ 
             var userList = new List<User>
             {
                 new User
                 {
-                    Username = "Peter", Password = "123", Reservations = new List<Reservation>()
+                    Username = "alex@stud.hs-offenburg.de", Password = "sdfvc43", Reservations = new List<Reservation>()
                 },
                 new User
                 {
-                    Username = "Udo", Password = "456", Reservations = new List<Reservation>()
+                    Username = "andreas@stud.hs-offenburg.de", Password = "2523xcvy", Reservations = new List<Reservation>()
                 },
                 new User
                 {
-                    Username = "Sabine", Password = "789", Reservations = new List<Reservation>()
+                    Username = "daniel@stud.hs-offenburg.de", Password = "234n3", Reservations = new List<Reservation>()
+                },
+                new User
+                {
+                    Username = "hans@hs-offenburg.de", Password = "4c34hb", Reservations = new List<Reservation>()
+                },
+                new User
+                {
+                    Username = "kevin@hs-offenburg.de", Password = "vd345ca", Reservations = new List<Reservation>()
+                },
+                new User
+                {
+                    Username = "lena@hs-offenburg.de", Password = "sdf3caas", Reservations = new List<Reservation>()
+                },
+                new User
+                {
+                    Username = "markus@stud.hs-offenburg.de", Password = "7dv3w54", Reservations = new List<Reservation>()
+                },
+                new User
+                {
+                    Username = "marlon@stud.hs-offenburg.de", Password = "3bv543", Reservations = new List<Reservation>()
+                },
+                new User
+                {
+                    Username = "peter@hs-offenburg.de", Password = "234cxy3", Reservations = new List<Reservation>()
+                },
+                new User
+                {
+                    Username = "sabine@hs-offenburg.de", Password = "cas42xxak", Reservations = new List<Reservation>()
+                },
+                new User
+                {
+                    Username = "udo@hs-offenburg.de", Password = "34cx324", Reservations = new List<Reservation>()
                 }
             };
-
-
-            //Seed Data into Rights Table 
+ 
+ 
+            //Seed Data into Rights Table
             var rightsList = new List<Right>
             {
                 new Right
@@ -173,36 +414,57 @@ namespace Core
                     UserHasRight = new List<User>
                     {
                     }
-                },
-                new Right
-                {
-                    RightsName = "Sonstige",
-                    UserHasRight = new List<User>
-                    {
-                    }
                 }
             };
-
-
+ 
+ 
             if (context.Rights != null) context.Rights.AddRange(rightsList);
             if (context.Rooms != null) context.Rooms.AddRange(roomList);
             if (context.Users != null) context.Users.AddRange(userList);
-
-            context.SaveChanges();      
-            
+ 
+            context.SaveChanges();
+           
+            var verwRight = context.Rights.Where(x => x.RightsName.Equals("Verwaltung")).FirstOrDefault();
             var profRight = context.Rights.Where(x => x.RightsName.Equals("Professor")).FirstOrDefault();
-            var peter = context.Users.Where(x => x.Username.Equals("Peter")).FirstOrDefault();
-
-            peter.Rights = profRight;
-            profRight.UserHasRight.Append(peter);
-            
-            peter.Reservations.Append(new Reservation
+            var lehrbRight = context.Rights.Where(x => x.RightsName.Equals("Lehrbeauftragter")).FirstOrDefault();
+            var studRight = context.Rights.Where(x => x.RightsName.Equals("Student")).FirstOrDefault();
+ 
+            var alex = context.Users.Where(x => x.Username.Equals("alex@stud.hs-offenburg.de")).FirstOrDefault();
+            alex.Rights = studRight;
+            studRight.UserHasRight.Append(alex);
+           
+            alex.Reservations.Append(new Reservation
             {
-                Start = new DateTime(2020,5,8,12,30,0),
-                End = new DateTime(2020,5,8, 14,0,0),
-                Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 107)
+                Start = new DateTime(2020,6,1,12,30,0),
+                End = new DateTime(2020,6,6, 14,0,0),
+                Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 1)
             });
-            
+ 
+            alex.Reservations.Append(new Reservation
+            {
+                Start = new DateTime(2020, 6, 11, 11, 30, 0),
+                End = new DateTime(2020, 6, 11, 16, 0, 0),
+                Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 2)
+            });
+ 
+            alex.Reservations.Append(new Reservation
+            {
+                Start = new DateTime(2020, 5, 30, 12, 0, 0),
+                End = new DateTime(2020, 5, 31, 14, 0, 0),
+                Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 2)
+            });
+ 
+            var andreas = context.Users.Where(x => x.Username.Equals("andreas@stud.hs-offenburg.de")).FirstOrDefault();
+            andreas.Rights = studRight;
+            studRight.UserHasRight.Append(andreas);
+ 
+            andreas.Reservations.Append(new Reservation
+            {
+                Start = new DateTime(2020, 7, 2, 15, 0, 0),
+                End = new DateTime(2020, 7, 2, 17, 0, 0),
+                Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 3)
+            });
+ 
             //Commit changes
             context.SaveChanges();
         }
