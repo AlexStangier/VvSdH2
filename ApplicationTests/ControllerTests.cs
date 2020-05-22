@@ -13,7 +13,7 @@ namespace ApplicationTests
         public async Task TestGetFloor()
         {   
             var rc = new RoomController();
-            var rooms = await rc.getFloor("A", 1);
+            var rooms = await rc.getFloor(1,"A");
 
             Assert.AreEqual(10, rooms.Count);
         }
@@ -23,7 +23,7 @@ namespace ApplicationTests
         {
             var rc = new RoomController();
 
-            var rooms = await rc.getFloor("A", 1);
+            var rooms = await rc.getFloor(1,"A");
             var filteredRooms = await rc.filter(rooms, 50, new Core.Attribute());
 
             Assert.AreEqual(3, filteredRooms.Count);

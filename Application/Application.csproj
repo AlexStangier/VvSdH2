@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ApplicationShared\ApplicationShared.csproj" />
       <ProjectReference Include="..\Core\Core.csproj" />
     </ItemGroup>
 

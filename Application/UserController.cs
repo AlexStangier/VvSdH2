@@ -2,13 +2,14 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ApplicationShared;
 using Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Application
 {
-    public class UserController
+    public class UserController : IUser
     {
         private User _loggedInAs;
 
