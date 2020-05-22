@@ -384,7 +384,7 @@ namespace Core
                 },
                 new Holyday
                 {
-                    day = new DateTime(2020,12,25), reason = "2. Weihnachtstag"
+                    day = new DateTime(2020,12,26), reason = "2. Weihnachtstag"
                 },
             };
 
@@ -473,6 +473,7 @@ namespace Core
  
             if (context.Rights != null) context.Rights.AddRange(rightsList);
             if (context.Rooms != null) context.Rooms.AddRange(roomList);
+            if (context.Holydays != null) context.Holydays.AddRange(holydayList);
             if (context.Users != null) context.Users.AddRange(userList);
  
             context.SaveChanges();
@@ -486,7 +487,7 @@ namespace Core
             alex.Rights = studRight;
             studRight.UserHasRight.Add(alex);
             
-            alex.Reservations?.Add(new Reservation
+            alex.Reservations.Add(new Reservation
             {
                 Start = new DateTime(2020,6,1,12,30,0),
                 End = new DateTime(2020,6,6, 14,0,0),
