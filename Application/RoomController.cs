@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApplicationShared;
 using Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application
 {
-    public class RoomController
+    public class RoomController : IRoom
     {
         /// <summary>
         /// Gets all rooms of a floor in a given Building
@@ -14,14 +15,13 @@ namespace Application
         /// <param name="building">The building where the rooms should be</param>
         /// <param name="floor">The floor of the rooms</param>
         /// <returns></returns>
-        public async Task<List<Room>> getFloor(string building, int floor)
+        public async Task<List<Room>> getFloor(int floor, string building)
         {
             var rc = new ReservationContext();
-            // Include notwendig?
-            var query = rc.Rooms.Where(x => x.Floor == floor)
-                                .Where(x => x.Building == building);
+            var query = await rc.Rooms.Where(x => x.Floor == floor)
+                                .Where(x => x.Building == building).ToListAsync();
 
-            return query.ToList();
+            return query;
         }
 
         /// <summary>

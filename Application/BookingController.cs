@@ -1,10 +1,13 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using ApplicationShared;
 using Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application
 {
-    public class BookingController
+    public class BookingController : IBooking
     {
         public async Task<bool> reservation(DateTime timestamp, User user)
         {
@@ -13,8 +16,8 @@ namespace Application
         
         public async Task<bool> cancelReservation(User user, int Id)
         {
-            var rc = new ReservationContext();
-            var fittingReservation = rc.Reservations.Find(Id);
+            var context = new ReservationContext();
+            var fittingReservation = await context.Reservations.FirstOrDefaultAsync(x => x.ReservationId == Id);
 
             // Check if cancelling is possible
             if (fittingReservation == null)
@@ -24,8 +27,8 @@ namespace Application
                 return false;
 
             // Cancelling is possible, remove the entry
-            rc.Reservations.Remove(fittingReservation);
-            rc.SaveChanges();
+            context.Reservations.Remove(fittingReservation);
+            context.SaveChanges();
             return true;
         }
     }
