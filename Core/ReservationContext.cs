@@ -9,8 +9,9 @@ namespace Core
        public DbSet<Right> Rights { get; set; }
        public DbSet<Room> Rooms { get; set; }
        public DbSet<User> Users { get; set; }
+       public DbSet<Holyday> Holydays { get; set; }
 
-       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
        {
            optionsBuilder.UseSqlServer("Server=95.111.228.241;Database=vvsdhDB;User Id=sa;Password=vvsdhAdminPW123");
            optionsBuilder.EnableDetailedErrors();
