@@ -10,7 +10,7 @@ namespace AvaloniaUI.Views
         public LoginView()
         {
             this.InitializeComponent();
-            this.DataContext =
+            // this.DataContext =
         }
 
         private void InitializeComponent()
