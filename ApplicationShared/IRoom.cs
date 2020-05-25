@@ -6,8 +6,8 @@ namespace ApplicationShared
 {
     public interface IRoom
     {
-        Task<List<Room>> getFloor();
-        Task<List<Room>> filter();
+        Task<List<Room>> getFloor(int floor, string building);
+        Task<List<Room>> filter(List<Room> rooms, int? size, Attribute attributes);
         Task<Room> getCurrentStatus();
     }
 }

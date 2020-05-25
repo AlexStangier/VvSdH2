@@ -334,7 +334,60 @@ namespace Core
                     Floor = 1
                 }
             };
- 
+
+            //Seed Rooms with appropriate Attributes
+            var holydayList = new List<Holyday>
+            {
+                new Holyday
+                {
+                    day = new DateTime(2020,1,1), reason = "Neujahr"
+                },
+                new Holyday
+                {
+                    day = new DateTime(2020,1,6), reason = "Heilige Drei Könige"
+                },
+                new Holyday
+                {
+                    day = new DateTime(2020,4,10), reason = "Karfreitag"
+                },
+                new Holyday
+                {
+                    day = new DateTime(2020,4,13), reason = "Ostermontag"
+                },
+                new Holyday
+                {
+                    day = new DateTime(2020,5,1), reason = "Maifeiertag"
+                },
+                new Holyday
+                {
+                    day = new DateTime(2020,5,21), reason = "Christi Himmelfahrt"
+                },
+                new Holyday
+                {
+                    day = new DateTime(2020,6,1), reason = "Pfingstmontag"
+                },
+                new Holyday
+                {
+                    day = new DateTime(2020,6,11), reason = "Fronleichnam"
+                },
+                new Holyday
+                {
+                    day = new DateTime(2020,10,3), reason = "Tag der Deutschen Einheit"
+                },
+                new Holyday
+                {
+                    day = new DateTime(2020,11,1), reason = "Allerheiligen"
+                },
+                new Holyday
+                {
+                    day = new DateTime(2020,12,25), reason = "1. Weihnachtstag"
+                },
+                new Holyday
+                {
+                    day = new DateTime(2020,12,26), reason = "2. Weihnachtstag"
+                },
+            };
+
             var userList = new List<User>
             {
                 new User
@@ -420,6 +473,7 @@ namespace Core
  
             if (context.Rights != null) context.Rights.AddRange(rightsList);
             if (context.Rooms != null) context.Rooms.AddRange(roomList);
+            if (context.Holydays != null) context.Holydays.AddRange(holydayList);
             if (context.Users != null) context.Users.AddRange(userList);
  
             context.SaveChanges();
@@ -433,7 +487,7 @@ namespace Core
             alex.Rights = studRight;
             studRight.UserHasRight.Add(alex);
             
-            alex.Reservations?.Add(new Reservation
+            alex.Reservations.Add(new Reservation
             {
                 Start = new DateTime(2020,6,1,12,30,0),
                 End = new DateTime(2020,6,6, 14,0,0),
