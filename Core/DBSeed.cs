@@ -18,7 +18,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 100,
@@ -29,7 +29,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 101,
@@ -40,7 +40,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 102,
@@ -51,7 +51,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = false, Jacks = false, Presenter = true
+                        AirConditioning = true, Computers = false, PowerOutlets = false, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 103,
@@ -62,7 +62,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 104,
@@ -73,7 +73,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 105,
@@ -84,7 +84,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 106,
@@ -95,7 +95,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 107,
@@ -106,7 +106,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = false, Jacks = false, Presenter = true
+                        AirConditioning = true, Computers = false, PowerOutlets = false, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 108,
@@ -117,7 +117,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = false, Jacks = false, Presenter = true
+                        AirConditioning = true, Computers = false, PowerOutlets = false, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 109,
@@ -128,7 +128,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 200,
@@ -139,7 +139,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 201,
@@ -150,7 +150,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 202,
@@ -161,7 +161,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = false, Jacks = false, Presenter = true
+                        AirConditioning = true, Computers = false, PowerOutlets = false, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 203,
@@ -172,7 +172,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 204,
@@ -183,7 +183,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 205,
@@ -194,7 +194,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 206,
@@ -205,7 +205,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 207,
@@ -216,7 +216,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = false, Jacks = false, Presenter = true
+                        AirConditioning = true, Computers = false, PowerOutlets = false, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 208,
@@ -227,7 +227,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = false, Jacks = false, Presenter = true
+                        AirConditioning = true, Computers = false, PowerOutlets = false, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 209,
@@ -238,7 +238,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = false, Jacks = false, Presenter = true
+                        AirConditioning = true, Computers = false, PowerOutlets = false, Presenter = true
                     },
                     Building = "A",
                     RoomNr = 300,
@@ -249,7 +249,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "B",
                     RoomNr = 100,
@@ -260,7 +260,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "B",
                     RoomNr = 101,
@@ -271,7 +271,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "B",
                     RoomNr = 102,
@@ -282,7 +282,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = false, Jacks = false, Presenter = true
+                        AirConditioning = true, Computers = false, PowerOutlets = false, Presenter = true
                     },
                     Building = "B",
                     RoomNr = 103,
@@ -293,7 +293,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "B",
                     RoomNr = 104,
@@ -304,7 +304,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "B",
                     RoomNr = 105,
@@ -315,7 +315,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "B",
                     RoomNr = 106,
@@ -326,7 +326,7 @@ namespace Core
                 {
                     Attribute = new Attribute
                     {
-                        AirCon = true, Computers = true, Jacks = true, Presenter = true
+                        AirConditioning = true, Computers = true, PowerOutlets = true, Presenter = true
                     },
                     Building = "B",
                     RoomNr = 107,
@@ -336,55 +336,55 @@ namespace Core
             };
 
             //Seed Rooms with appropriate Attributes
-            var holydayList = new List<Holyday>
+            var holydayList = new List<Holiday>
             {
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,1,1), reason = "Neujahr"
+                    Date = new DateTime(2020,1,1), Description = "Neujahr"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,1,6), reason = "Heilige Drei K�nige"
+                    Date = new DateTime(2020,1,6), Description = "Heilige Drei K�nige"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,4,10), reason = "Karfreitag"
+                    Date = new DateTime(2020,4,10), Description = "Karfreitag"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,4,13), reason = "Ostermontag"
+                    Date = new DateTime(2020,4,13), Description = "Ostermontag"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,5,1), reason = "Maifeiertag"
+                    Date = new DateTime(2020,5,1), Description = "Maifeiertag"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,5,21), reason = "Christi Himmelfahrt"
+                    Date = new DateTime(2020,5,21), Description = "Christi Himmelfahrt"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,6,1), reason = "Pfingstmontag"
+                    Date = new DateTime(2020,6,1), Description = "Pfingstmontag"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,6,11), reason = "Fronleichnam"
+                    Date = new DateTime(2020,6,11), Description = "Fronleichnam"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,10,3), reason = "Tag der Deutschen Einheit"
+                    Date = new DateTime(2020,10,3), Description = "Tag der Deutschen Einheit"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,11,1), reason = "Allerheiligen"
+                    Date = new DateTime(2020,11,1), Description = "Allerheiligen"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,12,25), reason = "1. Weihnachtstag"
+                    Date = new DateTime(2020,12,25), Description = "1. Weihnachtstag"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,12,26), reason = "2. Weihnachtstag"
+                    Date = new DateTime(2020,12,26), Description = "2. Weihnachtstag"
                 },
             };
 
@@ -493,8 +493,8 @@ namespace Core
             
             alex.Reservations.Add(new Reservation
             {
-                Start = new DateTime(2020,6,1,12,30,0),
-                End = new DateTime(2020,6,6, 14,0,0),
+                StartTime = new DateTime(2020,6,1,12,30,0),
+                EndTime = new DateTime(2020,6,6, 14,0,0),
                 Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 1),
                 User = context.Users.Where(x => x.Username.Equals("alex@stud.hs-offenburg.de")).FirstOrDefault()
             });
@@ -503,16 +503,16 @@ namespace Core
             
             alex.Reservations.Add(new Reservation
             {
-                Start = new DateTime(2020, 6, 11, 11, 30, 0),
-                End = new DateTime(2020, 6, 11, 16, 0, 0),
+                StartTime = new DateTime(2020, 6, 11, 11, 30, 0),
+                EndTime = new DateTime(2020, 6, 11, 16, 0, 0),
                 Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 2),
                 User = context.Users.Where(x => x.Username.Equals("alex@stud.hs-offenburg.de")).FirstOrDefault()
             });
  
             alex.Reservations.Add(new Reservation
             {
-                Start = new DateTime(2020, 5, 30, 12, 0, 0),
-                End = new DateTime(2020, 5, 31, 14, 0, 0),
+                StartTime = new DateTime(2020, 5, 30, 12, 0, 0),
+                EndTime = new DateTime(2020, 5, 31, 14, 0, 0),
                 Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 2),
                 User = context.Users.Where(x => x.Username.Equals("alex@stud.hs-offenburg.de")).FirstOrDefault()
             });
@@ -523,8 +523,8 @@ namespace Core
  
             andreas.Reservations.Add(new Reservation
             {
-                Start = new DateTime(2020, 7, 2, 15, 0, 0),
-                End = new DateTime(2020, 7, 2, 17, 0, 0),
+                StartTime = new DateTime(2020, 7, 2, 15, 0, 0),
+                EndTime = new DateTime(2020, 7, 2, 17, 0, 0),
                 Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 3),
                 User = context.Users.Where(x => x.Username.Equals("andreas@stud.hs-offenburg.de")).FirstOrDefault()
             });

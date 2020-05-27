@@ -26,13 +26,13 @@ namespace Core.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("AirCon")
+                    b.Property<bool>("AirConditioning")
                         .HasColumnType("bit");
 
                     b.Property<bool>("Computers")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Jacks")
+                    b.Property<bool>("PowerOutlets")
                         .HasColumnType("bit");
 
                     b.Property<bool>("Presenter")
@@ -43,15 +43,15 @@ namespace Core.Migrations
                     b.ToTable("Attributes");
                 });
 
-            modelBuilder.Entity("Core.Holyday", b =>
+            modelBuilder.Entity("Core.Holiday", b =>
                 {
-                    b.Property<DateTime>("day")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("reason")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("day");
+                    b.HasKey("Date");
 
                     b.ToTable("Holydays");
                 });
@@ -63,13 +63,13 @@ namespace Core.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("End")
+                    b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("RoomId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Start")
+                    b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Username")
@@ -130,6 +130,9 @@ namespace Core.Migrations
                 {
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("HasCurrentSession")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");

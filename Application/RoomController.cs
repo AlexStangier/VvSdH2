@@ -15,13 +15,12 @@ namespace Application
         /// <param name="building">The building where the rooms should be</param>
         /// <param name="floor">The floor of the rooms</param>
         /// <returns></returns>
-        public async Task<List<Room>> getFloor(int floor, string building)
+        public async Task<List<Room>> GetFloor(int floor, string building)
         {
-            var rc = new ReservationContext();
-            var query = await rc.Rooms.Where(x => x.Floor == floor)
-                                .Where(x => x.Building == building).ToListAsync();
-
-            return query;
+            await using var context = new ReservationContext();
+            
+            return await context.Rooms.Where(x => x.Floor == floor)
+                .Where(x => x.Building == building).ToListAsync();;
         }
 
         /// <summary>
@@ -31,20 +30,25 @@ namespace Application
         /// <param name="size">The minimum Amount of Rooms. If null, no rooms will be filtered out</param>
         /// <param name="attributes">The attributes that the room should have</param>
         /// <returns></returns>
-        public async Task<List<Room>> filter(List<Room> rooms, int? size, Attribute attributes)
+        public async Task<List<Room>> Filter(List<Room> rooms, int? size, Attribute attributes)
         {
             int minSize = size ?? int.MinValue; 
 
             var query = rooms.Where(x => x.Size >= minSize)
                              .Where(x => !attributes.Computers || x.Attribute.Computers)
-                             .Where(x => !attributes.Jacks || x.Attribute.Jacks)
+                             .Where(x => !attributes.PowerOutlets || x.Attribute.PowerOutlets)
                              .Where(x => !attributes.Presenter || x.Attribute.Presenter)
-                             .Where(x => !attributes.AirCon || x.Attribute.AirCon);
+                             .Where(x => !attributes.AirConditioning || x.Attribute.AirConditioning);
 
             return query.ToList();
         }
 
-        public async Task<Room> getCurrentStatus()
+        public async Task<Room> GetCurrentStatus()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<Room> GetCurrentStatusForFloor(string building, int floor)
         {
             throw new System.NotImplementedException();
         }
