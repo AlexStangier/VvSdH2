@@ -172,7 +172,7 @@ namespace ApplicationTests
         public async Task CreateReservationWithInvalidUser()
         {
             SetUp();
-            Assert.Null(await _booking.CreateReservation(dummyRoom, DateTime.Now, 90, null));
+            Assert.False(await _booking.CreateReservation(dummyRoom, DateTime.Now, 90, null));
         }
     }
 }
