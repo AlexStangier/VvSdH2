@@ -19,21 +19,23 @@ namespace Application
             {
                 foundUser.HasCurrentSession = true;
                 context.SaveChanges();
+
+                return foundUser.HasCurrentSession;
             }
 
-            return foundUser?.HasCurrentSession ?? false;
+            return false;
         }
 
         public async Task<bool> Logout(string username)
         {
             using var context = new ReservationContext();
 
-            var currentUser =await context.Users.FirstOrDefaultAsync(x => x.Username.Equals(username));
+            var currentUser = await context.Users.FirstOrDefaultAsync(x => x.Username.Equals(username));
 
             currentUser.HasCurrentSession = false;
 
             context.SaveChanges();
-            
+
             return !currentUser.HasCurrentSession;
         }
 
