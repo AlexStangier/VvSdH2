@@ -17,11 +17,10 @@ namespace Application
         /// <returns></returns>
         public async Task<List<Room>> getFloor(int floor, string building)
         {
-            var rc = new ReservationContext();
-            var query = await rc.Rooms.Where(x => x.Floor == floor)
-                                .Where(x => x.Building == building).ToListAsync();
-
-            return query;
+            await using var context = new ReservationContext();
+            
+            return await context.Rooms.Where(x => x.Floor == floor)
+                .Where(x => x.Building == building).ToListAsync();;
         }
 
         /// <summary>

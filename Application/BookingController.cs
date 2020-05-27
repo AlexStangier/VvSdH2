@@ -11,24 +11,13 @@ namespace Application
     {
         public async Task<bool> reservation(Room selectedRoom, DateTime timestamp, User user)
         {
-            var context = new ReservationContext();
-            var currUser = await context.Users.Where(x => x.Username.Equals(user.Username)).Include(y => y.Rights)
-                .FirstOrDefaultAsync();
-
-            //Check for existing Reservations
-            var possibleReservation = await context.Reservations.Where(x => x.Start.Equals(timestamp))
-                .Include(y => y.User).ThenInclude(z => z.Rights).FirstOrDefaultAsync();
-            if (possibleReservation != null)
-            {
-                
-            }
-
-            return false;
+            await using var context = new ReservationContext();
+            throw new NotImplementedException();
         }
 
         public async Task<bool> cancelReservation(User user, int Id)
         {
-            var context = new ReservationContext();
+            await using var context = new ReservationContext();
             var fittingReservation = await context.Reservations.FirstOrDefaultAsync(x => x.ReservationId == Id);
 
             // Check if cancelling is possible
