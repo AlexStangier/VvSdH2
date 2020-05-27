@@ -344,7 +344,7 @@ namespace Core
                 },
                 new Holyday
                 {
-                    day = new DateTime(2020,1,6), reason = "Heilige Drei Könige"
+                    day = new DateTime(2020,1,6), reason = "Heilige Drei Kï¿½nige"
                 },
                 new Holyday
                 {
@@ -443,6 +443,7 @@ namespace Core
                 new Right
                 {
                     RightsName = "Verwaltung",
+                    PrivilegeLevel = 4,
                     UserHasRight = new List<User>
                     {
                     }
@@ -450,6 +451,7 @@ namespace Core
                 new Right
                 {
                     RightsName = "Professor",
+                    PrivilegeLevel = 3,
                     UserHasRight = new List<User>
                     {
                     }
@@ -457,6 +459,7 @@ namespace Core
                 new Right
                 {
                     RightsName = "Student",
+                    PrivilegeLevel = 1,
                     UserHasRight = new List<User>
                     {
                     }
@@ -464,6 +467,7 @@ namespace Core
                 new Right
                 {
                     RightsName = "Lehrbeauftragter",
+                    PrivilegeLevel = 2,
                     UserHasRight = new List<User>
                     {
                     }
