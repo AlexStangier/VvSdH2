@@ -15,7 +15,7 @@ namespace Application
 
         public async Task<bool> Login(DateTime timestampLogin, User user)
         {
-            var context = new ReservationContext();
+            using var context = new ReservationContext();
             var foundUser = await context.Users.FirstOrDefaultAsync(x => x.Username.Equals(user.Username));
 
             if (foundUser == null)

@@ -336,55 +336,55 @@ namespace Core
             };
 
             //Seed Rooms with appropriate Attributes
-            var holydayList = new List<Holyday>
+            var holydayList = new List<Holiday>
             {
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,1,1), reason = "Neujahr"
+                    Day = new DateTime(2020,1,1), Description = "Neujahr"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,1,6), reason = "Heilige Drei K�nige"
+                    Day = new DateTime(2020,1,6), Description = "Heilige Drei K�nige"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,4,10), reason = "Karfreitag"
+                    Day = new DateTime(2020,4,10), Description = "Karfreitag"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,4,13), reason = "Ostermontag"
+                    Day = new DateTime(2020,4,13), Description = "Ostermontag"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,5,1), reason = "Maifeiertag"
+                    Day = new DateTime(2020,5,1), Description = "Maifeiertag"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,5,21), reason = "Christi Himmelfahrt"
+                    Day = new DateTime(2020,5,21), Description = "Christi Himmelfahrt"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,6,1), reason = "Pfingstmontag"
+                    Day = new DateTime(2020,6,1), Description = "Pfingstmontag"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,6,11), reason = "Fronleichnam"
+                    Day = new DateTime(2020,6,11), Description = "Fronleichnam"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,10,3), reason = "Tag der Deutschen Einheit"
+                    Day = new DateTime(2020,10,3), Description = "Tag der Deutschen Einheit"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,11,1), reason = "Allerheiligen"
+                    Day = new DateTime(2020,11,1), Description = "Allerheiligen"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,12,25), reason = "1. Weihnachtstag"
+                    Day = new DateTime(2020,12,25), Description = "1. Weihnachtstag"
                 },
-                new Holyday
+                new Holiday
                 {
-                    day = new DateTime(2020,12,26), reason = "2. Weihnachtstag"
+                    Day = new DateTime(2020,12,26), Description = "2. Weihnachtstag"
                 },
             };
 

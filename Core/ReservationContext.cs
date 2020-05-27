@@ -9,7 +9,7 @@ namespace Core
        public DbSet<Right> Rights { get; set; }
        public DbSet<Room> Rooms { get; set; }
        public DbSet<User> Users { get; set; }
-       public DbSet<Holyday> Holydays { get; set; }
+       public DbSet<Holiday> Holydays { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
        {
