@@ -9,10 +9,36 @@ namespace Application
 {
     public class BookingController : IBooking
     {
-        public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, User user)
+        public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, double duration, User user)
         {
             await using var context = new ReservationContext();
-            throw new NotImplementedException();
+
+            var existingReservation = await context.Reservations.Where(x =>
+                x.StartTime >= timestamp && x.EndTime <= timestamp.AddMinutes(duration)).FirstOrDefaultAsync();
+
+            var concreteUser = await context.Users.FindAsync(user.Username);
+
+            try
+            {
+                if (existingReservation == null)
+                {
+                    var newReservation = new Reservation{
+                        Room = await context.Rooms.FindAsync(selectedRoom.RoomId),
+                        StartTime = timestamp,
+                        EndTime = timestamp.AddMinutes(duration),
+                        User = concreteUser
+                    };
+                    
+                    context.Reservations.Add(newReservation);
+                    concreteUser.Reservations.Add(newReservation);
+                }
+            }
+            catch (NullReferenceException)
+            {
+                return false;
+            }
+            
+            return await context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> CancelReservation(User user, int Id)

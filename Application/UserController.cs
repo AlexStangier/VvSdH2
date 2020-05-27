@@ -20,7 +20,7 @@ namespace Application
                 foundUser.HasCurrentSession = true;
                 context.SaveChanges();
 
-                return foundUser.HasCurrentSession;
+                return foundUser?.HasCurrentSession ?? false;
             }
 
             return false;
@@ -32,10 +32,13 @@ namespace Application
 
             var currentUser = await context.Users.FirstOrDefaultAsync(x => x.Username.Equals(username));
 
+            if (currentUser == null) return false;
+
             currentUser.HasCurrentSession = false;
 
             context.SaveChanges();
 
+            //Default for HasCurrentSession should be false
             return !currentUser.HasCurrentSession;
         }
 
