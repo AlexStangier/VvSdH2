@@ -22,7 +22,7 @@ namespace ApplicationTests
         }
 
         [Test]
-        public async Task TestGetFloor()
+        public async Task ReturnWholeFloor()
         {
             var rooms = await _room.getFloor(1, "A");
 
@@ -30,7 +30,7 @@ namespace ApplicationTests
         }
 
         [Test]
-        public async Task TestFilter()
+        public async Task FilterRoomsBySize()
         {
             var rooms = await _room.getFloor(1, "A");
             var filteredRooms = await _room.filter(rooms, 50, new Core.Attribute());
@@ -39,45 +39,45 @@ namespace ApplicationTests
         }
 
         [Test]
-        public async Task TestLoginSuccess()
+        public async Task StandartLogin()
         {
             var user = new User
             {
                 Username = "udo@hs-offenburg.de",
                 Password = "34cx324"
             };
-            var success = await _user.login(DateTime.Now, user);
+            var result = await _user.login(DateTime.Now, user);
 
             // User exists, PW is correct
-            Assert.True(success);
+            Assert.True(result);
         }
 
         [Test]
-        public async Task TestLoginWrongPW()
+        public async Task InvalidLoginWrongPassword()
         {
             var user = new User
             {
                 Username = "udo@hs-offenburg.de",
                 Password = "12345"
             };
-            var success = await _user.login(DateTime.Now, user);
+            var result = await _user.login(DateTime.Now, user);
 
             // User exists, PW is wrong
-            Assert.False(success);
+            Assert.False(result);
         }
 
         [Test]
-        public async Task TestLoginNoUser()
+        public async Task LoginWithoutCorrespondingUser()
         {
             var user = new User
             {
                 Username = "odo@hs-offenburg.de",
                 Password = "34cx324"
             };
-            var success = await _user.login(DateTime.Now, user);
+            var result = await _user.login(DateTime.Now, user);
 
             // User does not exist
-            Assert.False(success);
+            Assert.False(result);
         }
     }
 }
