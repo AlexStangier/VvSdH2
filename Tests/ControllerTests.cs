@@ -2,8 +2,6 @@ using ApplicationShared;
 using Core;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Application;
 
@@ -14,6 +12,9 @@ namespace ApplicationTests
         private IUser _user;
         private IBooking _booking;
         private IRoom _room;
+        private User dummyUser;
+        private Room dummyRoom;
+
 
         [SetUp]
         public void SetUp()
@@ -21,15 +22,13 @@ namespace ApplicationTests
             _user = new UserController();
             _booking = new BookingController();
             _room = new RoomController();
-            
-            using var context = new ReservationContext();
 
-            var dummyUser = new User
+            dummyRoom = new Room
             {
-                Username = "IShouldNotBeInHere",
-                Password = "123",
-                Reservations = new List<Reservation>(),
-                Rights = context.Rights.FirstOrDefault(x => x.PrivilegeLevel == 4)
+                Building = "A",
+                Floor = 1,
+                RoomNr = 100,
+                Size = 30
             };
         }
 
@@ -76,6 +75,7 @@ namespace ApplicationTests
                 Username = "udo@hs-offenburg.de",
                 Password = "12345"
             };
+
             var result = await _user.Login(user.Username, user.Password);
 
             // User exists, PW is wrong
@@ -95,6 +95,84 @@ namespace ApplicationTests
 
             // User does not exist
             Assert.False(result);
+        }
+
+        [Test]
+        public async Task StandartLogout()
+        {
+            SetUp();
+            Assert.True(await _user.Logout("udo@hs-offenburg.de"));
+        }
+
+        [Test]
+        public async Task LogoutWithInvalidCredentials()
+        {
+            SetUp();
+            Assert.False(await _user.Logout(""));
+        }
+
+        [Test]
+        public async Task GetRoomByBuildingAndNumber()
+        {
+            SetUp();
+            Assert.NotNull(await _room.GetCurrentStatusForRoom(100, "A"));
+        }
+
+        [Test]
+        public async Task GetRoomWithInvalidRoomNumber()
+        {
+            SetUp();
+            Assert.Null(await _room.GetCurrentStatusForRoom(0, "A"));
+        }
+
+        [Test]
+        public async Task GetRoomWithInvalidBuilding()
+        {
+            SetUp();
+            Assert.Null(await _room.GetCurrentStatusForRoom(100, ""));
+        }
+
+        [Test]
+        public async Task GetFloorByBuildingAndNumber()
+        {
+            SetUp();
+            Assert.NotNull(await _room.GetCurrentStatusForFloor("A", 1));
+        }
+
+        [Test]
+        public void GetFloorWithInvalidRoomNumber()
+        {
+            SetUp();
+            Assert.AreEqual(0, _room.GetCurrentStatusForFloor("A", 0).Result.Count);
+        }
+
+        [Test]
+        public void GetFloorWithInvalidBuilding()
+        {
+            SetUp();
+            Assert.AreEqual(0, _room.GetCurrentStatusForFloor("", 1).Result.Count);
+        }
+
+        [Test]
+        public async Task CreateStandartReservation()
+        {
+            SetUp();
+            await using var context = new ReservationContext();
+            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1), DateTime.Now, 90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
+        }
+
+        [Test]
+        public async Task CreateReservationWithInvalidRoom()
+        {
+            SetUp();
+            Assert.False(await _booking.CreateReservation(null, DateTime.Now, 90, dummyUser));
+        }
+
+        [Test]
+        public async Task CreateReservationWithInvalidUser()
+        {
+            SetUp();
+            Assert.False(await _booking.CreateReservation(dummyRoom, DateTime.Now, 90, null));
         }
     }
 }
