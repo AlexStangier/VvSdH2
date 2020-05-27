@@ -31,7 +31,19 @@ namespace ApplicationTests
                 Size = 30
             };
         }
+        /**
+         * INTEGRATIONTESTS
+         */
+        [Test]
+        public void CheckIfDatabaseConnectionExists()
+        {
+            using var context = new ReservationContext();
+            Assert.True(context.Database.CanConnect());
+        }
 
+        /**
+         * COMPONENTTESTS
+         */
         [Test]
         public async Task ReturnWholeFloor()
         {
