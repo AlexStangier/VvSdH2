@@ -8,7 +8,7 @@ namespace Core
         [Key] public string Username { get; set; }
         public string Password { get; set; }
         public Right Rights { get; set; }
-        public bool hasCurrentSession { get; set; }
+        public bool HasCurrentSession { get; set; }
         public List<Reservation> Reservations { get; set; }
     }
 }

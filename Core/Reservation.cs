@@ -6,9 +6,9 @@ namespace Core
     {
         public int ReservationId { get; set; }
         
-        public DateTime Start { get; set; }
+        public DateTime StartTime { get; set; }
         
-        public DateTime End { get; set; }
+        public DateTime EndTime { get; set; }
         
         public User User { get; set; }
         

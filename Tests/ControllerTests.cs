@@ -36,6 +36,7 @@ namespace ApplicationTests
         [Test]
         public async Task ReturnWholeFloor()
         {
+            SetUp();
             var rooms = await _room.GetFloor(1, "A");
 
             Assert.AreEqual(10, rooms.Count);
@@ -44,6 +45,7 @@ namespace ApplicationTests
         [Test]
         public async Task FilterRoomsBySize()
         {
+            SetUp();
             var rooms = await _room.GetFloor(1, "A");
             var filteredRooms = await _room.Filter(rooms, 50, new Core.Attribute());
 
@@ -53,12 +55,13 @@ namespace ApplicationTests
         [Test]
         public async Task StandartLogin()
         {
+            SetUp();
             var user = new User
             {
                 Username = "udo@hs-offenburg.de",
                 Password = "34cx324"
             };
-            var result = await _user.Login(DateTime.Now, user);
+            var result = await _user.Login(user.Username, user.Password);
 
             // User exists, PW is correct
             Assert.True(result);
@@ -67,12 +70,13 @@ namespace ApplicationTests
         [Test]
         public async Task InvalidLoginWrongPassword()
         {
+            SetUp();
             var user = new User
             {
                 Username = "udo@hs-offenburg.de",
                 Password = "12345"
             };
-            var result = await _user.Login(DateTime.Now, user);
+            var result = await _user.Login(user.Username, user.Password);
 
             // User exists, PW is wrong
             Assert.False(result);
@@ -81,12 +85,13 @@ namespace ApplicationTests
         [Test]
         public async Task LoginWithoutCorrespondingUser()
         {
+            SetUp();
             var user = new User
             {
-                Username = "odo@hs-offenburg.de",
-                Password = "34cx324"
+                Username = "",
+                Password = ""
             };
-            var result = await _user.Login(DateTime.Now, user);
+            var result = await _user.Login(user.Username, user.Password);
 
             // User does not exist
             Assert.False(result);

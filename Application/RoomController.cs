@@ -36,9 +36,9 @@ namespace Application
 
             var query = rooms.Where(x => x.Size >= minSize)
                              .Where(x => !attributes.Computers || x.Attribute.Computers)
-                             .Where(x => !attributes.Jacks || x.Attribute.Jacks)
+                             .Where(x => !attributes.PowerOutlets || x.Attribute.PowerOutlets)
                              .Where(x => !attributes.Presenter || x.Attribute.Presenter)
-                             .Where(x => !attributes.AirCon || x.Attribute.AirCon);
+                             .Where(x => !attributes.AirConditioning || x.Attribute.AirConditioning);
 
             return query.ToList();
         }

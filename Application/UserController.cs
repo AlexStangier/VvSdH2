@@ -11,39 +11,30 @@ namespace Application
 {
     public class UserController : IUser
     {
-        private User _loggedInAs;
-
-        public async Task<bool> Login(DateTime timestampLogin, User user)
+        public async Task<bool> Login(string username, string password)
         {
             using var context = new ReservationContext();
-            var foundUser = await context.Users.FirstOrDefaultAsync(x => x.Username.Equals(user.Username));
-
-            if (foundUser == null)
+            var foundUser = await context.Users.FirstOrDefaultAsync(x => x.Username.Equals(username));
+            if (foundUser?.Password.Equals(password) ?? false)
             {
-                // No user with that username in DB
-                return false;
+                foundUser.HasCurrentSession = true;
+                context.SaveChanges();
             }
 
-            if (foundUser.Password != user.Password)
-            {
-                // Password doesn't match
-                return false;
-            }
-
-            _loggedInAs = user;
-            return true;
+            return foundUser?.HasCurrentSession ?? false;
         }
 
-        public async Task<bool> Logout()
+        public async Task<bool> Logout(string username)
         {
-            if (_loggedInAs == null)
-            {
-                // can't log out because the user is not logged in.
-                return false;
-            }
+            using var context = new ReservationContext();
 
-            _loggedInAs = null;
-            return true;
+            var currentUser =await context.Users.FirstOrDefaultAsync(x => x.Username.Equals(username));
+
+            currentUser.HasCurrentSession = false;
+
+            context.SaveChanges();
+            
+            return !currentUser.HasCurrentSession;
         }
 
         public Task<bool> CreateUser(User newUser)
