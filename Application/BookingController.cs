@@ -9,11 +9,23 @@ namespace Application
 {
     public class BookingController : IBooking
     {
-        public async Task<bool> reservation(DateTime timestamp, User user)
+        public async Task<bool> reservation(Room selectedRoom, DateTime timestamp, User user)
         {
-            throw new System.NotImplementedException();
+            var context = new ReservationContext();
+            var currUser = await context.Users.Where(x => x.Username.Equals(user.Username)).Include(y => y.Rights)
+                .FirstOrDefaultAsync();
+
+            //Check for existing Reservations
+            var possibleReservation = await context.Reservations.Where(x => x.Start.Equals(timestamp))
+                .Include(y => y.User).ThenInclude(z => z.Rights).FirstOrDefaultAsync();
+            if (possibleReservation != null)
+            {
+                
+            }
+
+            return false;
         }
-        
+
         public async Task<bool> cancelReservation(User user, int Id)
         {
             var context = new ReservationContext();
