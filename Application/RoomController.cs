@@ -15,7 +15,7 @@ namespace Application
         /// <param name="building">The building where the rooms should be</param>
         /// <param name="floor">The floor of the rooms</param>
         /// <returns></returns>
-        public async Task<List<Room>> getFloor(int floor, string building)
+        public async Task<List<Room>> GetFloor(int floor, string building)
         {
             await using var context = new ReservationContext();
             
@@ -30,7 +30,7 @@ namespace Application
         /// <param name="size">The minimum Amount of Rooms. If null, no rooms will be filtered out</param>
         /// <param name="attributes">The attributes that the room should have</param>
         /// <returns></returns>
-        public async Task<List<Room>> filter(List<Room> rooms, int? size, Attribute attributes)
+        public async Task<List<Room>> Filter(List<Room> rooms, int? size, Attribute attributes)
         {
             int minSize = size ?? int.MinValue; 
 
@@ -43,7 +43,12 @@ namespace Application
             return query.ToList();
         }
 
-        public async Task<Room> getCurrentStatus()
+        public async Task<Room> GetCurrentStatus()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<Room> GetCurrentStatusForFloor(string building, int floor)
         {
             throw new System.NotImplementedException();
         }

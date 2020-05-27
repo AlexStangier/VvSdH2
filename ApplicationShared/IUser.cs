@@ -6,7 +6,9 @@ namespace ApplicationShared
 {
     public interface IUser
     {
-        Task<bool> login(DateTime timestampLogin, User user);
-        Task<bool> logout();
+        Task<bool> Login(DateTime timestampLogin, User user);
+        Task<bool> Logout();
+        Task<bool> CreateUser(User newUser);
+        Task<bool> RemoveUser(User userToRemove);
     }
 }

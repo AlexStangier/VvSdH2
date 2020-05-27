@@ -19,7 +19,7 @@ namespace VvSdHCore
             IBooking _booking = new BookingController();
             IRoom _room = new RoomController();
 
-            var x = _room.getFloor(1, "A");
+            var x = _room.GetFloor(1, "A");
             foreach (var s in x.Result)
             {
                 Console.WriteLine(s.RoomNr);

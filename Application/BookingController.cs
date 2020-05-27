@@ -9,13 +9,13 @@ namespace Application
 {
     public class BookingController : IBooking
     {
-        public async Task<bool> reservation(Room selectedRoom, DateTime timestamp, User user)
+        public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, User user)
         {
             await using var context = new ReservationContext();
             throw new NotImplementedException();
         }
 
-        public async Task<bool> cancelReservation(User user, int Id)
+        public async Task<bool> CancelReservation(User user, int Id)
         {
             await using var context = new ReservationContext();
             var fittingReservation = await context.Reservations.FirstOrDefaultAsync(x => x.ReservationId == Id);

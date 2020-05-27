@@ -13,7 +13,7 @@ namespace Application
     {
         private User _loggedInAs;
 
-        public async Task<bool> login(DateTime timestampLogin, User user)
+        public async Task<bool> Login(DateTime timestampLogin, User user)
         {
             var context = new ReservationContext();
             var foundUser = await context.Users.FirstOrDefaultAsync(x => x.Username.Equals(user.Username));
@@ -34,7 +34,7 @@ namespace Application
             return true;
         }
 
-        public async Task<bool> logout()
+        public async Task<bool> Logout()
         {
             if (_loggedInAs == null)
             {
@@ -44,6 +44,16 @@ namespace Application
 
             _loggedInAs = null;
             return true;
+        }
+
+        public Task<bool> CreateUser(User newUser)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> RemoveUser(User userToRemove)
+        {
+            throw new NotImplementedException();
         }
     }
 }

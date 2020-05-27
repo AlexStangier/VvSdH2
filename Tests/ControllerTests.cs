@@ -2,6 +2,8 @@ using ApplicationShared;
 using Core;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Application;
 
@@ -19,12 +21,22 @@ namespace ApplicationTests
             _user = new UserController();
             _booking = new BookingController();
             _room = new RoomController();
+            
+            using var context = new ReservationContext();
+
+            var dummyUser = new User
+            {
+                Username = "IShouldNotBeInHere",
+                Password = "123",
+                Reservations = new List<Reservation>(),
+                Rights = context.Rights.FirstOrDefault(x => x.PrivilegeLevel == 4)
+            };
         }
 
         [Test]
         public async Task ReturnWholeFloor()
         {
-            var rooms = await _room.getFloor(1, "A");
+            var rooms = await _room.GetFloor(1, "A");
 
             Assert.AreEqual(10, rooms.Count);
         }
@@ -32,8 +44,8 @@ namespace ApplicationTests
         [Test]
         public async Task FilterRoomsBySize()
         {
-            var rooms = await _room.getFloor(1, "A");
-            var filteredRooms = await _room.filter(rooms, 50, new Core.Attribute());
+            var rooms = await _room.GetFloor(1, "A");
+            var filteredRooms = await _room.Filter(rooms, 50, new Core.Attribute());
 
             Assert.AreEqual(3, filteredRooms.Count);
         }
@@ -46,7 +58,7 @@ namespace ApplicationTests
                 Username = "udo@hs-offenburg.de",
                 Password = "34cx324"
             };
-            var result = await _user.login(DateTime.Now, user);
+            var result = await _user.Login(DateTime.Now, user);
 
             // User exists, PW is correct
             Assert.True(result);
@@ -60,7 +72,7 @@ namespace ApplicationTests
                 Username = "udo@hs-offenburg.de",
                 Password = "12345"
             };
-            var result = await _user.login(DateTime.Now, user);
+            var result = await _user.Login(DateTime.Now, user);
 
             // User exists, PW is wrong
             Assert.False(result);
@@ -74,7 +86,7 @@ namespace ApplicationTests
                 Username = "odo@hs-offenburg.de",
                 Password = "34cx324"
             };
-            var result = await _user.login(DateTime.Now, user);
+            var result = await _user.Login(DateTime.Now, user);
 
             // User does not exist
             Assert.False(result);

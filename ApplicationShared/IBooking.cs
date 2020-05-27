@@ -6,7 +6,7 @@ namespace ApplicationShared
 {
     public interface IBooking
     {
-        Task<bool> reservation(Room selectedRoom, DateTime timestamp, User user);
-        Task<bool> cancelReservation(User user, int Id);
+        Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, User user);
+        Task<bool> CancelReservation(User user, int Id);
     }
 }
