@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Linq;
-using Application;
-using ApplicationShared;
 using Core;
-using Microsoft.EntityFrameworkCore;
 
 namespace VvSdHCore
 {
