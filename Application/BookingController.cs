@@ -22,15 +22,15 @@ namespace Application
             {
                 var concreteUser = await context.Users.FindAsync(user.Username);
 
+                var existingReservation = await context.Reservations.Where(x =>
+                        x.StartTime >= timestamp && x.EndTime <= timestamp.AddMinutes(duration)).Include(y => y.User)
+                    .ThenInclude(z => z.Rights).FirstOrDefaultAsync();
+
                 var isHolyday = await context.Holydays.Where(x =>
                     x.Date >= timestamp && x.Date <= timestamp.AddMinutes(duration)).FirstOrDefaultAsync();
 
                 if (isHolyday != null || (timestamp.DayOfWeek != DayOfWeek.Sunday))
                 {
-                    var existingReservation = await context.Reservations.Where(x =>
-                            x.StartTime >= timestamp && x.EndTime <= timestamp.AddMinutes(duration)).Include(y => y.User)
-                        .ThenInclude(z => z.Rights).FirstOrDefaultAsync();
-
                     if (existingReservation == null)
                     {
                         //Add new Reservation

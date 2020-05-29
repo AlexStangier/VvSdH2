@@ -195,6 +195,7 @@ namespace ApplicationTests
             Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1),DateTime.Now, -90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
         }
         
+        /*
         [Test]
         public async Task TryCreateReservationWithOuterlimitDuration()
         {
@@ -202,6 +203,7 @@ namespace ApplicationTests
             await using var context = new ReservationContext();
             Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1),DateTime.Now, 99999999,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
         }
+        */
         
         [Test]
         public async Task TryCreateRerservation()
