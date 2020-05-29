@@ -48,6 +48,12 @@ namespace Application
                             return await context.SaveChangesAsync() > 0;
                         }
                     }
+                    else if (existingReservation.StartTime <= DateTime.Now.AddHours(24))
+                    {
+                        //Cannot overbook if reservation starts in 24 hours,
+                        //no matter how priviledged the users are.
+                        return false;
+                    }
                     else if (await ComparePrivilege(concreteUser, existingReservation.User))
                     {
                         //Delete Reservation that has to be overbooked
