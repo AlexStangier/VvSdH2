@@ -12,6 +12,10 @@ namespace Application
     {
         public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, double duration, User user)
         {
+            //Cannot Reservate in the past
+            if (timestamp < DateTime.Now)
+                return false;
+
             await using var context = new ReservationContext();
 
             //Rangecheck input
@@ -26,10 +30,10 @@ namespace Application
 
                 var concreteUser = await context.Users.FindAsync(user.Username);
 
-                var isHolyday = await context.Holydays.Where(x =>
+                var isHoliday = await context.Holydays.Where(x =>
                     x.Date >= timestamp && x.Date <= timestamp.AddMinutes(duration)).FirstOrDefaultAsync();
 
-                if (isHolyday != null || (timestamp.DayOfWeek != DayOfWeek.Sunday))
+                if (isHoliday != null || (timestamp.DayOfWeek != DayOfWeek.Sunday))
                 {
                     if (existingReservation == null)
                     {
