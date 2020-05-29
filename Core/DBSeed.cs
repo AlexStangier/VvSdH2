@@ -345,7 +345,7 @@ namespace Core
                 },
                 new Holiday
                 {
-                    Date = new DateTime(2020, 1, 6), Description = "Heilige Drei K�nige"
+                    Date = new DateTime(2020, 1, 6), Description = "Heilige Drei Könige"
                 },
                 new Holiday
                 {
