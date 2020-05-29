@@ -19,10 +19,6 @@ namespace Application
 
             try
             {
-                var existingReservation = await context.Reservations.Where(x =>
-                        x.StartTime >= timestamp && x.EndTime <= timestamp.AddMinutes(duration)).Include(y => y.User)
-                    .ThenInclude(z => z.Rights).FirstOrDefaultAsync();
-
                 var concreteUser = await context.Users.FindAsync(user.Username);
 
                 var isHolyday = await context.Holydays.Where(x =>
@@ -30,6 +26,10 @@ namespace Application
 
                 if (isHolyday != null || (timestamp.DayOfWeek != DayOfWeek.Sunday))
                 {
+                    var existingReservation = await context.Reservations.Where(x =>
+                            x.StartTime >= timestamp && x.EndTime <= timestamp.AddMinutes(duration)).Include(y => y.User)
+                        .ThenInclude(z => z.Rights).FirstOrDefaultAsync();
+
                     if (existingReservation == null)
                     {
                         //Add new Reservation
