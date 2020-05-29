@@ -25,11 +25,33 @@ namespace Application
 
                 var concreteUser = await context.Users.FindAsync(user.Username);
 
-                if (existingReservation == null)
+                var isHolyday = await context.Holydays.Where(x =>
+                    x.Date >= timestamp && x.Date <= timestamp.AddMinutes(duration)).FirstOrDefaultAsync();
+
+                if (isHolyday != null || (timestamp.DayOfWeek != DayOfWeek.Sunday))
                 {
-                    //Add new Reservation
-                    if (concreteUser != null)
+                    if (existingReservation == null)
                     {
+                        //Add new Reservation
+                        if (concreteUser != null)
+                        {
+                            var newReservation = new Reservation
+                            {
+                                Room = await context.Rooms.FindAsync(selectedRoom.RoomId),
+                                StartTime = timestamp,
+                                EndTime = timestamp.AddMinutes(duration),
+                                User = concreteUser
+                            };
+                            context.Reservations.Add(newReservation);
+                            concreteUser.Reservations.Add(newReservation);
+                            return await context.SaveChangesAsync() > 0;
+                        }
+                    }
+                    else if (await ComparePrivilege(concreteUser, existingReservation.User))
+                    {
+                        //Delete Reservation that has to be overbooked
+                        context.Reservations.Remove(existingReservation);
+
                         var newReservation = new Reservation
                         {
                             Room = await context.Rooms.FindAsync(selectedRoom.RoomId),
@@ -37,31 +59,19 @@ namespace Application
                             EndTime = timestamp.AddMinutes(duration),
                             User = concreteUser
                         };
+
+                        //Create new Reservation
                         context.Reservations.Add(newReservation);
                         concreteUser.Reservations.Add(newReservation);
                         return await context.SaveChangesAsync() > 0;
                     }
-                }
-                else if (await ComparePrivilege(concreteUser, existingReservation.User))
-                {
-                    //Delete Reservation that has to be overbooked
-                    context.Reservations.Remove(existingReservation);
-                    
-                    var newReservation = new Reservation
-                    {
-                        Room = await context.Rooms.FindAsync(selectedRoom.RoomId),
-                        StartTime = timestamp,
-                        EndTime = timestamp.AddMinutes(duration),
-                        User = concreteUser
-                    };
-                    
-                    //Create new Reservation
-                    context.Reservations.Add(newReservation);
-                    concreteUser.Reservations.Add(newReservation);
-                    return await context.SaveChangesAsync() > 0;
-                }
 
-                return false;
+                    return false;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (NullReferenceException)
             {

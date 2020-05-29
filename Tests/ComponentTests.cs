@@ -218,5 +218,21 @@ namespace ApplicationTests
             await using var context = new ReservationContext();
             Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1),DateTime.Now, 90,await context.Users.FindAsync("udo@hs-offenburg.de")));
         }
+
+        [Test]
+        public async Task TrySundayRerservation()
+        {
+            SetUp();
+            await using var context = new ReservationContext();
+            Assert.False(await _booking.CreateReservation(await context.Rooms.FindAsync(1), new DateTime(2020, 8, 30, 12, 0, 0), 90, await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
+        }
+
+        [Test]
+        public async Task TryHolydayRerservation()
+        {
+            SetUp();
+            await using var context = new ReservationContext();
+            Assert.False(await _booking.CreateReservation(await context.Rooms.FindAsync(1), new DateTime(2020, 12, 26, 12, 0, 0), 90, await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
+        }
     }
 }
