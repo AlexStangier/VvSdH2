@@ -12,8 +12,8 @@ namespace Application
     {
         public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, double duration, User user)
         {
-            //Cannot Reservate in the past
-            if (timestamp < DateTime.Now)
+            //Cannot Reservate in the past, accounting for lag
+            if (timestamp < DateTime.Now.AddMinutes(-1))
                 return false;
 
             await using var context = new ReservationContext();

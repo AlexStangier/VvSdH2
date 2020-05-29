@@ -214,11 +214,19 @@ namespace ApplicationTests
         }
         
         [Test]
+        public async Task TryOverbookReservationTooLate()
+        {
+            SetUp();
+            await using var context = new ReservationContext();
+            Assert.False(await _booking.CreateReservation(await context.Rooms.FindAsync(1),DateTime.Now, 90,await context.Users.FindAsync("udo@hs-offenburg.de")));
+        }
+
+        [Test]
         public async Task TryOverbookReservation()
         {
             SetUp();
             await using var context = new ReservationContext();
-            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1),DateTime.Now, 90,await context.Users.FindAsync("udo@hs-offenburg.de")));
+            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1), DateTime.Now.AddHours(25), 90, await context.Users.FindAsync("udo@hs-offenburg.de")));
         }
 
         [Test]
