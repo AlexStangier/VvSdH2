@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks.Sources;
 using Microsoft.EntityFrameworkCore;
- 
+
 namespace Core
 {
     public class DBSeed
@@ -10,7 +11,7 @@ namespace Core
         public void SeedDataToDB()
         {
             using var context = new ReservationContext();
- 
+
             //Seed Rooms with appropriate Attributes
             var roomList = new List<Room>
             {
@@ -340,51 +341,51 @@ namespace Core
             {
                 new Holiday
                 {
-                    Date = new DateTime(2020,1,1), Description = "Neujahr"
+                    Date = new DateTime(2020, 1, 1), Description = "Neujahr"
                 },
                 new Holiday
                 {
-                    Date = new DateTime(2020,1,6), Description = "Heilige Drei K�nige"
+                    Date = new DateTime(2020, 1, 6), Description = "Heilige Drei K�nige"
                 },
                 new Holiday
                 {
-                    Date = new DateTime(2020,4,10), Description = "Karfreitag"
+                    Date = new DateTime(2020, 4, 10), Description = "Karfreitag"
                 },
                 new Holiday
                 {
-                    Date = new DateTime(2020,4,13), Description = "Ostermontag"
+                    Date = new DateTime(2020, 4, 13), Description = "Ostermontag"
                 },
                 new Holiday
                 {
-                    Date = new DateTime(2020,5,1), Description = "Maifeiertag"
+                    Date = new DateTime(2020, 5, 1), Description = "Maifeiertag"
                 },
                 new Holiday
                 {
-                    Date = new DateTime(2020,5,21), Description = "Christi Himmelfahrt"
+                    Date = new DateTime(2020, 5, 21), Description = "Christi Himmelfahrt"
                 },
                 new Holiday
                 {
-                    Date = new DateTime(2020,6,1), Description = "Pfingstmontag"
+                    Date = new DateTime(2020, 6, 1), Description = "Pfingstmontag"
                 },
                 new Holiday
                 {
-                    Date = new DateTime(2020,6,11), Description = "Fronleichnam"
+                    Date = new DateTime(2020, 6, 11), Description = "Fronleichnam"
                 },
                 new Holiday
                 {
-                    Date = new DateTime(2020,10,3), Description = "Tag der Deutschen Einheit"
+                    Date = new DateTime(2020, 10, 3), Description = "Tag der Deutschen Einheit"
                 },
                 new Holiday
                 {
-                    Date = new DateTime(2020,11,1), Description = "Allerheiligen"
+                    Date = new DateTime(2020, 11, 1), Description = "Allerheiligen"
                 },
                 new Holiday
                 {
-                    Date = new DateTime(2020,12,25), Description = "1. Weihnachtstag"
+                    Date = new DateTime(2020, 12, 25), Description = "1. Weihnachtstag"
                 },
                 new Holiday
                 {
-                    Date = new DateTime(2020,12,26), Description = "2. Weihnachtstag"
+                    Date = new DateTime(2020, 12, 26), Description = "2. Weihnachtstag"
                 },
             };
 
@@ -396,7 +397,8 @@ namespace Core
                 },
                 new User
                 {
-                    Username = "andreas@stud.hs-offenburg.de", Password = "2523xcvy", Reservations = new List<Reservation>()
+                    Username = "andreas@stud.hs-offenburg.de", Password = "2523xcvy",
+                    Reservations = new List<Reservation>()
                 },
                 new User
                 {
@@ -416,11 +418,13 @@ namespace Core
                 },
                 new User
                 {
-                    Username = "markus@stud.hs-offenburg.de", Password = "7dv3w54", Reservations = new List<Reservation>()
+                    Username = "markus@stud.hs-offenburg.de", Password = "7dv3w54",
+                    Reservations = new List<Reservation>()
                 },
                 new User
                 {
-                    Username = "marlon@stud.hs-offenburg.de", Password = "3bv543", Reservations = new List<Reservation>()
+                    Username = "marlon@stud.hs-offenburg.de", Password = "3bv543",
+                    Reservations = new List<Reservation>()
                 },
                 new User
                 {
@@ -435,8 +439,8 @@ namespace Core
                     Username = "udo@hs-offenburg.de", Password = "34cx324", Reservations = new List<Reservation>()
                 }
             };
- 
- 
+
+
             //Seed Data into Rights Table
             var rightsList = new List<Right>
             {
@@ -473,34 +477,35 @@ namespace Core
                     }
                 }
             };
- 
- 
+
+
             if (context.Rights != null) context.Rights.AddRange(rightsList);
             if (context.Rooms != null) context.Rooms.AddRange(roomList);
             if (context.Holydays != null) context.Holydays.AddRange(holydayList);
             if (context.Users != null) context.Users.AddRange(userList);
- 
+
             context.SaveChanges();
-            
+
             var verwRight = context.Rights.Where(x => x.RightsName.Equals("Verwaltung")).FirstOrDefault();
             var profRight = context.Rights.Where(x => x.RightsName.Equals("Professor")).FirstOrDefault();
             var lehrbRight = context.Rights.Where(x => x.RightsName.Equals("Lehrbeauftragter")).FirstOrDefault();
             var studRight = context.Rights.Where(x => x.RightsName.Equals("Student")).FirstOrDefault();
- 
-            var alex = context.Users.Where(x => x.Username.Equals("alex@stud.hs-offenburg.de")).Include(e => e.Reservations).FirstOrDefault();
+
+            var alex = context.Users.Where(x => x.Username.Equals("alex@stud.hs-offenburg.de"))
+                .Include(e => e.Reservations).FirstOrDefault();
             alex.Rights = studRight;
             studRight.UserHasRight.Add(alex);
-            
+
             alex.Reservations.Add(new Reservation
             {
-                StartTime = new DateTime(2020,6,1,12,30,0),
-                EndTime = new DateTime(2020,6,6, 14,0,0),
+                StartTime = new DateTime(2020, 6, 1, 12, 30, 0),
+                EndTime = new DateTime(2020, 6, 6, 14, 0, 0),
                 Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 1),
                 User = context.Users.Where(x => x.Username.Equals("alex@stud.hs-offenburg.de")).FirstOrDefault()
             });
 
             context.SaveChanges();
-            
+
             alex.Reservations.Add(new Reservation
             {
                 StartTime = new DateTime(2020, 6, 11, 11, 30, 0),
@@ -508,7 +513,7 @@ namespace Core
                 Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 2),
                 User = context.Users.Where(x => x.Username.Equals("alex@stud.hs-offenburg.de")).FirstOrDefault()
             });
- 
+
             alex.Reservations.Add(new Reservation
             {
                 StartTime = new DateTime(2020, 5, 30, 12, 0, 0),
@@ -516,11 +521,12 @@ namespace Core
                 Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 2),
                 User = context.Users.Where(x => x.Username.Equals("alex@stud.hs-offenburg.de")).FirstOrDefault()
             });
- 
-            var andreas = context.Users.Where(x => x.Username.Equals("andreas@stud.hs-offenburg.de")).Include(e => e.Reservations).FirstOrDefault();
+
+            var andreas = context.Users.Where(x => x.Username.Equals("andreas@stud.hs-offenburg.de"))
+                .Include(e => e.Reservations).FirstOrDefault();
             andreas.Rights = studRight;
             studRight.UserHasRight.Add(andreas);
- 
+
             andreas.Reservations.Add(new Reservation
             {
                 StartTime = new DateTime(2020, 7, 2, 15, 0, 0),
@@ -528,7 +534,14 @@ namespace Core
                 Room = context.Rooms.FirstOrDefault(x => x.RoomNr == 3),
                 User = context.Users.Where(x => x.Username.Equals("andreas@stud.hs-offenburg.de")).FirstOrDefault()
             });
- 
+
+            var udo = context.Users.Where(x => x.Username.Equals("udo@hs-offenburg.de")).Include(y => y.Rights)
+                .FirstOrDefault();
+            var verwaltung = context.Rights.Where(x => x.PrivilegeLevel == 4).FirstOrDefault();
+
+            udo.Rights = verwaltung;
+            verwaltung.UserHasRight.Add(udo);
+            
             //Commit changes
             context.SaveChanges();
         }

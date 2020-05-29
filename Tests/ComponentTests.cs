@@ -45,7 +45,7 @@ namespace ApplicationTests
          * COMPONENTTESTS
          */
         [Test]
-        public async Task ReturnWholeFloor()
+        public async Task TryReturnWholeFloor()
         {
             SetUp();
             var rooms = await _room.GetFloor(1, "A");
@@ -54,7 +54,7 @@ namespace ApplicationTests
         }
 
         [Test]
-        public async Task FilterRoomsBySize()
+        public async Task TryFilterRoomsBySize()
         {
             SetUp();
             var rooms = await _room.GetFloor(1, "A");
@@ -64,7 +64,7 @@ namespace ApplicationTests
         }
 
         [Test]
-        public async Task StandartLogin()
+        public async Task TryStandartLogin()
         {
             SetUp();
             var user = new User
@@ -79,7 +79,7 @@ namespace ApplicationTests
         }
 
         [Test]
-        public async Task InvalidLoginWrongPassword()
+        public async Task TryInvalidLoginWrongPassword()
         {
             SetUp();
             var user = new User
@@ -95,7 +95,7 @@ namespace ApplicationTests
         }
 
         [Test]
-        public async Task LoginWithoutCorrespondingUser()
+        public async Task TryLoginWithoutCorrespondingUser()
         {
             SetUp();
             var user = new User
@@ -110,63 +110,63 @@ namespace ApplicationTests
         }
 
         [Test]
-        public async Task StandartLogout()
+        public async Task TryStandartLogout()
         {
             SetUp();
             Assert.True(await _user.Logout("udo@hs-offenburg.de"));
         }
 
         [Test]
-        public async Task LogoutWithInvalidCredentials()
+        public async Task TryLogoutWithInvalidCredentials()
         {
             SetUp();
             Assert.False(await _user.Logout(""));
         }
 
         [Test]
-        public async Task GetRoomByBuildingAndNumber()
+        public async Task TryGetRoomByBuildingAndNumber()
         {
             SetUp();
             Assert.NotNull(await _room.GetCurrentStatusForRoom(100, "A"));
         }
 
         [Test]
-        public async Task GetRoomWithInvalidRoomNumber()
+        public async Task TryGetRoomWithInvalidRoomNumber()
         {
             SetUp();
             Assert.Null(await _room.GetCurrentStatusForRoom(0, "A"));
         }
 
         [Test]
-        public async Task GetRoomWithInvalidBuilding()
+        public async Task TryGetRoomWithInvalidBuilding()
         {
             SetUp();
             Assert.Null(await _room.GetCurrentStatusForRoom(100, ""));
         }
 
         [Test]
-        public async Task GetFloorByBuildingAndNumber()
+        public async Task TryGetFloorByBuildingAndNumber()
         {
             SetUp();
             Assert.NotNull(await _room.GetCurrentStatusForFloor("A", 1));
         }
 
         [Test]
-        public void GetFloorWithInvalidRoomNumber()
+        public void TryGetFloorWithInvalidRoomNumber()
         {
             SetUp();
             Assert.AreEqual(0, _room.GetCurrentStatusForFloor("A", 0).Result.Count);
         }
 
         [Test]
-        public void GetFloorWithInvalidBuilding()
+        public void TryGetFloorWithInvalidBuilding()
         {
             SetUp();
             Assert.AreEqual(0, _room.GetCurrentStatusForFloor("", 1).Result.Count);
         }
 
         [Test]
-        public async Task CreateStandartReservation()
+        public async Task TryCreateStandartReservation()
         {
             SetUp();
             await using var context = new ReservationContext();
@@ -174,17 +174,49 @@ namespace ApplicationTests
         }
 
         [Test]
-        public async Task CreateReservationWithInvalidRoom()
+        public async Task TryCreateReservationWithInvalidRoom()
         {
             SetUp();
             Assert.False(await _booking.CreateReservation(null, DateTime.Now, 90, dummyUser));
         }
 
         [Test]
-        public async Task CreateReservationWithInvalidUser()
+        public async Task TryCreateReservationWithInvalidUser()
         {
             SetUp();
             Assert.False(await _booking.CreateReservation(dummyRoom, DateTime.Now, 90, null));
+        }
+
+        [Test]
+        public async Task TryCreateReservationWithNegativeDuration()
+        {
+            SetUp();
+            await using var context = new ReservationContext();
+            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1),DateTime.Now, -90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
+        }
+        
+        [Test]
+        public async Task TryCreateReservationWithOuterlimitDuration()
+        {
+            SetUp();
+            await using var context = new ReservationContext();
+            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1),DateTime.Now, 99999999,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
+        }
+        
+        [Test]
+        public async Task TryCreateRerservation()
+        {
+            SetUp();
+            await using var context = new ReservationContext();
+            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1),DateTime.Now, 90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
+        }
+        
+        [Test]
+        public async Task TryOverbookReservation()
+        {
+            SetUp();
+            await using var context = new ReservationContext();
+            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1),DateTime.Now, 90,await context.Users.FindAsync("udo@hs-offenburg.de")));
         }
     }
 }
