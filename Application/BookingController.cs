@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApplicationShared;
@@ -111,6 +112,18 @@ namespace Application
             // Cancelling is possible, remove the entry
             context.Reservations.Remove(fittingReservation);
             return context.SaveChanges() > 0;
+        }
+
+        public async Task<List<Reservation>> GetUserReservations(User user)
+        {
+            await using var context = new ReservationContext();
+            var now = DateTime.Now;
+
+            var concreteUser = await context.Users.FindAsync(user.Username);
+
+            return await context.Reservations.Where(x => x.User == concreteUser)
+                                             .Where(x => x.EndTime >= now)
+                                             .ToListAsync();
         }
     }
 }
