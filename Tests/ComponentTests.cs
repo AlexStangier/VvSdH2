@@ -1,20 +1,25 @@
-using ApplicationShared;
-using Core;
-using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
 using Application;
+using ApplicationShared;
+using Core;
+using NUnit.Framework;
 
-namespace ApplicationTests
+namespace Tests
 {
     public class ControllerTests
     {
         private IUser _user;
         private IBooking _booking;
         private IRoom _room;
-        private User dummyUser;
         private Room dummyRoom;
+        private User dummyUser;
 
+
+        public ControllerTests()
+        {
+            SetUp();
+        }
 
         [SetUp]
         public void SetUp()
@@ -22,25 +27,11 @@ namespace ApplicationTests
             _user = new UserController();
             _booking = new BookingController();
             _room = new RoomController();
-
-            dummyRoom = new Room
-            {
-                Building = "A",
-                Floor = 1,
-                RoomNr = 100,
-                Size = 30
-            };
+            
+            dummyRoom = new Room();
+            dummyUser = new User();
         }
-        /**
-         * INTEGRATIONTESTS
-         */
-        [Test]
-        public void CheckIfDatabaseConnectionExists()
-        {
-            using var context = new ReservationContext();
-            Assert.True(context.Database.CanConnect());
-        }
-
+        
         /**
          * COMPONENTTESTS
          */

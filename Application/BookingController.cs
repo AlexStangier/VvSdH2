@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application
 {
-    public class BookingController : IBooking
+    public sealed class BookingController : IBooking
     {
         public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, double duration, User user)
         {
@@ -77,10 +77,6 @@ namespace Application
                         return await context.SaveChangesAsync() > 0;
                     }
 
-                    return false;
-                }
-                else
-                {
                     return false;
                 }
             }
