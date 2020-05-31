@@ -239,6 +239,7 @@ namespace Tests
             await using var context = new ReservationContext();
             var result = await _booking.GetUserReservations(dummyUser);
             Assert.GreaterOrEqual(1,result?.Count ?? 0);
+            
         }
     }
 }
