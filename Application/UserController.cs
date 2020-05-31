@@ -4,10 +4,9 @@ using ApplicationShared;
 using Core;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Application
 {
-    public class UserController : IUser
+    public sealed class UserController : IUser
     {
         public async Task<bool> Login(string username, string password)
         {

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application
 {
-    public class BookingController : IBooking
+    public sealed class BookingController : IBooking
     {
         public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, double duration, User user)
         {
@@ -33,7 +33,7 @@ namespace Application
                 var isHoliday = await context.Holydays.Where(x =>
                     x.Date >= timestamp && x.Date <= timestamp.AddMinutes(duration)).FirstOrDefaultAsync();
 
-                if (isHoliday != null || (timestamp.DayOfWeek != DayOfWeek.Sunday))
+                if (isHoliday != null || timestamp.DayOfWeek != DayOfWeek.Sunday)
                 {
                     if (existingReservation == null)
                     {
@@ -79,15 +79,12 @@ namespace Application
 
                     return false;
                 }
-                else
-                {
-                    return false;
-                }
             }
             catch (NullReferenceException)
             {
                 return false;
             }
+            return false;
         }
 
         /// <summary>
