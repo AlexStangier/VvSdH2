@@ -124,12 +124,11 @@ namespace Application
         public async Task<List<Reservation>> GetUserReservations(User user)
         {
             await using var context = new ReservationContext();
-            var now = DateTime.Now;
-
+            
             var concreteUser = await context.Users.FindAsync(user.Username);
 
             return await context.Reservations.Where(x => x.User == concreteUser)
-                                             .Where(x => x.EndTime >= now)
+                                             .Where(x => x.EndTime >= DateTime.Now)
                                              .ToListAsync();
         }
     }
