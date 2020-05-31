@@ -4,7 +4,6 @@ using ApplicationShared;
 using Core;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Application
 {
     public sealed class UserController : IUser

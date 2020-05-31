@@ -98,13 +98,5 @@ namespace Tests
             Assert.True(result);
         }
         
-        [Test]
-        public void CheckIfApplicationDependsOnApplicationShared()
-        {
-            var types = Types.InCurrentDomain();
-            var result = types.That().ResideInNamespace("Application").Should().HaveDependencyOn("ApplicationShared")
-                .GetResult().IsSuccessful;
-            Assert.True(result);
-        }
     }
 }

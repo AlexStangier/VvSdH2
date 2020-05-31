@@ -33,7 +33,7 @@ namespace Application
                 var isHoliday = await context.Holydays.Where(x =>
                     x.Date >= timestamp && x.Date <= timestamp.AddMinutes(duration)).FirstOrDefaultAsync();
 
-                if (isHoliday != null || (timestamp.DayOfWeek != DayOfWeek.Sunday))
+                if (isHoliday != null || timestamp.DayOfWeek != DayOfWeek.Sunday)
                 {
                     if (existingReservation == null)
                     {
@@ -84,6 +84,7 @@ namespace Application
             {
                 return false;
             }
+            return false;
         }
 
         /// <summary>

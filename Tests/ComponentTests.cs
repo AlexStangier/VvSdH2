@@ -161,21 +161,30 @@ namespace Tests
         {
             SetUp();
             await using var context = new ReservationContext();
-            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1), DateTime.Now, 90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
+            var time = DateTime.Now;
+            if (time.DayOfWeek.Equals(DayOfWeek.Sunday))
+            {
+                time = time.AddDays(8);
+            }
+            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1), time, 90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
         }
 
         [Test]
         public async Task TryCreateReservationWithInvalidRoom()
         {
             SetUp();
-            Assert.False(await _booking.CreateReservation(null, DateTime.Now, 90, dummyUser));
+            var time = DateTime.Now;
+            if (time.DayOfWeek == DayOfWeek.Sunday) time.AddDays(1);
+            Assert.False(await _booking.CreateReservation(null, time, 90, dummyUser));
         }
 
         [Test]
         public async Task TryCreateReservationWithInvalidUser()
         {
             SetUp();
-            Assert.False(await _booking.CreateReservation(dummyRoom, DateTime.Now, 90, null));
+            var time = DateTime.Now;
+            if (time.DayOfWeek == DayOfWeek.Sunday) time.AddDays(1);
+            Assert.False(await _booking.CreateReservation(dummyRoom, time, 90, null));
         }
 
         [Test]
@@ -183,7 +192,12 @@ namespace Tests
         {
             SetUp();
             await using var context = new ReservationContext();
-            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1),DateTime.Now, -90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
+            var time = DateTime.Now;
+            if (time.DayOfWeek.Equals(DayOfWeek.Sunday))
+            {
+                time = time.AddDays(8);
+            }
+            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1),time, -90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
         }
         
         /*
@@ -201,7 +215,12 @@ namespace Tests
         {
             SetUp();
             await using var context = new ReservationContext();
-            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1),DateTime.Now, 90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
+            var time = DateTime.Now;
+            if (time.DayOfWeek.Equals(DayOfWeek.Sunday))
+            {
+                time = time.AddDays(8);
+            }
+            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1),time, 90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
         }
 
         [Test]
