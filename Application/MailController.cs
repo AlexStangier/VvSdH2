@@ -1,4 +1,5 @@
 ﻿using ApplicationShared;
+using Core;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -17,16 +18,16 @@ namespace Application
 
         // TODO Maybe customize mail content with information about the booking
 
-        public async Task SendConfirmationMail(string toAddress)
+        public async Task SendConfirmationMail(Reservation reservation)
         {
-            await SendMail(toAddress,
+            await SendMail(reservation.User.Username,
                            "Booking Succeeded!",
-                           "Room was reservated successfully. Thanks for using VvSdH!");
+                           "Room was reservated successfully. Thanks for using VvSdH!"); ;
         }
 
-        public async Task SendOverbookingMail(string toAddress)
+        public async Task SendOverbookingMail(Reservation overbookedReservation)
         {
-            await SendMail(toAddress,
+            await SendMail(overbookedReservation.User.Username,
                            "One of your reservations was overbooked",
                            "Please be aware that one of your reservations has been overbooked. Please login to VvSdH for further information.");
         }

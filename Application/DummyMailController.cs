@@ -1,4 +1,5 @@
 ﻿using ApplicationShared;
+using Core;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,11 +13,11 @@ namespace Application
     /// </summary>
     public sealed class DummyMailController : IMail
     {
-        public async Task SendConfirmationMail(string emailAddress)
+        public async Task SendConfirmationMail(Reservation reservation)
         {
         }
 
-        public async Task SendOverbookingMail(string emailAddress)
+        public async Task SendOverbookingMail(Reservation overbookedReservation)
         {
         }
     }

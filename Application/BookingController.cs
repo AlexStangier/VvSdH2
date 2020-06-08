@@ -65,7 +65,7 @@ namespace Application
                             var success = await context.SaveChangesAsync() > 0;
                             if(success)
                             {
-                                await _mail.SendConfirmationMail(concreteUser.Username);
+                                await _mail.SendConfirmationMail(newReservation);
                             }
                             return success;
                         }
@@ -80,7 +80,7 @@ namespace Application
                     {
                         //Delete Reservation that has to be overbooked
                         context.Reservations.Remove(existingReservation);
-                        await _mail.SendOverbookingMail(existingReservation.User.Username);
+                        await _mail.SendOverbookingMail(existingReservation);
 
                         var newReservation = new Reservation
                         {
