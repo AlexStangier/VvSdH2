@@ -12,14 +12,12 @@ namespace Application
     /// </summary>
     public sealed class DummyMailController : IMail
     {
-        public Task SendConfirmationMail(string emailAddress)
+        public async Task SendConfirmationMail(string emailAddress)
         {
-            return new Task(() => { });
         }
 
-        public Task SendOverbookingMail(string emailAddress)
+        public async Task SendOverbookingMail(string emailAddress)
         {
-            return new Task(() => { });
         }
     }
 }
