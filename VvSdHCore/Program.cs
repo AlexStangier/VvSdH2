@@ -11,7 +11,7 @@ namespace VvSdHCore
         {
             SetInvariantCulture();
 
-            Seed()
+            Seed();
             // TestMail();
         }
 

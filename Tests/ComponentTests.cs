@@ -25,7 +25,7 @@ namespace Tests
         public void SetUp()
         {
             _user = new UserController();
-            _booking = new BookingController();
+            _booking = BookingController.GetNoMailBookingController();
             _room = new RoomController();
             
             dummyRoom = new Room();

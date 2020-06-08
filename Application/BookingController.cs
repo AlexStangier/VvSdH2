@@ -10,6 +10,19 @@ namespace Application
 {
     public sealed class BookingController : IBooking
     {
+        private readonly IMail _mail;
+
+
+        public static BookingController GetNoMailBookingController()
+        {
+            return new BookingController(new DummyMailController());
+        }
+
+        public BookingController(IMail mail)
+        {
+            _mail = mail;
+        }
+
         public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, double duration, User user)
         {
             //Cannot Reservate in the past, accounting for lag
@@ -49,7 +62,12 @@ namespace Application
                             };
                             context.Reservations.Add(newReservation);
                             concreteUser.Reservations.Add(newReservation);
-                            return await context.SaveChangesAsync() > 0;
+                            var success = await context.SaveChangesAsync() > 0;
+                            if(success)
+                            {
+                                await _mail.SendConfirmationMail(concreteUser.Username);
+                            }
+                            return success;
                         }
                     }
                     else if (existingReservation.StartTime <= DateTime.Now.AddHours(24))
@@ -62,6 +80,7 @@ namespace Application
                     {
                         //Delete Reservation that has to be overbooked
                         context.Reservations.Remove(existingReservation);
+                        await _mail.SendOverbookingMail(existingReservation.User.Username);
 
                         var newReservation = new Reservation
                         {

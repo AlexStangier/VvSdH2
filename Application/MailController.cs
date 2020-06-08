@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application
 {
-    public class MailController : IMail
+    public sealed class MailController : IMail
     {
         private const string mailName = "smtp.web.de";
         private const string mailPW = "123d€fgh";
