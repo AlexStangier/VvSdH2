@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:WPFGUI.ViewModels"
         xmlns:v="clr-namespace:WPFGUI.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="VvSdH-Tool Beta 4.2" Height="700" Width="1200">
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:ReservationViewModel}">
@@ -21,7 +21,21 @@
         </DataTemplate>
     </Window.Resources>
 
-    <DockPanel LastChildFill="True">
-        <ContentControl x:Name="Pages" DockPanel.Dock="Right" Content="{Binding SelectedViewModel}"/>
-    </DockPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="16*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <DockPanel LastChildFill="True" Grid.Row="0" Margin="10">
+            <ContentControl x:Name="Pages" DockPanel.Dock="Right" Content="{Binding SelectedViewModel}"/>
+        </DockPanel>
+
+        <DockPanel Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="1">
+            <Label Content="©2020 Gruppe 9" Height="25"/>
+        </DockPanel>
+    </Grid>
+        
+        
+        
+    
 </Window>

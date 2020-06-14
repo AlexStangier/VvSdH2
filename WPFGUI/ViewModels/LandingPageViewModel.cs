@@ -10,23 +10,56 @@ using WPFGUI.ViewModels;
 using WPFGUI.Interface;
 using ApplicationShared;
 using Application;
+using System.IO.Packaging;
+using System.Windows.Documents;
+using Core;
 
 namespace WPFGUI.ViewModels
 {
     class LandingPageViewModel
     {
         public ICommand ResvCommand { get; set; }
+        public ICommand LoginCommand { get; set; }
 
         private readonly NavigationViewModel _navigationViewModel;
-        public LandingPageViewModel(NavigationViewModel navigationViewModel)
+        private User user;
+        private string _loginas = "Eingeloggt als, ";
+        public LandingPageViewModel(NavigationViewModel navigationViewModel, User newUser)
         {
             _navigationViewModel = navigationViewModel;
+            user = newUser;
             ResvCommand = new BaseCommand(OpenResv);
+            LoginCommand = new BaseCommand(OpenLogin);
         }
 
         private void OpenResv(object obj)
         {
-            _navigationViewModel.SelectedViewModel = new ReservationViewModel();
+            _navigationViewModel.SelectedViewModel = new ReservationViewModel(_navigationViewModel, user);
         }
+
+        private async void OpenLogin(object obj)
+        {
+            IUser _user = new UserController();
+            var logout = await _user.Logout(user.Username);
+            if (logout)
+            {
+                string info = "Sie wurden erfolgreich Ausgeloggt.";
+                _navigationViewModel.SelectedViewModel = new LoginViewModel(_navigationViewModel, info);
+            }
+            
+        }
+
+
+        
+        public string LoginAs
+        {
+            get {
+                return (_loginas+user.Username); 
+                }
+        }
+
+
+
+        //Tabelle
     }
 }
