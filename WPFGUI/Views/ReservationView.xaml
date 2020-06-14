@@ -18,7 +18,19 @@
             <Button Content="Abmelden" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Width="80" Height="25" Command="{Binding LoginCommand}"/>
         </Grid>
         <Grid Grid.Row="1">
-            <TextBlock Text="Kontent" FontSize="20"/>
+            <Grid Margin="0,0,576,0">
+                <ComboBox HorizontalAlignment="Left" Margin="52,22,0,0" VerticalAlignment="Top" Width="129" Text="Campus/Gebäude" IsEditable="True" IsReadOnly="True"/>
+                <DatePicker HorizontalAlignment="Left" Margin="52,49,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Margin="52,78,0,0" Text="Uhrzeit Beginn" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
+                <TextBox HorizontalAlignment="Left" Margin="52,101,0,0" Text="Uhrzeit Ende" TextWrapping="Wrap" VerticalAlignment="Top" Width="129" InputScope="Time"/>
+                <ComboBox HorizontalAlignment="Left" Margin="52,124,0,0" VerticalAlignment="Top" Width="129" Text="Raumgröße" IsEditable="True" IsReadOnly="True"/>
+                <Grid Margin="41,151,32,139">
+                    <CheckBox Content="Computerraum" HorizontalAlignment="Left" Margin="15,23,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="Steckdosen" HorizontalAlignment="Left" Margin="15,43,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="Klimatisiert" HorizontalAlignment="Left" Margin="15,63,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="Präsentationsgeräte" HorizontalAlignment="Left" Margin="15,83,0,0" Height="15" VerticalAlignment="Top"/>
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>
