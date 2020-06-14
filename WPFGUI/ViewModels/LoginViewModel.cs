@@ -10,6 +10,8 @@ using WPFGUI.ViewModels;
 using WPFGUI.Interface;
 using ApplicationShared;
 using Application;
+using Core;
+using System.IO.Packaging;
 
 namespace WPFGUI.ViewModels
 {
@@ -25,17 +27,26 @@ namespace WPFGUI.ViewModels
             LandCommand = new BaseCommand(OpenLand);
         }
 
+        public LoginViewModel(NavigationViewModel navigationViewModel, string info)
+        {
+            _navigationViewModel = navigationViewModel;
+            LandCommand = new BaseCommand(OpenLand);
+            _info = info;
+        }
+
         private async void OpenLand(object obj)   //Aktiv wenn Button gedrückt wird
         {
             IUser _user = new UserController();
             var verified = await _user.Login(_username, _password);
             if (verified)
             {
-                _navigationViewModel.SelectedViewModel = new LandingPageViewModel(_navigationViewModel);
+                User _newUser = new User();
+                _newUser.Username = _username; 
+                _navigationViewModel.SelectedViewModel = new LandingPageViewModel(_navigationViewModel, _newUser);
             }
             else
             {
-                Info = "Passwort oder Benutzername ist falsch";
+                Info = "Passwort oder Benutzername ist falsch!";
             }
             
         }
