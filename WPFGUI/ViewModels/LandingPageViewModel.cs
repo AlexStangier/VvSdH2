@@ -13,6 +13,7 @@ using Application;
 using System.IO.Packaging;
 using System.Windows.Documents;
 using Core;
+using System.Threading.Tasks;
 
 namespace WPFGUI.ViewModels
 {
@@ -30,6 +31,10 @@ namespace WPFGUI.ViewModels
             user = newUser;
             ResvCommand = new BaseCommand(OpenResv);
             LoginCommand = new BaseCommand(OpenLogin);
+
+            var controller = new BookingController();
+            var result = Task.Run(() => controller.GetUserReservations(newUser));
+            Reservations = new ObservableCollection<Reservation>(result.Result);
         }
 
         private void OpenResv(object obj)
@@ -61,5 +66,7 @@ namespace WPFGUI.ViewModels
 
 
         //Tabelle
+        public ObservableCollection<Reservation> Reservations { get; }
+
     }
 }
