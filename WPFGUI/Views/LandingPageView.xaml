@@ -18,13 +18,13 @@
             <Button Content="Ausloggen" Height="25" Width="80" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Command="{Binding LoginCommand}"/>
         </Grid>
         <Grid Grid.Row="1">
-            <ListView ItemsSource="{Binding Reservations}">
+            <ListView ItemsSource="{Binding Reservations}" x:Name="ReservationList">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Canvas Height="60" MinWidth="320" Background="#FFDDDDDD" HorizontalAlignment="Stretch">
                             <Label Canvas.Left="20" Canvas.Top="0" Content="{Binding Room}" Width="300" FontSize="13" FontWeight="Bold"/>
                             <Label Canvas.Left="20" Canvas.Top="20" Content="{Binding StartTime}" Width="300" FontSize="13" FontWeight="Bold"/>
-                            <Button Canvas.Right="20" Canvas.Top="20">Cancel</Button>
+                            <Button Canvas.Right="20" Canvas.Top="20" Command="{Binding DataContext.CancelReservationCommand, ElementName=ReservationList}" CommandParameter="{Binding}">Cancel</Button>
                         </Canvas>
                     </DataTemplate>
                 </ListView.ItemTemplate>

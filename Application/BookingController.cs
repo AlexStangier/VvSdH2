@@ -110,13 +110,13 @@ namespace Application
         public async Task<bool> CancelReservation(User user, int Id)
         {
             await using var context = new ReservationContext();
-            var fittingReservation = await context.Reservations.FirstOrDefaultAsync(x => x.ReservationId == Id);
+            var fittingReservation = await context.Reservations.Include(x => x.User).FirstOrDefaultAsync(x => x.ReservationId == Id);
 
             // Check if cancelling is possible
             if (fittingReservation == null)
                 return false;
 
-            if (fittingReservation.User != user)
+            if (!fittingReservation.User.Equals(user))
                 return false;
 
             // Cancelling is possible, remove the entry
