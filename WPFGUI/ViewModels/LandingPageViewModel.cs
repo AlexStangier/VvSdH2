@@ -22,6 +22,8 @@ namespace WPFGUI.ViewModels
         public ICommand ResvCommand { get; set; }
         public ICommand LoginCommand { get; set; }
 
+        public ICommand CancelReservationCommand { get; set; }
+
         private readonly NavigationViewModel _navigationViewModel;
         private User user;
         private string _loginas = "Eingeloggt als, ";
@@ -31,6 +33,7 @@ namespace WPFGUI.ViewModels
             user = newUser;
             ResvCommand = new BaseCommand(OpenResv);
             LoginCommand = new BaseCommand(OpenLogin);
+            CancelReservationCommand = new BaseCommand(CancelReservation);
 
             var controller = new BookingController();
             var result = Task.Run(() => controller.GetUserReservations(newUser));
@@ -68,5 +71,19 @@ namespace WPFGUI.ViewModels
         //Tabelle
         public ObservableCollection<Reservation> Reservations { get; }
 
+        public async void CancelReservation(object obj)
+        {
+            var reservation = obj as Reservation;
+            var controller = new BookingController();
+
+            if(await controller.CancelReservation(user, reservation.ReservationId))
+            {
+                Reservations.Remove(reservation);
+            }
+            else
+            {
+                //TODO display error message
+            }
+        }
     }
 }
