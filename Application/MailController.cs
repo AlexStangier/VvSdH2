@@ -22,14 +22,17 @@ namespace Application
         {
             await SendMail(reservation.User.Username,
                            "Booking Succeeded!",
-                           "Room was reservated successfully. Thanks for using VvSdH!"); ;
-        }
+                           $"Room {reservation.Room.RoomNr} in building {reservation.Room.Building} was" +
+                           $"reservated successfully. Thanks for using VvSdH!"); ;
+        } 
 
         public async Task SendOverbookingMail(Reservation overbookedReservation)
         {
             await SendMail(overbookedReservation.User.Username,
                            "One of your reservations was overbooked",
-                           "Please be aware that one of your reservations has been overbooked. Please login to VvSdH for further information.");
+                           $"Please be aware that your reservations of room {overbookedReservation.Room.RoomNr}" +
+                           $"in building {overbookedReservation.Room.Building} has been overbooked." +
+                           $"Please login to VvSdH for further information, or to book another room.");
         }
 
         public async Task SendMail(string toAddress, string subject, string message)

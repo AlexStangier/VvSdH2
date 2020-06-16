@@ -13,9 +13,14 @@ namespace Application
         private readonly IMail _mail;
 
 
-        public static BookingController GetNoMailBookingController()
+        public static BookingController CreateBookingControllerNoMail()
         {
             return new BookingController(new DummyMailController());
+        }
+
+        public static BookingController CreateBookingController()
+        {
+            return new BookingController(new MailController());
         }
 
         public BookingController(IMail mail)
