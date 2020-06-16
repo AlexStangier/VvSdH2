@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using WPFGUI.ViewModels;
 using WPFGUI.Interface;
 using System.Windows.Input;
@@ -40,6 +41,9 @@ namespace WPFGUI.ViewModels
             {
                 string info = "Sie wurden erfolgreich Ausgeloggt.";
                 _navigationViewModel.SelectedViewModel = new LoginViewModel(_navigationViewModel, info);
+
+                // close logoutThread
+                AutoLogOff.GetToken.Cancel();
             }
         }
 

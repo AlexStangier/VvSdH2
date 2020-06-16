@@ -12,6 +12,7 @@ using ApplicationShared;
 using Application;
 using Core;
 using System.IO.Packaging;
+using System.Threading;
 
 namespace WPFGUI.ViewModels
 {
@@ -43,10 +44,14 @@ namespace WPFGUI.ViewModels
                 User _newUser = new User();
                 _newUser.Username = _username; 
                 _navigationViewModel.SelectedViewModel = new LandingPageViewModel(_navigationViewModel, _newUser);
+
+                // start logout check thread + logout time in min
+                AutoLogOff.CreateLogoutThread(_navigationViewModel, _newUser, 1);
             }
             else
             {
                 Info = "Passwort oder Benutzername ist falsch!";
+                var idleTime = AutoLogOff.GetIdleTimeInfo();
             }
             
         }
@@ -110,10 +115,6 @@ namespace WPFGUI.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-
-
-
 
     }
 }
