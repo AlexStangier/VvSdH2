@@ -5,6 +5,7 @@ using System.Text;
 using System.Linq;
 using System.Drawing;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Input;
 using WPFGUI.ViewModels;
 using WPFGUI.Interface;
@@ -13,6 +14,8 @@ using Application;
 using Core;
 using System.IO.Packaging;
 using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace WPFGUI.ViewModels
 {
@@ -38,7 +41,9 @@ namespace WPFGUI.ViewModels
         private async void OpenLand(object obj)   //Aktiv wenn Button gedrückt wird
         {
             IUser _user = new UserController();
-            var verified = await _user.Login(_username, _password);
+            var passwordBox = obj as PasswordBox;
+
+            var verified = await _user.Login(_username, passwordBox.Password);
             if (verified)
             {
                 User _newUser = new User();
