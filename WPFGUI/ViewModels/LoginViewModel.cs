@@ -51,7 +51,6 @@ namespace WPFGUI.ViewModels
             else
             {
                 Info = "Passwort oder Benutzername ist falsch!";
-                var idleTime = AutoLogOff.GetIdleTimeInfo();
             }
             
         }
