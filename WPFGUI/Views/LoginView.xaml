@@ -11,8 +11,8 @@
             <TextBlock Name="loginHead" Text="Login VvSdH-Tool" HorizontalAlignment="Center" FontSize="20" Margin="10"/>
             <TextBlock Name="text" Text="{Binding Info}" HorizontalAlignment="Center" Margin="10" Foreground="Red" />
             <TextBox Name="username" Text="{Binding Username}" Margin="10" MaxWidth="250" Height="25" VerticalContentAlignment="Center" />
-            <TextBox Name="password" Text="{Binding Password}" Margin="10" MaxWidth="250" Height="25" VerticalContentAlignment="Center"/>
-            <Button Name="login" Content="Login" Width="100" Height="25" HorizontalAlignment="Center" Margin="10" Command="{Binding LandCommand}"/>
-        </StackPanel> 
+            <PasswordBox Name="password" Margin="10" MaxWidth="250" Height="25" VerticalContentAlignment="Center"/>
+            <Button Name="login" Content="Login" Width="100" Height="25" HorizontalAlignment="Center" Margin="10" Command="{Binding LandCommand}" CommandParameter="{Binding ElementName=password}" />
+        </StackPanel>
     </DockPanel>
 </UserControl>
