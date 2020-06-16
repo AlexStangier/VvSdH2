@@ -53,6 +53,9 @@ namespace WPFGUI.ViewModels
             {
                 string info = "Sie wurden erfolgreich Ausgeloggt.";
                 _navigationViewModel.SelectedViewModel = new LoginViewModel(_navigationViewModel, info);
+
+                // close logoutThread
+                AutoLogOff.GetToken.Cancel();
             }
             
         }
