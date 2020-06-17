@@ -132,7 +132,8 @@ namespace Application
             var concreteUser = await context.Users.FindAsync(user.Username);
 
             return await context.Reservations.Where(x => x.User == concreteUser)
-                                             .Where(x => x.EndTime >= now)
+                                             //.Where(x => x.EndTime >= now)
+                                             .Include(x => x.Room)
                                              .ToListAsync();
         }
     }

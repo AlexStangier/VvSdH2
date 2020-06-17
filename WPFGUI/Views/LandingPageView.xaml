@@ -18,7 +18,7 @@
             <Button Content="Abmelden" Height="25" Width="80" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Command="{Binding LoginCommand}"/>
         </Grid>
         <Grid Grid.Row="1">
-            <ListView ItemsSource="{Binding Reservations}" x:Name="ReservationList">
+            <ListView ItemsSource="{Binding Reservations}" x:Name="ReservationList" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal" />
@@ -26,10 +26,14 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Canvas Height="60" MinWidth="500" Background="#FFDDDDDD" HorizontalAlignment="Stretch">
-                            <Label Canvas.Left="30" Canvas.Top="5" Content="{Binding StartTime}" Width="300" FontSize="13" FontWeight="Bold"/>
-                            <Label Canvas.Left="230" Canvas.Top="17" Content="{Binding Room, StringFormat=Room: {0}}" Width="300" FontSize="13" FontWeight="Bold" />
-                            <Label Canvas.Left="30" Canvas.Top="29" Content="{Binding EndTime}" Width="300" FontSize="13" FontWeight="Bold"/>
+                        <Canvas Height="60" MinWidth="480" Background="#FFDDDDDD" HorizontalAlignment="Stretch">
+                            <TextBlock Canvas.Left="30" Canvas.Top="9" Text="{Binding StartTime}" Width="300" FontSize="13" FontWeight="Bold"/>
+                            <TextBlock Canvas.Left="30" Canvas.Top="33" Text="{Binding EndTime}" Width="300" FontSize="13" FontWeight="Bold"/>
+                            <TextBlock Canvas.Left="220" Canvas.Top="21" Width="300" FontSize="13" FontWeight="Bold">
+                                <Run Text="Raum: "/>
+                                <Run Text="{Binding Room.Building}"/>
+                                <Run Text="{Binding Room.RoomNr}" />
+                            </TextBlock>
                             <Button Canvas.Right="30" Canvas.Top="20" Command="{Binding DataContext.CancelReservationCommand, ElementName=ReservationList}" CommandParameter="{Binding}">Cancel</Button>
                         </Canvas>
                     </DataTemplate>
