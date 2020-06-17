@@ -19,16 +19,25 @@
         </Grid>
         <Grid Grid.Row="1">
             <ListView ItemsSource="{Binding Reservations}" x:Name="ReservationList">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Canvas Height="60" MinWidth="320" Background="#FFDDDDDD" HorizontalAlignment="Stretch">
-                            <Label Canvas.Left="20" Canvas.Top="0" Content="{Binding Room}" Width="300" FontSize="13" FontWeight="Bold"/>
-                            <Label Canvas.Left="20" Canvas.Top="20" Content="{Binding StartTime}" Width="300" FontSize="13" FontWeight="Bold"/>
-                            <Button Canvas.Right="20" Canvas.Top="20" Command="{Binding DataContext.CancelReservationCommand, ElementName=ReservationList}" CommandParameter="{Binding}">Cancel</Button>
+                        <Canvas Height="60" MinWidth="500" Background="#FFDDDDDD" HorizontalAlignment="Stretch">
+                            <Label Canvas.Left="30" Canvas.Top="5" Content="{Binding StartTime}" Width="300" FontSize="13" FontWeight="Bold"/>
+                            <Label Canvas.Left="230" Canvas.Top="17" Content="{Binding Room, StringFormat=Room: {0}}" Width="300" FontSize="13" FontWeight="Bold" />
+                            <Label Canvas.Left="30" Canvas.Top="29" Content="{Binding EndTime}" Width="300" FontSize="13" FontWeight="Bold"/>
+                            <Button Canvas.Right="30" Canvas.Top="20" Command="{Binding DataContext.CancelReservationCommand, ElementName=ReservationList}" CommandParameter="{Binding}">Cancel</Button>
                         </Canvas>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Rectangle/>
+            <Rectangle/>
+            <Rectangle/>
         </Grid>
         <Grid Grid.Row="2">
             <Button Name="reservation" Content="Neue Reservierung" Height="25" Width="150" HorizontalAlignment="Center" Margin="10" Command="{Binding ResvCommand}"/>

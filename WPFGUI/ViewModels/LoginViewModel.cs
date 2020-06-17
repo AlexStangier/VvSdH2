@@ -31,10 +31,8 @@ namespace WPFGUI.ViewModels
             LandCommand = new BaseCommand(OpenLand);
         }
 
-        public LoginViewModel(NavigationViewModel navigationViewModel, string info)
+        public LoginViewModel(NavigationViewModel navigationViewModel, string info) : this(navigationViewModel)
         {
-            _navigationViewModel = navigationViewModel;
-            LandCommand = new BaseCommand(OpenLand);
             _info = info;
         }
 
