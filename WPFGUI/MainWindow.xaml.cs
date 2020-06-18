@@ -42,9 +42,10 @@ namespace WPFGUI
                 IUser _user = new UserController();
                 var logout = Task.Run(async () => await _user.Logout(gUser.username)).Result;
 
-                if (!logout)
+                if (!logout && (gUser.username != null))
                 {
                     MessageBox.Show("Beim Abmelden ist ein Fehler aufgetreten", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                    e.Cancel = true;
                 }
             }
             else
