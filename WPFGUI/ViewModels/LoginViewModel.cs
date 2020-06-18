@@ -39,6 +39,7 @@ namespace WPFGUI.ViewModels
         private async void OpenLand(object obj)   //Aktiv wenn Button gedrückt wird
         {
             IUser _user = new UserController();
+            gUser.username = _username;
             var passwordBox = obj as PasswordBox;
 
             var verified = await _user.Login(_username, passwordBox.Password);

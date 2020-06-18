@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ApplicationShared;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFGUI.ViewModels;
 using WPFGUI.Views;
+using Application;
+using Core;
 
 namespace WPFGUI
 {
@@ -28,6 +32,24 @@ namespace WPFGUI
             var viewModel = new NavigationViewModel();
             viewModel.SelectedViewModel = new LoginViewModel(viewModel);
             this.DataContext = viewModel;
+        }
+
+        private async void WindowClosing(object sender, CancelEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Wollen Sie wirklich das Fenster schließen?", "Abmelden", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if(result == MessageBoxResult.Yes)
+            {
+                IUser _user = new UserController();
+                var logout = await _user.Logout(gUser.username);
+                if (!logout)
+                {
+                    MessageBox.Show("Beim Abmelden ist ein Fehler aufgetreten", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
     }
 }
