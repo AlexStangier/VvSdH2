@@ -23,6 +23,15 @@ namespace Application
             return new BookingController(new MailController());
         }
 
+        public BookingController()
+        {
+#if DEBUG
+            _mail = new DummyMailController();
+#elif RELEASE
+            _mail = new MailController();
+#endif
+        }
+
         public BookingController(IMail mail)
         {
             _mail = mail;
