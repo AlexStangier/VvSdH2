@@ -13,6 +13,7 @@ namespace Application
     /// </summary>
     public sealed class DummyMailController : IMail
     {
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async Task SendConfirmationMail(Reservation reservation)
         {
         }
@@ -20,5 +21,6 @@ namespace Application
         public async Task SendOverbookingMail(Reservation overbookedReservation)
         {
         }
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     }
 }

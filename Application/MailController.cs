@@ -11,12 +11,10 @@ namespace Application
 {
     public sealed class MailController : IMail
     {
-        private const string mailName = "smtp.web.de";
+        private const string mailName = "VvSdH@web.de";
         private const string mailPW = "123d€fgh";
         private const string mailServer = "smtp.web.de";
         private const int port = 587;
-
-        // TODO Maybe customize mail content with information about the booking
 
         public async Task SendConfirmationMail(Reservation reservation)
         {
