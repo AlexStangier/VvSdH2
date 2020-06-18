@@ -14,6 +14,8 @@ using System.IO.Packaging;
 using System.Windows.Documents;
 using Core;
 using System.Threading.Tasks;
+using System.Windows;
+using Renci.SshNet.Messages;
 
 namespace WPFGUI.ViewModels
 {
@@ -59,8 +61,6 @@ namespace WPFGUI.ViewModels
             }
             
         }
-
-
         
         public string LoginAs
         {
@@ -78,14 +78,20 @@ namespace WPFGUI.ViewModels
         {
             var reservation = obj as Reservation;
             var controller = new BookingController();
-
-            if(await controller.CancelReservation(user, reservation.ReservationId))
+            MessageBoxResult result = MessageBox.Show("Wollen Sie die Reservierung wirklich stonieren?", "Info", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            switch(result)
             {
-                Reservations.Remove(reservation);
-            }
-            else
-            {
-                //TODO display error message
+                case MessageBoxResult.Yes:
+                    if (await controller.CancelReservation(user, reservation.ReservationId))
+                    {
+                        Reservations.Remove(reservation);
+                        MessageBox.Show("Reservierung wurde erfolgreich stoniert.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Fehler beim löschen der Reservierung", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    break;
             }
         }
     }
