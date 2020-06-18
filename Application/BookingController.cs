@@ -60,7 +60,7 @@ namespace Application
                 }
 
                 var existingReservation = await context.Reservations.Where(x =>
-                        x.StartTime >= timestamp && x.EndTime <= timestamp.AddMinutes(duration)).Include(y => y.User)
+                        x.StartTime >= timestamp && x.EndTime <= timestamp.AddMinutes(duration)).Include(x => x.Room).Include(y => y.User)
                     .ThenInclude(z => z.Rights).FirstOrDefaultAsync();
 
                 var concreteUser = await context.Users.FindAsync(user.Username);
