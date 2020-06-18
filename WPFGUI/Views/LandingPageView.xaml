@@ -39,9 +39,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Rectangle/>
-            <Rectangle/>
-            <Rectangle/>
         </Grid>
         <Grid Grid.Row="2">
             <Button Name="reservation" Content="Neue Reservierung" Height="25" Width="150" HorizontalAlignment="Center" Margin="10" Command="{Binding ResvCommand}"/>
