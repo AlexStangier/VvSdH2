@@ -42,51 +42,25 @@ namespace Application
 
             try
             {
+                var isHoliday = await context.Holydays.Where(x =>
+                    x.Date.Date == timestamp.Date || x.Date.Date == timestamp.AddMinutes(duration).Date).FirstOrDefaultAsync();
+
+                if (isHoliday != null || timestamp.DayOfWeek == DayOfWeek.Sunday || timestamp.AddMinutes(duration).DayOfWeek == DayOfWeek.Sunday)
+                {
+                    return false;
+                }
+
                 var existingReservation = await context.Reservations.Where(x =>
                         x.StartTime >= timestamp && x.EndTime <= timestamp.AddMinutes(duration)).Include(y => y.User)
                     .ThenInclude(z => z.Rights).FirstOrDefaultAsync();
 
                 var concreteUser = await context.Users.FindAsync(user.Username);
 
-                var isHoliday = await context.Holydays.Where(x =>
-                    x.Date >= timestamp && x.Date <= timestamp.AddMinutes(duration)).FirstOrDefaultAsync();
-
-                if (isHoliday != null || timestamp.DayOfWeek != DayOfWeek.Sunday)
+                if (existingReservation == null)
                 {
-                    if (existingReservation == null)
+                    //Add new Reservation
+                    if (concreteUser != null)
                     {
-                        //Add new Reservation
-                        if (concreteUser != null)
-                        {
-                            var newReservation = new Reservation
-                            {
-                                Room = await context.Rooms.FindAsync(selectedRoom.RoomId),
-                                StartTime = timestamp,
-                                EndTime = timestamp.AddMinutes(duration),
-                                User = concreteUser
-                            };
-                            context.Reservations.Add(newReservation);
-                            concreteUser.Reservations.Add(newReservation);
-                            var success = await context.SaveChangesAsync() > 0;
-                            if(success)
-                            {
-                                await _mail.SendConfirmationMail(newReservation);
-                            }
-                            return success;
-                        }
-                    }
-                    else if (existingReservation.StartTime <= DateTime.Now.AddHours(24))
-                    {
-                        //Cannot overbook if reservation starts in 24 hours,
-                        //no matter how priviledged the users are.
-                        return false;
-                    }
-                    else if (await ComparePrivilege(concreteUser, existingReservation.User))
-                    {
-                        //Delete Reservation that has to be overbooked
-                        context.Reservations.Remove(existingReservation);
-                        await _mail.SendOverbookingMail(existingReservation);
-
                         var newReservation = new Reservation
                         {
                             Room = await context.Rooms.FindAsync(selectedRoom.RoomId),
@@ -94,21 +68,48 @@ namespace Application
                             EndTime = timestamp.AddMinutes(duration),
                             User = concreteUser
                         };
-
-                        //Create new Reservation
                         context.Reservations.Add(newReservation);
                         concreteUser.Reservations.Add(newReservation);
-                        return await context.SaveChangesAsync() > 0;
+                        var success = await context.SaveChangesAsync() > 0;
+                        if(success)
+                        {
+                            await _mail.SendConfirmationMail(newReservation);
+                        }
+                        return success;
                     }
-
+                }
+                else if (existingReservation.StartTime <= DateTime.Now.AddHours(24))
+                {
+                    //Cannot overbook if reservation starts in 24 hours,
+                    //no matter how priviledged the users are.
                     return false;
                 }
+                else if (await ComparePrivilege(concreteUser, existingReservation.User))
+                {
+                    //Delete Reservation that has to be overbooked
+                    context.Reservations.Remove(existingReservation);
+                    await _mail.SendOverbookingMail(existingReservation);
+
+                    var newReservation = new Reservation
+                    {
+                        Room = await context.Rooms.FindAsync(selectedRoom.RoomId),
+                        StartTime = timestamp,
+                        EndTime = timestamp.AddMinutes(duration),
+                        User = concreteUser
+                    };
+
+                    //Create new Reservation
+                    context.Reservations.Add(newReservation);
+                    concreteUser.Reservations.Add(newReservation);
+                    return await context.SaveChangesAsync() > 0;
+                }
+
+                return false;
             }
             catch (NullReferenceException)
             {
                 return false;
             }
-            return false;
         }
 
         /// <summary>
