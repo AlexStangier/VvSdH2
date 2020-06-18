@@ -23,21 +23,12 @@ namespace Application
             return new BookingController(new MailController());
         }
 
-        public BookingController()
-        {
-#if DEBUG
-            _mail = new DummyMailController();
-#elif RELEASE
-            _mail = new MailController();
-#endif
-        }
-
         public BookingController(IMail mail)
         {
             _mail = mail;
         }
 
-        public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, double duration, User user)
+        public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, int slot, User user)
         {
             //Cannot Reservate in the past, accounting for lag
             if (timestamp < DateTime.Now.AddMinutes(-1))
@@ -45,25 +36,24 @@ namespace Application
 
             await using var context = new ReservationContext();
 
-            //Rangecheck input
-            if (duration < 90) duration = 90;
-            if (duration > 180) duration = 180;
+            var listTimes = getTimestampsFromTimeslot(slot, timestamp);
 
             try
             {
-                var isHoliday = await context.Holydays.Where(x =>
-                    x.Date.Date == timestamp.Date || x.Date.Date == timestamp.AddMinutes(duration).Date).FirstOrDefaultAsync();
-
-                if (isHoliday != null || timestamp.DayOfWeek == DayOfWeek.Sunday || timestamp.AddMinutes(duration).DayOfWeek == DayOfWeek.Sunday)
-                {
-                    return false;
-                }
-
                 var existingReservation = await context.Reservations.Where(x =>
-                        x.StartTime >= timestamp && x.EndTime <= timestamp.AddMinutes(duration)).Include(y => y.User)
+                        x.StartTime >= listTimes.First() && x.EndTime <= listTimes.Last()).Include(y => y.User)
                     .ThenInclude(z => z.Rights).FirstOrDefaultAsync();
 
                 var concreteUser = await context.Users.FindAsync(user.Username);
+
+                var isHoliday =
+                    await context.Holydays.AnyAsync(x =>
+                        x.Date.Month == timestamp.Month && x.Date.Day == timestamp.Day);
+
+                if (isHoliday || timestamp.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    return false;
+                }
 
                 if (existingReservation == null)
                 {
@@ -73,17 +63,18 @@ namespace Application
                         var newReservation = new Reservation
                         {
                             Room = await context.Rooms.FindAsync(selectedRoom.RoomId),
-                            StartTime = timestamp,
-                            EndTime = timestamp.AddMinutes(duration),
+                            StartTime = listTimes.First(),
+                            EndTime = listTimes.Last(),
                             User = concreteUser
                         };
                         context.Reservations.Add(newReservation);
                         concreteUser.Reservations.Add(newReservation);
                         var success = await context.SaveChangesAsync() > 0;
-                        if(success)
+                        if (success)
                         {
                             await _mail.SendConfirmationMail(newReservation);
                         }
+
                         return success;
                     }
                 }
@@ -102,8 +93,8 @@ namespace Application
                     var newReservation = new Reservation
                     {
                         Room = await context.Rooms.FindAsync(selectedRoom.RoomId),
-                        StartTime = timestamp,
-                        EndTime = timestamp.AddMinutes(duration),
+                        StartTime = listTimes.First(),
+                        EndTime = listTimes.Last(),
                         User = concreteUser
                     };
 
@@ -158,12 +149,54 @@ namespace Application
         public async Task<List<Reservation>> GetUserReservations(User user)
         {
             await using var context = new ReservationContext();
-            
+
             var concreteUser = await context.Users.FindAsync(user.Username);
 
             return await context.Reservations.Where(x => x.User == concreteUser)
-                                             .Where(x => x.EndTime >= DateTime.Now)
-                                             .ToListAsync();
+                .Where(x => x.EndTime >= DateTime.Now)
+                .ToListAsync();
+        }
+
+        private List<DateTime> getTimestampsFromTimeslot(int slot, DateTime selectedDay)
+        {
+            var toReturn = new List<DateTime>();
+            var newStartDate = new DateTime(selectedDay.Year, selectedDay.Month, selectedDay.Day);
+            var newEndDate = new DateTime(selectedDay.Year, selectedDay.Month, selectedDay.Day);
+
+            switch (slot)
+            {
+                case 1:
+                    newStartDate = newStartDate.AddHours(8).AddMinutes(0);
+                    newEndDate = newEndDate.AddHours(9).AddMinutes(30);
+                    break;
+                case 2:
+                    newStartDate = newStartDate.AddHours(9).AddMinutes(45);
+                    newEndDate = newEndDate.AddHours(11).AddMinutes(15);
+                    break;
+                case 3:
+                    newStartDate = newStartDate.AddHours(11).AddMinutes(35);
+                    newEndDate = newEndDate.AddHours(13).AddMinutes(05);
+                    break;
+                case 4:
+                    newStartDate = newStartDate.AddHours(14).AddMinutes(0);
+                    newEndDate = newEndDate.AddHours(15).AddMinutes(30);
+                    break;
+                case 5:
+                    newStartDate = newStartDate.AddHours(15).AddMinutes(45);
+                    newEndDate = newEndDate.AddHours(17).AddMinutes(15);
+                    break;
+                case 6:
+                    newStartDate.AddHours(17).AddMinutes(30);
+                    newEndDate = newEndDate.AddHours(19).AddMinutes(00);
+                    break;
+                default:
+                    throw new Exception("Slot index was out of Range");
+            }
+
+            toReturn.Add(newStartDate);
+            toReturn.Add(newEndDate);
+
+            return toReturn;
         }
     }
 }

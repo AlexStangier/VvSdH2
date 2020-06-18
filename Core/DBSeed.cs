@@ -243,7 +243,7 @@ namespace Core
                     },
                     Building = "A",
                     RoomNr = 300,
-                    Size = 25,
+                    Size = 150,
                     Floor = 3
                 },
                 new Room
