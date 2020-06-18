@@ -35,105 +35,144 @@
                 <Label Content="Stockwerk 1" HorizontalAlignment="Left" Margin="62,303,0,0" VerticalAlignment="Top"/>
             </Grid>
             <Grid Margin="229,10,181,24">
-                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,16,0,0" VerticalAlignment="Top" Width="161" Background="#FF5CB85C">
+                <Border Name="room00" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,16,0,0" VerticalAlignment="Top" Width="161" Background="#FF5CB85C">
                     <Border.InputBindings>
                         <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Name="roomNumber00" Content="A 100" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail00" Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle00" Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
-                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="223,16,0,0" VerticalAlignment="Top" Width="161" Background="#FFD9534F">
+                <Border Name="room01" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="223,16,0,0" VerticalAlignment="Top" Width="161" Background="#FFD9534F">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Name="roomNumber01" Content="A 101" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail01" Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle01" Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
-                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="419,16,0,0" VerticalAlignment="Top" Width="161" Background="#FFD9534F">
+                <Border Name="room02" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="419,16,0,0" VerticalAlignment="Top" Width="161" Background="#FFD9534F">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Name="roomNumber02" Content="A 102" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail02" Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle02" Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
-                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,128,0,0" VerticalAlignment="Top" Width="161" Background="#FF5CB85C">
+                <Border Name="room03" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,16,0,0" VerticalAlignment="Top" Width="161" Background="#FFD9534F">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Name="roomNumber03" Content="A 103" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail03" Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle03" Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
-                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,240,0,0" VerticalAlignment="Top" Width="161" Background="#FF5CB85C">
+                <Border Name="room04" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="605,127,0,0" VerticalAlignment="Top" Width="161" Background="#FF5CB85C">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Name="roomNumber04" Content="A 104" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail04" Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle04" Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
-                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,16,0,0" VerticalAlignment="Top" Width="161" Background="#FFD9534F">
+                <Border Name="room05" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,240,0,0" VerticalAlignment="Top" Width="160" Background="#FFD9534F">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Name="roomNumber05" Content="A 105" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail05" Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle05" Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
-                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,128,0,0" VerticalAlignment="Top" Width="161" Background="#FFD9534F">
+                <Border Name="room06" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,352,0,0" VerticalAlignment="Top" Width="161" Background="#FFD9534F">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Name="roomNumber06" Content="A 106" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail06" Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle06" Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
-                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,240,0,0" VerticalAlignment="Top" Width="161">
+                <Border Name="room07" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,468,0,0" VerticalAlignment="Top" Width="161" Background="#FF5CB85C">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Name="roomNumber07" Content="A 107" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail07" Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle07" Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
-                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,468,0,0" VerticalAlignment="Top" Width="161" Background="#FFF0AD4E">
+                <Border Name="room08" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="419,468,0,0" VerticalAlignment="Top" Width="161" Background="#FFF0AD4E">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Name="roomNumber08" Content="A 108" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail08" Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle08" Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
-                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="223,468,0,0" VerticalAlignment="Top" Width="161">
+                <Border Name="room09" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="223,468,0,0" VerticalAlignment="Top" Width="161" Background="#FF5CB85C">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Name="roomNumber09" Content="A 109" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail09" Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle09" Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
-                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="419,468,0,0" VerticalAlignment="Top" Width="161">
+                <Border Name="room10" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,468,0,0" VerticalAlignment="Top" Width="161" Background="#FF5CB85C">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Name="roomNumber10" Content="A 110" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail10" Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle10" Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
-                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,468,0,0" VerticalAlignment="Top" Width="161">
+                <Border Name="room11" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,352,0,0" VerticalAlignment="Top" Width="161" Background="#FF5CB85C">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Name="roomNumber11" Content="A 111" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail11" Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle11" Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
-                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,352,0,0" VerticalAlignment="Top" Width="161" Background="#FFF0AD4E">
+                <Border Name="room12" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,240,0,0" VerticalAlignment="Top" Width="161" Background="#FFF0AD4E">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Name="roomNumber12" Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail12" Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle12" Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
-                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,352,0,0" VerticalAlignment="Top" Width="161">
+                <Border Name="room13" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,127,0,0" VerticalAlignment="Top" Width="161" Background="#FFF0AD4E">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Name="roomNumber13" Content="A 113" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail13" Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle13" Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
             </Grid>
