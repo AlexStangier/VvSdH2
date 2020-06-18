@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFGUI.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="700" d:DesignWidth="1200">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -18,7 +18,7 @@
             <Button Content="Abmelden" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Width="80" Height="25" Command="{Binding LoginCommand}"/>
         </Grid>
         <Grid Grid.Row="1">
-            <Grid Margin="0,0,576,0">
+            <Grid Margin="0,0,976,0">
                 <ComboBox HorizontalAlignment="Left" Margin="52,22,0,0" VerticalAlignment="Top" Width="129" Text="Campus/Gebäude" IsEditable="True" IsReadOnly="True"/>
                 <DatePicker HorizontalAlignment="Left" Margin="52,49,0,0" VerticalAlignment="Top"/>
                 <TextBox HorizontalAlignment="Left" Margin="52,78,0,0" Text="Uhrzeit Beginn" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
@@ -30,6 +30,112 @@
                     <CheckBox Content="Klimatisiert" HorizontalAlignment="Left" Margin="15,63,0,0" VerticalAlignment="Top"/>
                     <CheckBox Content="Präsentationsgeräte" HorizontalAlignment="Left" Margin="15,83,0,0" Height="15" VerticalAlignment="Top"/>
                 </Grid>
+                <Button Content="Hoch" HorizontalAlignment="Left" Margin="141,296,0,0" VerticalAlignment="Top" Width="39"/>
+                <Button Content="Runter" HorizontalAlignment="Left" Margin="141,321,0,0" VerticalAlignment="Top"/>
+                <Label Content="Stockwerk 1" HorizontalAlignment="Left" Margin="62,303,0,0" VerticalAlignment="Top"/>
+            </Grid>
+            <Grid Margin="229,10,181,24">
+                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,16,0,0" VerticalAlignment="Top" Width="161" Background="#FF5CB85C">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
+                    <Grid Margin="9,9,9,9">
+                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="223,16,0,0" VerticalAlignment="Top" Width="161" Background="#FFD9534F">
+                    <Grid Margin="9,9,9,9">
+                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="419,16,0,0" VerticalAlignment="Top" Width="161" Background="#FFD9534F">
+                    <Grid Margin="9,9,9,9">
+                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,128,0,0" VerticalAlignment="Top" Width="161" Background="#FF5CB85C">
+                    <Grid Margin="9,9,9,9">
+                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,240,0,0" VerticalAlignment="Top" Width="161" Background="#FF5CB85C">
+                    <Grid Margin="9,9,9,9">
+                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,16,0,0" VerticalAlignment="Top" Width="161" Background="#FFD9534F">
+                    <Grid Margin="9,9,9,9">
+                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,128,0,0" VerticalAlignment="Top" Width="161" Background="#FFD9534F">
+                    <Grid Margin="9,9,9,9">
+                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,240,0,0" VerticalAlignment="Top" Width="161">
+                    <Grid Margin="9,9,9,9">
+                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,468,0,0" VerticalAlignment="Top" Width="161" Background="#FFF0AD4E">
+                    <Grid Margin="9,9,9,9">
+                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="223,468,0,0" VerticalAlignment="Top" Width="161">
+                    <Grid Margin="9,9,9,9">
+                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="419,468,0,0" VerticalAlignment="Top" Width="161">
+                    <Grid Margin="9,9,9,9">
+                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,468,0,0" VerticalAlignment="Top" Width="161">
+                    <Grid Margin="9,9,9,9">
+                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,352,0,0" VerticalAlignment="Top" Width="161" Background="#FFF0AD4E">
+                    <Grid Margin="9,9,9,9">
+                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,352,0,0" VerticalAlignment="Top" Width="161">
+                    <Grid Margin="9,9,9,9">
+                        <Label Content="A 112" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="example@mail.com" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Professor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
             </Grid>
         </Grid>
     </Grid>
