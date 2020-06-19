@@ -19,22 +19,31 @@
         </Grid>
         <Grid Grid.Row="1">
             <Grid Margin="0,0,976,0">
-                <ComboBox HorizontalAlignment="Left" Margin="52,22,0,0" VerticalAlignment="Top" Width="129" Text="Campus/Gebäude" IsEditable="True" IsReadOnly="True"/>
-                <DatePicker HorizontalAlignment="Left" Margin="52,49,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Margin="52,78,0,0" Text="Uhrzeit Beginn" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
-                <TextBox HorizontalAlignment="Left" Margin="52,101,0,0" Text="Uhrzeit Ende" TextWrapping="Wrap" VerticalAlignment="Top" Width="129" InputScope="Time"/>
-                <ComboBox HorizontalAlignment="Left" Margin="52,124,0,0" VerticalAlignment="Top" Width="129" Text="Raumgröße" IsEditable="True" IsReadOnly="True"/>
-                <Grid Margin="41,151,32,139">
-                    <CheckBox Content="Computerraum" HorizontalAlignment="Left" Margin="15,23,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Steckdosen" HorizontalAlignment="Left" Margin="15,43,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Klimatisiert" HorizontalAlignment="Left" Margin="15,63,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Präsentationsgeräte" HorizontalAlignment="Left" Margin="15,83,0,0" Height="15" VerticalAlignment="Top"/>
+                <Grid Margin="20,461,32,44">
+                    <Button Content="Hoch" HorizontalAlignment="Left" Margin="113,24,0,0" VerticalAlignment="Top" Width="39" RenderTransformOrigin="0.514,-1.101"/>
+                    <Button Content="Runter" HorizontalAlignment="Left" Margin="113,49,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Stockwerk 1" HorizontalAlignment="Left" Margin="34,31,0,0" VerticalAlignment="Top"/>
                 </Grid>
-                <Button Content="Hoch" HorizontalAlignment="Left" Margin="141,296,0,0" VerticalAlignment="Top" Width="39"/>
-                <Button Content="Runter" HorizontalAlignment="Left" Margin="141,321,0,0" VerticalAlignment="Top"/>
-                <Label Content="Stockwerk 1" HorizontalAlignment="Left" Margin="62,303,0,0" VerticalAlignment="Top"/>
+                <GroupBox Header="Filter" Margin="12,10,0,0" HorizontalAlignment="Left" Width="200" Height="288" VerticalAlignment="Top">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="91*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Margin="18,133,13,18">
+                            <CheckBox Content="Computerraum" HorizontalAlignment="Left" Margin="15,23,0,0" VerticalAlignment="Top"/>
+                            <CheckBox Content="Steckdosen" HorizontalAlignment="Left" Margin="15,43,0,0" VerticalAlignment="Top"/>
+                            <CheckBox Content="Klimatisiert" HorizontalAlignment="Left" Margin="15,63,0,0" VerticalAlignment="Top"/>
+                            <CheckBox Content="Präsentationsgeräte" HorizontalAlignment="Left" Margin="15,83,0,0" Height="15" VerticalAlignment="Top"/>
+                        </Grid>
+                        <ComboBox HorizontalAlignment="Left" Margin="29,23,0,0" VerticalAlignment="Top" Width="129" Text="Campus/Gebäude" IsEditable="True" IsReadOnly="True"/>
+                        <DatePicker HorizontalAlignment="Left" Margin="30,50,0,0" VerticalAlignment="Top"/>
+                        <ComboBox HorizontalAlignment="Left" Margin="29,79,0,0" VerticalAlignment="Top" Width="129" Text="Auswahl Timeslot" IsEditable="True" IsReadOnly="True"/>
+                        <ComboBox HorizontalAlignment="Left" Margin="29,106,0,0" VerticalAlignment="Top" Width="129" Text="Raumgröße" IsEditable="True" IsReadOnly="True"/>
+                    </Grid>
+                </GroupBox>
             </Grid>
-            <Grid Margin="229,10,181,24">
+            <Grid Margin="0,10,181,24" HorizontalAlignment="Right" Width="790">
                 <Border Name="room00" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,16,0,0" VerticalAlignment="Top" Width="161" Background="#FF5CB85C">
                     <Border.InputBindings>
                         <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
