@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -77,5 +78,37 @@ namespace Application
             
             return concreteFloor;
         }
+
+        /// <summary>
+        /// If a reservation for the given room and the given timestamp exist, return the reservation
+        /// </summary>
+        /// <param name="room"></param>
+        /// <param name="timestamp"></param>
+        /// <returns></returns>
+        public async Task<(string, string)> GetReservationForRoom(Room room, DateTime timestamp)
+        {
+            await using var context = new ReservationContext();
+
+            var innerjoin = from r in context.Reservations
+                            join u in context.Users on r.User.Username equals u.Username
+                            join ri in context.Rights on u.Rights.RightsName equals ri.RightsName
+                            where r.Room == room && r.StartTime <= timestamp && r.EndTime >= timestamp
+                            select new
+                            {
+                                User = r.User,
+                                Room = r.Room,
+                                RightsName = ri.RightsName
+                            };
+
+            var returnTuple = ("", "");
+            if (innerjoin.Count() > 0)
+            {
+                returnTuple = (innerjoin.First().User.Username, innerjoin.First().RightsName);
+            } 
+
+            // var reservation = await context.Reservations.Where(x => x.Room.Equals(room) && x.StartTime <= timestamp && x.EndTime >= timestamp).FirstOrDefaultAsync();
+
+            return returnTuple;
+        } 
     }
 }
