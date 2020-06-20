@@ -31,15 +31,24 @@ namespace WPFGUI.ViewModels
         private string _loginas = "Eingeloggt als, ";
         public LandingPageViewModel(NavigationViewModel navigationViewModel, User newUser)
         {
-            _navigationViewModel = navigationViewModel;
-            user = newUser;
-            ResvCommand = new BaseCommand(OpenResv);
-            LoginCommand = new BaseCommand(OpenLogin);
-            CancelReservationCommand = new BaseCommand(CancelReservation);
+            using var context = new ReservationContext();
+            if (context.Database.CanConnect())
+            {
+                _navigationViewModel = navigationViewModel;
+                user = newUser;
+                ResvCommand = new BaseCommand(OpenResv);
+                LoginCommand = new BaseCommand(OpenLogin);
+                CancelReservationCommand = new BaseCommand(CancelReservation);
 
-            var controller = new BookingController();
-            var result = Task.Run(() => controller.GetUserReservations(newUser));
-            Reservations = new ObservableCollection<Reservation>(result.Result);
+                var controller = new BookingController();
+                var result = Task.Run(() => controller.GetUserReservations(newUser));
+                Reservations = new ObservableCollection<Reservation>(result.Result);
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Laden der Reservirungen", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                user.Username = gUser.username;
+            }
         }
 
         private void OpenResv(object obj)
@@ -58,6 +67,9 @@ namespace WPFGUI.ViewModels
 
                 // close logoutThread
                 AutoLogOff.GetToken.Cancel();
+            }else
+            {
+                MessageBox.Show("Fehler beim Abmelden.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             
         }

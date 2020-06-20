@@ -39,14 +39,19 @@ namespace WPFGUI
             MessageBoxResult result = MessageBox.Show("Wollen Sie wirklich das Fenster schließen?", "Abmelden", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if(result == MessageBoxResult.Yes)
             {
-                IUser _user = new UserController();
-                var logout = Task.Run(async () => await _user.Logout(gUser.username)).Result;
-
-                if (!logout && (gUser.username != null))
+                using var context = new ReservationContext();
+                if (context.Database.CanConnect())
                 {
-                    MessageBox.Show("Beim Abmelden ist ein Fehler aufgetreten", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                    e.Cancel = true;
+                    IUser _user = new UserController();
+                    var logout = Task.Run(async () => await _user.Logout(gUser.username)).Result;
+
+                    if (!logout && (gUser.username != null))
+                    {
+                        MessageBox.Show("Beim Abmelden ist ein Fehler aufgetreten", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                        e.Cancel = true;
+                    }
                 }
+               
             }
             else
             {

@@ -42,20 +42,31 @@ namespace WPFGUI.ViewModels
             gUser.username = _username;
             var passwordBox = obj as PasswordBox;
 
-            var verified = await _user.Login(_username, passwordBox.Password);
-            if (verified)
+            using var context = new ReservationContext();
+            if (context.Database.CanConnect())
             {
-                User _newUser = new User();
-                _newUser.Username = _username; 
-                _navigationViewModel.SelectedViewModel = new LandingPageViewModel(_navigationViewModel, _newUser);
+                var verified = await _user.Login(_username, passwordBox.Password);
+                if (verified)
+                {
+                    User _newUser = new User();
+                    _newUser.Username = _username;
+                    _navigationViewModel.SelectedViewModel = new LandingPageViewModel(_navigationViewModel, _newUser);
 
-                // start logout check thread + logout time in min
-                AutoLogOff.CreateLogoutThread(_navigationViewModel, _newUser, 1);
+                    // start logout check thread + logout time in min
+                    AutoLogOff.CreateLogoutThread(_navigationViewModel, _newUser, 1);
+                }
+                else
+                {
+                    Info = "Passwort oder Benutzername ist falsch!";
+                }
             }
             else
             {
-                Info = "Passwort oder Benutzername ist falsch!";
+                MessageBox.Show("Keine Verbindung zur Datenbank möglich.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+
+
+            
             
         }
 
