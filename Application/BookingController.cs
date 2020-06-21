@@ -13,7 +13,7 @@ namespace Application
         private readonly IMail _mail;
 
 
-        public static BookingController CreateBookingControllerNoMail()
+        /**public static BookingController CreateBookingControllerNoMail()
         {
             return new BookingController(new DummyMailController());
         }
@@ -26,8 +26,8 @@ namespace Application
         public BookingController(IMail mail)
         {
             _mail = mail;
-        }
-
+        }**/
+        
         public async Task<bool> UpdateReservation(Reservation currReservation, DateTime newTime,
             int newSlot)
         {
@@ -41,7 +41,7 @@ namespace Application
 
             if (reservation == null) return false;
             var timestamp = getTimestampsFromTimeslot(newSlot, newTime);
-            
+
             reservation.StartTime = timestamp.First();
             reservation.EndTime = timestamp.Last();
             return context.SaveChanges() > 0;
@@ -49,6 +49,7 @@ namespace Application
 
         public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, int slot, User user)
         {
+            var _mail = new MailController();
             //Cannot Reservate in the past, accounting for lag
             if (timestamp < DateTime.Now.AddMinutes(-1))
                 return false;
