@@ -44,7 +44,7 @@ namespace Application
                 var mail = new MailMessage(mailName, toAddress, subject, message);
                 await smtp.SendMailAsync(mail);
             }
-            catch(SmtpFailedRecipientException e)
+            catch(SmtpFailedRecipientException)
             {
                 // User does not exist
             }
