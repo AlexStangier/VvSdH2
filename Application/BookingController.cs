@@ -10,26 +10,28 @@ namespace Application
 {
     public sealed class BookingController : IBooking
     {
-        private readonly IMail _mail;
-
-
-        public static BookingController CreateBookingControllerNoMail()
+        public async Task<bool> UpdateReservation(Reservation currReservation, DateTime newTime,
+            int newSlot)
         {
-            return new BookingController(new DummyMailController());
-        }
+            await using var context = new ReservationContext();
 
-        public static BookingController CreateBookingController()
-        {
-            return new BookingController(new MailController());
-        }
+            var reservation = await context.Reservations
+                .Where(x => x.ReservationId == currReservation.ReservationId)
+                .Include(y => y.User)
+                .ThenInclude(z => z.Rights)
+                .FirstOrDefaultAsync();
 
-        public BookingController(IMail mail)
-        {
-            _mail = mail;
+            if (reservation == null) return false;
+            var timestamp = getTimestampsFromTimeslot(newSlot, newTime);
+
+            reservation.StartTime = timestamp.First();
+            reservation.EndTime = timestamp.Last();
+            return context.SaveChanges() > 0;
         }
 
         public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, int slot, User user)
         {
+            var _mail = new MailController();
             //Cannot Reservate in the past, accounting for lag
             if (timestamp < DateTime.Now.AddMinutes(-1))
                 return false;
@@ -132,13 +134,14 @@ namespace Application
         public async Task<bool> CancelReservation(User user, int Id)
         {
             await using var context = new ReservationContext();
-            var fittingReservation = await context.Reservations.FirstOrDefaultAsync(x => x.ReservationId == Id);
+            var fittingReservation = await context.Reservations.Include(x => x.User)
+                .FirstOrDefaultAsync(x => x.ReservationId == Id);
 
             // Check if cancelling is possible
             if (fittingReservation == null)
                 return false;
 
-            if (fittingReservation.User != user)
+            if (!fittingReservation.User.Equals(user))
                 return false;
 
             // Cancelling is possible, remove the entry

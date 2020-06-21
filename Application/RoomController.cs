@@ -22,7 +22,6 @@ namespace Application
 
             return await context.Rooms.Where(x => x.Floor == floor)
                 .Where(x => x.Building.Equals(building)).ToListAsync();
-            ;
         }
 
         /// <summary>
@@ -72,7 +71,8 @@ namespace Application
         {
             await using var context = new ReservationContext();
 
-            var concreteFloor = await context.Rooms.Where(x => x.Building.Equals(building)).Where(y => y.Floor == floor)
+            var concreteFloor = await context.Rooms
+                .Where(x => x.Building.Equals(building)).Where(y => y.Floor == floor)
                 .ToListAsync();
             
             return concreteFloor;

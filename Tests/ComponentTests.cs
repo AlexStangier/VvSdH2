@@ -28,7 +28,7 @@ namespace Tests
         public void SetUp()
         {
             _user = new UserController();
-            _booking = BookingController.CreateBookingControllerNoMail();
+            _booking =new BookingController();
             _room = new RoomController();
 
             dummyRoom = new Room();
@@ -175,13 +175,13 @@ namespace Tests
                 await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
         }
 
-        [Test]
+        /**[Test]
         public async Task TryOverbookReservation()
         {
             using var context = new ReservationContext();
             Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1), testDate, 1,
                 await context.Users.FindAsync("udo@hs-offenburg.de")));
-        }
+        }**/
 
         [Test]
         public async Task TrySundayRerservation()
@@ -211,6 +211,21 @@ namespace Tests
         {
             var result = await _booking.GetUserReservations(dummyUser);
             Assert.GreaterOrEqual(1, result?.Count ?? 0);
+        }
+
+        [Test]
+        public async Task UpdateReservation()
+        {
+            using var context = new ReservationContext();
+            if (context.Reservations.Count() > 0)
+            {
+                var update = await _booking.UpdateReservation(
+                    context.Reservations.OrderByDescending(x => x.ReservationId).FirstOrDefault(),
+                    new DateTime(2020, 12, 20), 2);
+                Assert.IsTrue(update);
+            }
+
+            Assert.IsTrue(true);
         }
 
         [OneTimeTearDown]
