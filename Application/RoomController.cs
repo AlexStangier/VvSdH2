@@ -76,7 +76,9 @@ namespace Application
             await using var context = new ReservationContext();
 
             var concreteFloor = await context.Rooms.Where(x => x.Building.Equals(building)).Where(y => y.Floor == floor)
-                .OrderBy(x => x.RoomNr).ToListAsync();
+                .OrderBy(x => x.RoomNr)
+                .Include(x => x.Attribute)
+                .ToListAsync();
             
             return concreteFloor;
         }
