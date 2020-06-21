@@ -10,24 +10,6 @@ namespace Application
 {
     public sealed class BookingController : IBooking
     {
-        private readonly IMail _mail;
-
-
-        /**public static BookingController CreateBookingControllerNoMail()
-        {
-            return new BookingController(new DummyMailController());
-        }
-
-        public static BookingController CreateBookingController()
-        {
-            return new BookingController(new MailController());
-        }
-
-        public BookingController(IMail mail)
-        {
-            _mail = mail;
-        }**/
-        
         public async Task<bool> UpdateReservation(Reservation currReservation, DateTime newTime,
             int newSlot)
         {
