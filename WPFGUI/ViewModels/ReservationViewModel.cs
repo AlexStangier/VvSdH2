@@ -40,11 +40,8 @@ namespace WPFGUI.ViewModels
         private string _title;
         private string _email;
 
-        public string Background { 
-            get 
-            {
-                return _background;    
-            }
+        public string Background {
+            get => _background;
             set
             {
                 _background = value;
@@ -52,12 +49,8 @@ namespace WPFGUI.ViewModels
             } 
         }
 
-        public string Number { 
-            get
-            {
-                return _number;
-            }
-            
+        public string Number {
+            get => _number;
             set
             {
                 _number = value;
@@ -66,10 +59,7 @@ namespace WPFGUI.ViewModels
         }
 
         public string Title { 
-            get 
-            {
-                return _title;    
-            } 
+            get => _title;
             set
             {
                 _title = value;
@@ -78,10 +68,7 @@ namespace WPFGUI.ViewModels
         }
 
         public string Email { 
-            get 
-            {
-                return _email;
-            }
+            get => _email;
             set 
             {
                 _email = value;
@@ -107,8 +94,7 @@ namespace WPFGUI.ViewModels
 
         public void NotifyPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
@@ -126,17 +112,14 @@ namespace WPFGUI.ViewModels
         private bool _isPresenterChecked;
 
         public string SelectedBuilding {
-            get 
-            {
-                return _selectedBuilding;
-            }
-
+            get => _selectedBuilding;
             set 
             {
                 if (value.Contains("Gebäude A"))
                 {
                     _selectedBuilding = "A";
-                } else if (value.Contains("Gebäude B"))
+                }
+                else if (value.Contains("Gebäude B"))
                 {
                     _selectedBuilding = "B";
                 }
@@ -146,11 +129,7 @@ namespace WPFGUI.ViewModels
 
         public string SelectedTimeSlot
         {
-            get
-            {
-                return _selectedTimeSlot;
-            }
-
+            get => _selectedTimeSlot;
             set
             {
                 _selectedTimeSlot = value;
@@ -160,11 +139,7 @@ namespace WPFGUI.ViewModels
 
         public DateTime SelectedDate
         {
-            get
-            {
-                return _selectedDate;
-            }
-
+            get => _selectedDate;
             set
             {
                 _selectedDate = value;
@@ -174,11 +149,7 @@ namespace WPFGUI.ViewModels
 
         public string SelectedRoomSize
         {
-            get
-            {
-                return "";
-            }
-
+            get => "";
             set
             {
                 switch (value)
@@ -200,12 +171,9 @@ namespace WPFGUI.ViewModels
         public RoomStruct[] Rooms { get; set; }
 
 
-        public bool IsAirConditioningChecked { 
-            get
-            {
-                return _isAirConditioningChecked;
-            }
-
+        public bool IsAirConditioningChecked
+        {
+            get => _isAirConditioningChecked;
             set
             {
                 _isAirConditioningChecked = value;
@@ -215,11 +183,7 @@ namespace WPFGUI.ViewModels
 
         public bool IsComputersChecked
         {
-            get
-            {
-                return _isComputersChecked;
-            }
-
+            get => _isComputersChecked;
             set
             {
                 _isComputersChecked = value;
@@ -229,11 +193,7 @@ namespace WPFGUI.ViewModels
 
         public bool IsPowerOutletsChecked
         {
-            get
-            {
-                return _isPowerOutletsChecked;
-            }
-
+            get => _isPowerOutletsChecked;
             set
             {
                 _isPowerOutletsChecked = value;
@@ -243,11 +203,7 @@ namespace WPFGUI.ViewModels
 
         public bool IsPresenterChecked
         {
-            get
-            {
-                return _isPresenterChecked;
-            }
-
+            get => _isPresenterChecked;
             set
             {
                 _isPresenterChecked = value;
@@ -311,10 +267,7 @@ namespace WPFGUI.ViewModels
 
         public string LoginAs
         {
-            get
-            {
-                return (_loginas + user.Username);
-            }
+            get => _loginas + user.Username;
         }
 
         private async void UpdateRoomStatus()
@@ -338,7 +291,8 @@ namespace WPFGUI.ViewModels
                 if (!filteredRooms.Contains(r))
                 {
                     Rooms[i].Background = RoomStruct.Filtered;
-                } else
+                }
+                else
                 {
                     Rooms[i].Background = RoomStruct.Available;
                 }
@@ -379,7 +333,8 @@ namespace WPFGUI.ViewModels
                         Rooms[i].Background = RoomStruct.Booked;
                         Rooms[i].Email = Username;
                         Rooms[i].Title = RightsName;
-                    } else
+                    }
+                    else
                     {
                         Rooms[i].Email = "";
                         Rooms[i].Title = "";
