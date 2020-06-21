@@ -213,6 +213,22 @@ namespace Tests
             Assert.GreaterOrEqual(1, result?.Count ?? 0);
         }
 
+        [Test]
+        public async Task UpdateReservation()
+        {
+            using var context = new ReservationContext();
+            if (context.Reservations.Count() > 0)
+            {
+                var update = await _booking.UpdateReservation(
+                    context.Reservations.OrderByDescending(x => x.ReservationId).FirstOrDefault(),
+                    context.Users.Find("udo@hs-offenburg.de"),
+                    new DateTime(2020, 12, 20), 2);
+                Assert.IsTrue(update);
+            }
+
+            Assert.IsTrue(true);
+        }
+
         [OneTimeTearDown]
         public void TearDown()
         {

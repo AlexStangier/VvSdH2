@@ -28,6 +28,25 @@ namespace Application
             _mail = mail;
         }
 
+        public async Task<bool> UpdateReservation(Reservation currReservation, User currUser, DateTime newTime,
+            int newSlot)
+        {
+            await using var context = new ReservationContext();
+
+            var reservation = await context.Reservations
+                .Where(x => x.ReservationId == currReservation.ReservationId)
+                .Include(y => y.User)
+                .ThenInclude(z => z.Rights)
+                .FirstOrDefaultAsync();
+
+            if (reservation == null) return false;
+            var timestamp = getTimestampsFromTimeslot(newSlot, newTime);
+            
+            reservation.StartTime = timestamp.First();
+            reservation.EndTime = timestamp.Last();
+            return context.SaveChanges() > 0;
+        }
+
         public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, int slot, User user)
         {
             //Cannot Reservate in the past, accounting for lag
@@ -132,7 +151,8 @@ namespace Application
         public async Task<bool> CancelReservation(User user, int Id)
         {
             await using var context = new ReservationContext();
-            var fittingReservation = await context.Reservations.Include(x => x.User).FirstOrDefaultAsync(x => x.ReservationId == Id);
+            var fittingReservation = await context.Reservations.Include(x => x.User)
+                .FirstOrDefaultAsync(x => x.ReservationId == Id);
 
             // Check if cancelling is possible
             if (fittingReservation == null)

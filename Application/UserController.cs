@@ -14,9 +14,11 @@ namespace Application
             var foundUser = await context.Users.FirstOrDefaultAsync(x => x.Username.Equals(username));
             if (foundUser?.Password.Equals(password) ?? false)
             {
-                foundUser.HasCurrentSession = true;
-                context.SaveChanges();
-
+                if (!foundUser.HasCurrentSession)
+                {
+                    foundUser.HasCurrentSession = true;
+                    context.SaveChanges();
+                }
                 return foundUser?.HasCurrentSession ?? false;
             }
 
