@@ -28,7 +28,7 @@ namespace Application
             _mail = mail;
         }
 
-        public async Task<bool> UpdateReservation(Reservation currReservation, User currUser, DateTime newTime,
+        public async Task<bool> UpdateReservation(Reservation currReservation, DateTime newTime,
             int newSlot)
         {
             await using var context = new ReservationContext();

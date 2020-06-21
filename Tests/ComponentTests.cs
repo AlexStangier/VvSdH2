@@ -221,7 +221,6 @@ namespace Tests
             {
                 var update = await _booking.UpdateReservation(
                     context.Reservations.OrderByDescending(x => x.ReservationId).FirstOrDefault(),
-                    context.Users.Find("udo@hs-offenburg.de"),
                     new DateTime(2020, 12, 20), 2);
                 Assert.IsTrue(update);
             }
