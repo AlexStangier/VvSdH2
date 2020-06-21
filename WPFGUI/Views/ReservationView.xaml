@@ -20,9 +20,9 @@
         <Grid Grid.Row="1">
             <Grid Margin="0,0,976,0">
                 <Grid Margin="20,461,32,44">
-                    <Button Content="Hoch" HorizontalAlignment="Left" Margin="113,24,0,0" VerticalAlignment="Top" Width="39" RenderTransformOrigin="0.514,-1.101"/>
-                    <Button Content="Runter" HorizontalAlignment="Left" Margin="113,49,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Stockwerk 1" HorizontalAlignment="Left" Margin="34,31,0,0" VerticalAlignment="Top"/>
+                    <Button Content="Hoch" HorizontalAlignment="Left" Margin="113,24,0,0" VerticalAlignment="Top" Width="39" RenderTransformOrigin="0.514,-1.101" Command="{Binding IncFloor}"/>
+                    <Button Content="Runter" HorizontalAlignment="Left" Margin="113,49,0,0" VerticalAlignment="Top" Command="{Binding DecFloor}"/>
+                    <TextBlock Text="{Binding GetFloor}" HorizontalAlignment="Left" Margin="34,31,0,0" VerticalAlignment="Top"/>
                 </Grid>
                 <GroupBox Header="Filter" Margin="12,10,0,0" HorizontalAlignment="Left" Width="200" Height="288" VerticalAlignment="Top">
                     <Grid>

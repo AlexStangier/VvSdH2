@@ -127,6 +127,21 @@ namespace WPFGUI.ViewModels
             } 
         }
 
+        public string GetFloor
+        {
+            get => "Stockwerk: " + _selectedFloor;
+        }
+
+        public int IncFloor
+        {
+            set => _selectedFloor++;
+        }
+
+        public ICommand DecFloor
+        {
+            set => _selectedFloor--;
+        }
+
         public string SelectedTimeSlot
         {
             get => _selectedTimeSlot;
