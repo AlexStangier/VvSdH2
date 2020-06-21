@@ -18,14 +18,6 @@ using System.Globalization;
 
 namespace WPFGUI.ViewModels
 {
-    enum RoomColor
-    {
-        Initial,
-        Free,
-        Filtered,
-        Booked
-    }
-
     class RoomStruct : INotifyPropertyChanged
     {
         public const string Initial = "#FFFFFF";
