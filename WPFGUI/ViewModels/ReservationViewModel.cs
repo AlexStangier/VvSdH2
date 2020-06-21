@@ -344,10 +344,6 @@ namespace WPFGUI.ViewModels
                     }
                 }
             }
-
-
-            // TODO: Räume die für den gewünschten Zeitraum belegt sind rot einfärben. (Geht erst nach Auswahl des Slots)
-            // TODO: Zusätzlich noch die Daten des Reservierers anzeigen.
         }
     }
 }
