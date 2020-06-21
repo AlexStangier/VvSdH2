@@ -14,6 +14,9 @@ namespace ApplicationTests
         private IRoom _room;
         private User dummyUser;
         private Room dummyRoom;
+        // If the tests are run on a sunday, this will be monday.
+        // Holidays are not yet taken into account.
+        private DateTime validDate;
 
 
         [SetUp]
@@ -30,6 +33,12 @@ namespace ApplicationTests
                 RoomNr = 100,
                 Size = 30
             };
+
+            validDate = DateTime.Now;
+            if(validDate.DayOfWeek == DayOfWeek.Sunday)
+            {
+                validDate = validDate.AddDays(1);
+            }
         }
         /**
          * INTEGRATIONTESTS
@@ -170,21 +179,21 @@ namespace ApplicationTests
         {
             SetUp();
             await using var context = new ReservationContext();
-            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1), DateTime.Now, 90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
+            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1), validDate, 90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
         }
 
         [Test]
         public async Task TryCreateReservationWithInvalidRoom()
         {
             SetUp();
-            Assert.False(await _booking.CreateReservation(null, DateTime.Now, 90, dummyUser));
+            Assert.False(await _booking.CreateReservation(null, validDate, 90, dummyUser));
         }
 
         [Test]
         public async Task TryCreateReservationWithInvalidUser()
         {
             SetUp();
-            Assert.False(await _booking.CreateReservation(dummyRoom, DateTime.Now, 90, null));
+            Assert.False(await _booking.CreateReservation(dummyRoom, validDate, 90, null));
         }
 
         [Test]
@@ -192,7 +201,7 @@ namespace ApplicationTests
         {
             SetUp();
             await using var context = new ReservationContext();
-            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1),DateTime.Now, -90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
+            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1),validDate, -90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
         }
         
         /*
@@ -210,7 +219,7 @@ namespace ApplicationTests
         {
             SetUp();
             await using var context = new ReservationContext();
-            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1),DateTime.Now, 90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
+            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1), validDate, 90,await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
         }
 
         [Test]
