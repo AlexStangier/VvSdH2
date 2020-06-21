@@ -35,12 +35,19 @@ namespace Application
 
         public async Task SendMail(string toAddress, string subject, string message)
         {
-            var smtp = new SmtpClient(mailServer, port);
-            smtp.Credentials = new NetworkCredential(mailName, mailPW);
-            smtp.EnableSsl = true;
+            try
+            {
+                var smtp = new SmtpClient(mailServer, port);
+                smtp.Credentials = new NetworkCredential(mailName, mailPW);
+                smtp.EnableSsl = true;
 
-            var mail = new MailMessage(mailName, toAddress, subject, message);
-            await smtp.SendMailAsync(mail);
+                var mail = new MailMessage(mailName, toAddress, subject, message);
+                await smtp.SendMailAsync(mail);
+            }
+            catch(SmtpFailedRecipientException e)
+            {
+                // User does not exist
+            }
         }
     }
 }
