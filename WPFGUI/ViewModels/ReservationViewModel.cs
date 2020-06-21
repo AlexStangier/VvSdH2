@@ -285,9 +285,20 @@ namespace WPFGUI.ViewModels
 
             List<Room> filteredRooms = await _room.Filter(rooms, _selectedRoomSize, attr);
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Rooms.Length; i++)
             {
-                Room r = rooms.ElementAt(i);
+                if (i >= rooms.Count)
+                {
+                    // Floor has not enough rooms
+                    Rooms[i].Background = RoomStruct.Initial;
+                    Rooms[i].Number = "";
+                    Rooms[i].Email = "";
+                    Rooms[i].Title = "";
+                    continue;
+                }
+
+                Room r = rooms[i];
+                Rooms[i].Number = $"{r.Building} {r.RoomNr}";
                 if (!filteredRooms.Contains(r))
                 {
                     Rooms[i].Background = RoomStruct.Filtered;
