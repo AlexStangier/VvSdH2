@@ -90,7 +90,7 @@ namespace WPFGUI.ViewModels
         }
     }
 
-    class ReservationViewModel
+    class ReservationViewModel : INotifyPropertyChanged
     {
         private string _selectedBuilding;
         private int _selectedFloor;
@@ -117,6 +117,22 @@ namespace WPFGUI.ViewModels
                 }
                 UpdateRoomStatus();
             } 
+        }
+
+        public int SelectedFloor
+        {
+            get => _selectedFloor;
+            set
+            {
+                _selectedFloor = value;
+                OnPropertyChanged(nameof(SelectedFloor));
+                OnPropertyChanged(nameof(GetFloor));
+            }
+        }
+
+        public string GetFloor
+        {
+            get => "Stockwerk: " + _selectedFloor;
         }
 
         public string SelectedTimeSlot
@@ -205,6 +221,8 @@ namespace WPFGUI.ViewModels
 
         public ICommand LandCommand { get; set; }
         public ICommand LoginCommand { get; set; }
+        public ICommand IncFloor { get; }
+        public ICommand DecFloor { get; }
 
         private readonly NavigationViewModel _navigationViewModel;
         private User user;
@@ -234,6 +252,8 @@ namespace WPFGUI.ViewModels
             user = newUser;
             LandCommand = new BaseCommand(OpenLand);
             LoginCommand = new BaseCommand(OpenLogin);
+            IncFloor = new BaseCommand(_ => SelectedFloor++);
+            DecFloor = new BaseCommand(_ => SelectedFloor--);
 
             SelectedDate = DateTime.Now;
         }
@@ -344,6 +364,13 @@ namespace WPFGUI.ViewModels
                     }
                 }
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
