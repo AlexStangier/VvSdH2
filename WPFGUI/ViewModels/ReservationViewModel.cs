@@ -127,6 +127,7 @@ namespace WPFGUI.ViewModels
                 _selectedFloor = value;
                 OnPropertyChanged(nameof(SelectedFloor));
                 OnPropertyChanged(nameof(GetFloor));
+                UpdateRoomStatus();
             }
         }
 
@@ -141,7 +142,6 @@ namespace WPFGUI.ViewModels
             set
             {
                 _selectedTimeSlot = value;
-                UpdateRoomStatus();
             }
         }
 
