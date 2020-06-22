@@ -362,11 +362,38 @@ namespace WPFGUI.ViewModels
                 using var context = new ReservationContext();
                 var room = context.Rooms.Where(x => x.RoomNr == clickedRoom.Number && x.Building == clickedRoom.Building).FirstOrDefault();
                 
-                MessageBoxResult result = MessageBox.Show("Stimmt Ihre Resservierung?" + " Raum: " + clickedRoom.Number + " Gebäude: " + SelectedBuilding + " Datum: " + SelectedDate + " Slot: " + SelectedTimeSlot + ".", "Info", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                MessageBoxResult result = MessageBox.Show("Stimmt Ihre Reservierung?" + " Raum: " + clickedRoom.Number + " Gebäude: " + SelectedBuilding + " Datum: " + SelectedDate.ToShortDateString() + " Slot: " + SelectedTimeSlot + ".", "Info", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 switch (result)
                 {
                     case MessageBoxResult.Yes:
-                        if (await controller.CreateReservation(room, SelectedDate, 0, user))
+                        DateTime timestamp = SelectedDate;
+
+                        TimeSpan ts;
+                        switch (SelectedTimeSlot)
+                        {
+                            case "slot1":
+                                ts = new TimeSpan(8, 0, 0);
+                                timestamp = timestamp.Date + ts;
+                                break;
+                            case "slot2":
+                                ts = new TimeSpan(9, 45, 0);
+                                timestamp = timestamp.Date + ts;
+                                break;
+                            case "slot3":
+                                ts = new TimeSpan(11, 35, 0);
+                                timestamp = timestamp.Date + ts;
+                                break;
+                            case "slot4":
+                                ts = new TimeSpan(14, 0, 0);
+                                timestamp = timestamp.Date + ts;
+                                break;
+                            case "slot5":
+                                ts = new TimeSpan(15, 45, 0);
+                                timestamp = timestamp.Date + ts;
+                                break;
+                        }
+
+                        if (await controller.CreateReservation(room, timestamp, 0, user))
                         {
                             MessageBox.Show("Reservierung erfolgreich.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
