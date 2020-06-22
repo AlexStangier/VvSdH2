@@ -18,6 +18,8 @@ using System.Globalization;
 using System.Runtime.Intrinsics.X86;
 using System.Diagnostics;
 using System.Windows.Navigation;
+using System.Windows;
+using System.Windows.Markup;
 
 namespace WPFGUI.ViewModels
 {
@@ -344,13 +346,38 @@ namespace WPFGUI.ViewModels
             }
         }
 
-        private void RoomClick(object obj)
+        private async void RoomClick(object obj)
         {
             if(obj is string s && int.TryParse(s, out int index))
             {
                 var clickedRoom = Rooms[index];
-
-                // TODO do booking
+                Attribute attr = new Attribute
+                {
+                    AirConditioning = _isAirConditioningChecked,
+                    Computers = _isComputersChecked,
+                    PowerOutlets = _isPowerOutletsChecked,
+                    Presenter = _isPresenterChecked
+                };
+                var controller = new BookingController();
+                using var context = new ReservationContext();
+                var room = context.Rooms.Where(x => x.RoomNr == clickedRoom.Number && x.Building == clickedRoom.Building).FirstOrDefault();
+                
+                MessageBoxResult result = MessageBox.Show("Stimmt Ihre Resservierung?" + " Raum: " + clickedRoom.Number + " Gebäude: " + SelectedBuilding + " Datum: " + SelectedDate + " Slot: " + SelectedTimeSlot + ".", "Info", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        if (await controller.CreateReservation(room, SelectedDate, 0, user))
+                        {
+                            MessageBox.Show("Reservierung erfolgreich.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Reservierung war nicht erfolgreich. Versuchen Sie es nochmal.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                }
             }
         }
 

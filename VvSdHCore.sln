@@ -14,6 +14,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{A4898DB7-134F-49ED-A6E1-30492A2984E1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFGUI", "WPFGUI\WPFGUI.csproj", "{9189D39E-CA04-4C73-907D-A5033D549579}"
+	ProjectSection(ProjectDependencies) = postProject
+		{15CBD25C-E906-48E5-B6FE-15C6BD2CDA24} = {15CBD25C-E906-48E5-B6FE-15C6BD2CDA24}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
