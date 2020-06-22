@@ -352,7 +352,7 @@ namespace WPFGUI.ViewModels
             if(SelectedTimeSlot == null)
             {
                 // No Time Slot selected
-                // TODO error message
+                MessageBox.Show("Raum kann nicht reserviert werden, weil kein Zeit-Slot ausgewählt wurde.", "Reservierung nicht möglich", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
