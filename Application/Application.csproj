@@ -5,6 +5,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="MailController.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\ApplicationShared\ApplicationShared.csproj" />
       <ProjectReference Include="..\Core\Core.csproj" />
     </ItemGroup>
