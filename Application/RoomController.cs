@@ -9,7 +9,7 @@ using Attribute = Core.Attribute;
 
 namespace Application
 {
-    public class RoomController : IRoom
+    public sealed class RoomController : IRoom
     {
         /// <summary>
         /// Gets all rooms of a floor in a given Building
