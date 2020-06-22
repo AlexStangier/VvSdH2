@@ -15,6 +15,8 @@ using System.Linq;
 using System.ComponentModel;
 using Attribute = Core.Attribute;
 using System.Globalization;
+using System.Runtime.Intrinsics.X86;
+using System.Diagnostics;
 
 namespace WPFGUI.ViewModels
 {
@@ -103,6 +105,8 @@ namespace WPFGUI.ViewModels
         private bool _isPowerOutletsChecked;
         private bool _isPresenterChecked;
 
+        private Dictionary<string, FloorRange> _buildingFloors;
+
         public string SelectedBuilding {
             get => _selectedBuilding;
             set 
@@ -115,6 +119,7 @@ namespace WPFGUI.ViewModels
                 {
                     _selectedBuilding = "B";
                 }
+                CheckValidFloor();
                 UpdateRoomStatus();
             } 
         }
@@ -246,16 +251,53 @@ namespace WPFGUI.ViewModels
                 new RoomStruct("A 113"),
             };
 
+            // Hardcode floors of the buildings
+            _buildingFloors = new Dictionary<string, FloorRange>();
+            _buildingFloors.Add("A", new FloorRange(1, 3));
+            _buildingFloors.Add("B", new FloorRange(1, 1));
+
             _navigationViewModel = navigationViewModel;
             _selectedBuilding = "A";
             _selectedFloor = 1;
             user = newUser;
             LandCommand = new BaseCommand(OpenLand);
             LoginCommand = new BaseCommand(OpenLogin);
-            IncFloor = new BaseCommand(_ => SelectedFloor++);
-            DecFloor = new BaseCommand(_ => SelectedFloor--);
+            IncFloor = new BaseCommand(TryIncFloor);
+            DecFloor = new BaseCommand(TryDecFloor);
 
             SelectedDate = DateTime.Now;
+        }
+
+        private void TryIncFloor(object _)
+        {
+            SelectedFloor++;
+            CheckValidFloor();
+        }
+
+        private void TryDecFloor(object _)
+        {
+            SelectedFloor--;
+            CheckValidFloor();
+        }
+
+        /// <summary>
+        /// Checks if the selected floor is set to a proper value.
+        /// Proper value means that it is in the expected FloorRange for that Building
+        /// If it is above or below the range, the value will be set to the nearest valid value.
+        /// </summary>
+        public void CheckValidFloor()
+        {
+            Debug.Assert(_buildingFloors.ContainsKey(SelectedBuilding));
+
+            var floorRange = _buildingFloors[SelectedBuilding];
+            if (SelectedFloor >= floorRange.MaxFloor)
+            {
+                SelectedFloor = floorRange.MaxFloor;
+            }
+            else if (SelectedFloor <= floorRange.MinFloor)
+            {
+                SelectedFloor = floorRange.MinFloor;
+            }
         }
 
         private void OpenLand(object obj)
@@ -372,5 +414,17 @@ namespace WPFGUI.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+    }
+
+    struct FloorRange
+    {
+        public FloorRange(int minFloor, int maxFloor)
+        {
+            MinFloor = minFloor;
+            MaxFloor = maxFloor;
+        }
+
+        public int MinFloor { get; }
+        public int MaxFloor { get; }
     }
 }
