@@ -39,7 +39,7 @@ namespace Application
             {
 #if DEBUG
                 message = $"Mail would have been send to {subject}\n\n{message}";
-                subject = "VvSdH2@web.de";
+                toAddress = "VvSdH2@web.de";
 #endif
                 var smtp = new SmtpClient(mailServer, port);
                 smtp.Credentials = new NetworkCredential(mailName, mailPW);
@@ -51,6 +51,10 @@ namespace Application
             catch(SmtpFailedRecipientException)
             {
                 // User does not exist
+            }
+            catch(FormatException)
+            {
+                //Invalid user address
             }
         }
     }
