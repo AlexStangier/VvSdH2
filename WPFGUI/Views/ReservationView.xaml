@@ -62,7 +62,7 @@
                         <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="0"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Name="roomNumber00" Content="{Binding Rooms[0].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomNumber00" Content="{Binding Rooms[0].RoomName}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Name="roomEmail00" Content="{Binding Rooms[0].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
                         <Label Name="roomTitle00" Content="{Binding Rooms[0].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
@@ -72,7 +72,7 @@
                         <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="1"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Name="roomNumber01" Content="{Binding Rooms[1].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomNumber01" Content="{Binding Rooms[1].RoomName}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Name="roomEmail01" Content="{Binding Rooms[1].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
                         <Label Name="roomTitle01" Content="{Binding Rooms[1].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
@@ -82,7 +82,7 @@
                         <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="2"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Name="roomNumber02" Content="{Binding Rooms[2].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomNumber02" Content="{Binding Rooms[2].RoomName}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Name="roomEmail02" Content="{Binding Rooms[2].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
                         <Label Name="roomTitle02" Content="{Binding Rooms[2].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
@@ -92,7 +92,7 @@
                         <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="3"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Name="roomNumber03" Content="{Binding Rooms[3].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomNumber03" Content="{Binding Rooms[3].RoomName}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Name="roomEmail03" Content="{Binding Rooms[3].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
                         <Label Name="roomTitle03" Content="{Binding Rooms[3].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
@@ -102,7 +102,7 @@
                         <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="4"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Name="roomNumber04" Content="{Binding Rooms[4].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomNumber04" Content="{Binding Rooms[4].RoomName}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Name="roomEmail04" Content="{Binding Rooms[4].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
                         <Label Name="roomTitle04" Content="{Binding Rooms[4].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
@@ -112,7 +112,7 @@
                         <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="5"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Name="roomNumber05" Content="{Binding Rooms[5].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomNumber05" Content="{Binding Rooms[5].RoomName}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Name="roomEmail05" Content="{Binding Rooms[5].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
                         <Label Name="roomTitle05" Content="{Binding Rooms[5].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
@@ -122,7 +122,7 @@
                         <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="6"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Name="roomNumber06" Content="{Binding Rooms[6].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomNumber06" Content="{Binding Rooms[6].RoomName}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Name="roomEmail06" Content="{Binding Rooms[6].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
                         <Label Name="roomTitle06" Content="{Binding Rooms[6].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
@@ -132,7 +132,7 @@
                         <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="7"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Name="roomNumber07" Content="{Binding Rooms[7].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomNumber07" Content="{Binding Rooms[7].RoomName}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Name="roomEmail07" Content="{Binding Rooms[7].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
                         <Label Name="roomTitle07" Content="{Binding Rooms[7].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
@@ -142,7 +142,7 @@
                         <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="8"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Name="roomNumber08" Content="{Binding Rooms[8].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomNumber08" Content="{Binding Rooms[8].RoomName}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Name="roomEmail08" Content="{Binding Rooms[8].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
                         <Label Name="roomTitle08" Content="{Binding Rooms[8].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
@@ -152,7 +152,7 @@
                         <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="9"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Name="roomNumber09" Content="{Binding Rooms[9].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomNumber09" Content="{Binding Rooms[9].RoomName}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Name="roomEmail09" Content="{Binding Rooms[9].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
                         <Label Name="roomTitle09" Content="{Binding Rooms[9].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
@@ -162,7 +162,7 @@
                         <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="10"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Name="roomNumber10" Content="{Binding Rooms[10].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomNumber10" Content="{Binding Rooms[10].RoomName}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Name="roomEmail10" Content="{Binding Rooms[10].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
                         <Label Name="roomTitle10" Content="{Binding Rooms[10].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
@@ -172,7 +172,7 @@
                         <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="11"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Name="roomNumber11" Content="{Binding Rooms[11].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomNumber11" Content="{Binding Rooms[11].RoomName}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Name="roomEmail11" Content="{Binding Rooms[11].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
                         <Label Name="roomTitle11" Content="{Binding Rooms[11].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
@@ -182,7 +182,7 @@
                         <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="12"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Name="roomNumber12" Content="{Binding Rooms[12].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomNumber12" Content="{Binding Rooms[12].RoomName}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Name="roomEmail12" Content="{Binding Rooms[12].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
                         <Label Name="roomTitle12" Content="{Binding Rooms[12].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
@@ -192,7 +192,7 @@
                         <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="13"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
-                        <Label Name="roomNumber13" Content="{Binding Rooms[13].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomNumber13" Content="{Binding Rooms[13].RoomName}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Name="roomEmail13" Content="{Binding Rooms[13].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
                         <Label Name="roomTitle13" Content="{Binding Rooms[13].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>

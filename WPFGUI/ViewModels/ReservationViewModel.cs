@@ -17,6 +17,7 @@ using Attribute = Core.Attribute;
 using System.Globalization;
 using System.Runtime.Intrinsics.X86;
 using System.Diagnostics;
+using System.Windows.Navigation;
 
 namespace WPFGUI.ViewModels
 {
@@ -30,7 +31,8 @@ namespace WPFGUI.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string _background;
-        private string _number;
+        private string _building;
+        private int _number;
         private string _title;
         private string _email;
 
@@ -43,13 +45,30 @@ namespace WPFGUI.ViewModels
             } 
         }
 
-        public string Number {
+        public int Number {
             get => _number;
             set
             {
                 _number = value;
-                NotifyPropertyChanged("Number");
+                NotifyPropertyChanged(nameof(Number));
+                NotifyPropertyChanged(nameof(RoomName));
             }
+        }
+
+        public string Building
+        {
+            get => _building;
+            set
+            {
+                _building = value;
+                NotifyPropertyChanged(nameof(Building));
+                NotifyPropertyChanged(nameof(RoomName));
+            }
+        }
+
+        public string RoomName
+        {
+            get => Building == null ? "" : $"{Building} {Number}";
         }
 
         public string Title { 
@@ -70,7 +89,7 @@ namespace WPFGUI.ViewModels
             }
         }
 
-        public RoomStruct(string background, string number, string title, string email)
+        public RoomStruct(string background, int number, string title, string email)
         {
             Background = background;
             Number = number;
@@ -78,7 +97,7 @@ namespace WPFGUI.ViewModels
             Email = email;
         }
 
-        public RoomStruct(string number)
+        public RoomStruct(int number)
         {
             Background = Available;
             Number = number;
@@ -236,20 +255,20 @@ namespace WPFGUI.ViewModels
         public ReservationViewModel(NavigationViewModel navigationViewModel, User newUser)
         {
             Rooms = new[] {
-                new RoomStruct("A 100"),
-                new RoomStruct("A 101"),
-                new RoomStruct("A 102"),
-                new RoomStruct("A 103"),
-                new RoomStruct("A 104"),
-                new RoomStruct("A 105"),
-                new RoomStruct("A 106"),
-                new RoomStruct("A 107"),
-                new RoomStruct("A 108"),
-                new RoomStruct("A 109"),
-                new RoomStruct("A 110"),
-                new RoomStruct("A 111"),
-                new RoomStruct("A 112"),
-                new RoomStruct("A 113"),
+                new RoomStruct(100),
+                new RoomStruct(101),
+                new RoomStruct(102),
+                new RoomStruct(103),
+                new RoomStruct(104),
+                new RoomStruct(105),
+                new RoomStruct(106),
+                new RoomStruct(107),
+                new RoomStruct(108),
+                new RoomStruct(109),
+                new RoomStruct(110),
+                new RoomStruct(111),
+                new RoomStruct(112),
+                new RoomStruct(113),
             };
 
             // Hardcode floors of the buildings
@@ -261,6 +280,8 @@ namespace WPFGUI.ViewModels
             _selectedBuilding = "A";
             _selectedFloor = 1;
             user = newUser;
+
+            UpdateRoomStatus();
             RoomClickCommand = new BaseCommand(RoomClick);
             LandCommand = new BaseCommand(OpenLand);
             LoginCommand = new BaseCommand(OpenLogin);
@@ -357,14 +378,16 @@ namespace WPFGUI.ViewModels
                 {
                     // Floor has not enough rooms
                     Rooms[i].Background = RoomStruct.Initial;
-                    Rooms[i].Number = "";
+                    Rooms[i].Building = null;
+                    Rooms[i].Number = 0;
                     Rooms[i].Email = "";
                     Rooms[i].Title = "";
                     continue;
                 }
 
                 Room r = rooms[i];
-                Rooms[i].Number = $"{r.Building} {r.RoomNr}";
+                Rooms[i].Building = _selectedBuilding;
+                Rooms[i].Number = r.RoomNr;
                 if (!filteredRooms.Contains(r))
                 {
                     Rooms[i].Background = RoomStruct.Filtered;
