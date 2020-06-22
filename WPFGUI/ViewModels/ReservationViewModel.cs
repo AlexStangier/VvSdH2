@@ -45,6 +45,8 @@ namespace WPFGUI.ViewModels
             } 
         }
 
+        public int RoomID { get; set; }
+
         public int Number {
             get => _number;
             set
@@ -378,6 +380,7 @@ namespace WPFGUI.ViewModels
                 {
                     // Floor has not enough rooms
                     Rooms[i].Background = RoomStruct.Initial;
+                    Rooms[i].RoomID = 0;
                     Rooms[i].Building = null;
                     Rooms[i].Number = 0;
                     Rooms[i].Email = "";
@@ -387,6 +390,7 @@ namespace WPFGUI.ViewModels
 
                 Room r = rooms[i];
                 Rooms[i].Building = _selectedBuilding;
+                Rooms[i].RoomID = r.RoomId;
                 Rooms[i].Number = r.RoomNr;
                 if (!filteredRooms.Contains(r))
                 {
