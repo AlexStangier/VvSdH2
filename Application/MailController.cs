@@ -20,7 +20,7 @@ namespace Application
         {
             await SendMail(reservation.User.Username,
                            "Booking Succeeded!",
-                           $"Room {reservation.Room.RoomNr} in building {reservation.Room.Building} was" +
+                           $"Room {reservation.Room.RoomNr} in building {reservation.Room.Building} was " +
                            $"reservated successfully. Thanks for using VvSdH!"); ;
         } 
 
@@ -28,8 +28,8 @@ namespace Application
         {
             await SendMail(overbookedReservation.User.Username,
                            "One of your reservations was overbooked",
-                           $"Please be aware that your reservations of room {overbookedReservation.Room.RoomNr}" +
-                           $"in building {overbookedReservation.Room.Building} has been overbooked." +
+                           $"Please be aware that your reservations of room {overbookedReservation.Room.RoomNr} " +
+                           $"in building {overbookedReservation.Room.Building} has been overbooked. " +
                            $"Please login to VvSdH for further information, or to book another room.");
         }
 
@@ -38,7 +38,7 @@ namespace Application
             try
             {
 #if DEBUG
-                message = $"Mail would have been send to {subject}\n\n{message}";
+                message = $"Mail would have been send to {roAddress}\n\n{message}";
                 toAddress = "VvSdH2@web.de";
 #endif
                 var smtp = new SmtpClient(mailServer, port);
