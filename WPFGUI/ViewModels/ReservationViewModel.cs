@@ -290,11 +290,11 @@ namespace WPFGUI.ViewModels
             Debug.Assert(_buildingFloors.ContainsKey(SelectedBuilding));
 
             var floorRange = _buildingFloors[SelectedBuilding];
-            if (SelectedFloor >= floorRange.MaxFloor)
+            if (SelectedFloor > floorRange.MaxFloor)
             {
                 SelectedFloor = floorRange.MaxFloor;
             }
-            else if (SelectedFloor <= floorRange.MinFloor)
+            else if (SelectedFloor < floorRange.MinFloor)
             {
                 SelectedFloor = floorRange.MinFloor;
             }
