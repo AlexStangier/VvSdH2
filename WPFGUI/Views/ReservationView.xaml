@@ -59,7 +59,7 @@
             <Grid Margin="0,10,181,24" HorizontalAlignment="Right" Width="790">
                 <Border Name="room00" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,16,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[0].Background}">
                     <Border.InputBindings>
-                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                        <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="0"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
                         <Label Name="roomNumber00" Content="{Binding Rooms[0].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -69,7 +69,7 @@
                 </Border>
                 <Border Name="room01" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="223,16,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[1].Background}">
                     <Border.InputBindings>
-                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                        <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="1"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
                         <Label Name="roomNumber01" Content="{Binding Rooms[1].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -79,7 +79,7 @@
                 </Border>
                 <Border Name="room02" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="419,16,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[2].Background}">
                     <Border.InputBindings>
-                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                        <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="2"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
                         <Label Name="roomNumber02" Content="{Binding Rooms[2].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -89,7 +89,7 @@
                 </Border>
                 <Border Name="room03" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,16,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[3].Background}">
                     <Border.InputBindings>
-                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                        <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="3"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
                         <Label Name="roomNumber03" Content="{Binding Rooms[3].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -99,7 +99,7 @@
                 </Border>
                 <Border Name="room04" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="605,127,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[4].Background}">
                     <Border.InputBindings>
-                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                        <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="4"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
                         <Label Name="roomNumber04" Content="{Binding Rooms[4].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -109,7 +109,7 @@
                 </Border>
                 <Border Name="room05" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,240,0,0" VerticalAlignment="Top" Width="160" Background="{Binding Rooms[5].Background}">
                     <Border.InputBindings>
-                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                        <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="5"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
                         <Label Name="roomNumber05" Content="{Binding Rooms[5].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -119,7 +119,7 @@
                 </Border>
                 <Border Name="room06" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,352,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[6].Background}">
                     <Border.InputBindings>
-                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                        <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="6"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
                         <Label Name="roomNumber06" Content="{Binding Rooms[6].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -129,7 +129,7 @@
                 </Border>
                 <Border Name="room07" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,468,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[7].Background}">
                     <Border.InputBindings>
-                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                        <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="7"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
                         <Label Name="roomNumber07" Content="{Binding Rooms[7].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -139,7 +139,7 @@
                 </Border>
                 <Border Name="room08" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="419,468,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[8].Background}">
                     <Border.InputBindings>
-                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                        <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="8"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
                         <Label Name="roomNumber08" Content="{Binding Rooms[8].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -149,7 +149,7 @@
                 </Border>
                 <Border Name="room09" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="223,468,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[9].Background}">
                     <Border.InputBindings>
-                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                        <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="9"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
                         <Label Name="roomNumber09" Content="{Binding Rooms[9].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -159,7 +159,7 @@
                 </Border>
                 <Border Name="room10" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,468,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[10].Background}">
                     <Border.InputBindings>
-                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                        <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="10"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
                         <Label Name="roomNumber10" Content="{Binding Rooms[10].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -169,7 +169,7 @@
                 </Border>
                 <Border Name="room11" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,352,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[11].Background}">
                     <Border.InputBindings>
-                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                        <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="11"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
                         <Label Name="roomNumber11" Content="{Binding Rooms[11].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -179,7 +179,7 @@
                 </Border>
                 <Border Name="room12" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,240,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[12].Background}">
                     <Border.InputBindings>
-                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                        <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="12"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
                         <Label Name="roomNumber12" Content="{Binding Rooms[12].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -189,7 +189,7 @@
                 </Border>
                 <Border Name="room13" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,127,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[13].Background}">
                     <Border.InputBindings>
-                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}"/>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding RoomClickCommand}" CommandParameter="13"/>
                     </Border.InputBindings>
                     <Grid Margin="9,9,9,9">
                         <Label Name="roomNumber13" Content="{Binding Rooms[13].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>

@@ -224,6 +224,7 @@ namespace WPFGUI.ViewModels
             }
         }
 
+        public ICommand RoomClickCommand { get; set; }
         public ICommand LandCommand { get; set; }
         public ICommand LoginCommand { get; set; }
         public ICommand IncFloor { get; }
@@ -260,6 +261,7 @@ namespace WPFGUI.ViewModels
             _selectedBuilding = "A";
             _selectedFloor = 1;
             user = newUser;
+            RoomClickCommand = new BaseCommand(RoomClick);
             LandCommand = new BaseCommand(OpenLand);
             LoginCommand = new BaseCommand(OpenLogin);
             IncFloor = new BaseCommand(TryIncFloor);
@@ -316,6 +318,16 @@ namespace WPFGUI.ViewModels
 
                 // close logoutThread
                 AutoLogOff.GetToken.Cancel();
+            }
+        }
+
+        private void RoomClick(object obj)
+        {
+            if(obj is string s && int.TryParse(s, out int index))
+            {
+                var clickedRoom = Rooms[index];
+
+                // TODO do booking
             }
         }
 
