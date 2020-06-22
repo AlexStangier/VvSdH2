@@ -38,7 +38,7 @@ namespace Application
             try
             {
 #if DEBUG
-                message = $"Mail would have been send to {roAddress}\n\n{message}";
+                message = $"Mail would have been send to {toAddress}\n\n{message}";
                 toAddress = "VvSdH2@web.de";
 #endif
                 var smtp = new SmtpClient(mailServer, port);
