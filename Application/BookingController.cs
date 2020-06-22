@@ -25,26 +25,29 @@ namespace Application
             if (reservation == null) return false;
             var timestamp = getTimestampsFromTimeslot(newSlot, newTime);
 
-            reservation.StartTime = timestamp.First();
-            reservation.EndTime = timestamp.Last();
+            reservation.StartTime = timestamp.start;
+            reservation.EndTime = timestamp.end;
             return context.SaveChanges() > 0;
         }
 
         public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, int slot, User user)
         {
             var _mail = new MailController();
-            //Cannot Reservate in the past, accounting for lag
-            if (timestamp < DateTime.Now.AddMinutes(-1))
-                return false;
 
             await using var context = new ReservationContext();
 
             var listTimes = getTimestampsFromTimeslot(slot, timestamp);
 
+            //Cannot Reservate in the past, accounting for lag
+            if (listTimes.end < DateTime.Now.AddMinutes(-1))
+                return false;
+
             try
             {
-                var existingReservation = await context.Reservations.Where(x =>
-                        x.StartTime >= listTimes.First() && x.EndTime <= listTimes.Last()).Include(y => y.User)
+                var existingReservation = await context.Reservations
+                    .Where(x => x.StartTime >= listTimes.start && x.EndTime <= listTimes.end)
+                    .Where(x => x.Room.RoomId == selectedRoom.RoomId)
+                    .Include(y => y.User)
                     .ThenInclude(z => z.Rights).FirstOrDefaultAsync();
 
                 var concreteUser = await context.Users.FindAsync(user.Username);
@@ -66,8 +69,8 @@ namespace Application
                         var newReservation = new Reservation
                         {
                             Room = await context.Rooms.FindAsync(selectedRoom.RoomId),
-                            StartTime = listTimes.First(),
-                            EndTime = listTimes.Last(),
+                            StartTime = listTimes.start,
+                            EndTime = listTimes.end,
                             User = concreteUser
                         };
                         context.Reservations.Add(newReservation);
@@ -96,8 +99,8 @@ namespace Application
                     var newReservation = new Reservation
                     {
                         Room = await context.Rooms.FindAsync(selectedRoom.RoomId),
-                        StartTime = listTimes.First(),
-                        EndTime = listTimes.Last(),
+                        StartTime = listTimes.start,
+                        EndTime = listTimes.end,
                         User = concreteUser
                     };
 
@@ -170,7 +173,7 @@ namespace Application
                                              .ToListAsync();
         }
 
-        private List<DateTime> getTimestampsFromTimeslot(int slot, DateTime selectedDay)
+        private (DateTime start, DateTime end) getTimestampsFromTimeslot(int slot, DateTime selectedDay)
         {
             var toReturn = new List<DateTime>();
             var newStartDate = new DateTime(selectedDay.Year, selectedDay.Month, selectedDay.Day);
@@ -206,10 +209,7 @@ namespace Application
                     throw new Exception("Slot index was out of Range");
             }
 
-            toReturn.Add(newStartDate);
-            toReturn.Add(newEndDate);
-
-            return toReturn;
+            return (newStartDate, newEndDate);
         }
 
         public List<Reservation> RemovePastReservations(List<Reservation> reservations)

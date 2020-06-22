@@ -170,6 +170,7 @@ namespace WPFGUI.ViewModels
             set
             {
                 _selectedTimeSlot = value;
+                UpdateRoomStatus();
             }
         }
 
@@ -348,6 +349,13 @@ namespace WPFGUI.ViewModels
 
         private async void RoomClick(object obj)
         {
+            if(SelectedTimeSlot == null)
+            {
+                // No Time Slot selected
+                // TODO error message
+                return;
+            }
+
             if(obj is string s && int.TryParse(s, out int index))
             {
                 var clickedRoom = Rooms[index];
@@ -366,34 +374,17 @@ namespace WPFGUI.ViewModels
                 switch (result)
                 {
                     case MessageBoxResult.Yes:
-                        DateTime timestamp = SelectedDate;
-
-                        TimeSpan ts;
-                        switch (SelectedTimeSlot)
+                        int timeslot = SelectedTimeSlot switch
                         {
-                            case "slot1":
-                                ts = new TimeSpan(8, 0, 0);
-                                timestamp = timestamp.Date + ts;
-                                break;
-                            case "slot2":
-                                ts = new TimeSpan(9, 45, 0);
-                                timestamp = timestamp.Date + ts;
-                                break;
-                            case "slot3":
-                                ts = new TimeSpan(11, 35, 0);
-                                timestamp = timestamp.Date + ts;
-                                break;
-                            case "slot4":
-                                ts = new TimeSpan(14, 0, 0);
-                                timestamp = timestamp.Date + ts;
-                                break;
-                            case "slot5":
-                                ts = new TimeSpan(15, 45, 0);
-                                timestamp = timestamp.Date + ts;
-                                break;
-                        }
+                            "slot1" => 1,
+                            "slot2" => 2,
+                            "slot3" => 3,
+                            "slot4" => 4,
+                            "slot5" => 5,
+                            _ => -1
+                        };
 
-                        if (await controller.CreateReservation(room, timestamp, 0, user))
+                        if (await controller.CreateReservation(room, SelectedDate, timeslot, user))
                         {
                             MessageBox.Show("Reservierung erfolgreich.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
