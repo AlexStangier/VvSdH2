@@ -84,7 +84,7 @@ namespace ApplicationTests
             var result = await _user.Login(user.Username, user.Password);
 
             // User exists, PW is correct
-            Assert.True(result);
+            Assert.AreEqual(2, result);
         }
 
         [Test]
@@ -100,7 +100,7 @@ namespace ApplicationTests
             var result = await _user.Login(user.Username, user.Password);
 
             // User exists, PW is wrong
-            Assert.False(result);
+            Assert.AreEqual(0, result);
         }
 
         [Test]
@@ -115,7 +115,7 @@ namespace ApplicationTests
             var result = await _user.Login(user.Username, user.Password);
 
             // User does not exist
-            Assert.False(result);
+            Assert.AreEqual(0, result);
         }
 
         [Test]
