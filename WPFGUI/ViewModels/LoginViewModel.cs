@@ -46,14 +46,18 @@ namespace WPFGUI.ViewModels
             if (context.Database.CanConnect())
             {
                 var verified = await _user.Login(_username, passwordBox.Password);
-                if (verified)
+                if (verified == 2)
                 {
                     User _newUser = new User();
                     _newUser.Username = _username;
                     _navigationViewModel.SelectedViewModel = new LandingPageViewModel(_navigationViewModel, _newUser);
 
                     // start logout check thread + logout time in min
-                    AutoLogOff.CreateLogoutThread(_navigationViewModel, _newUser, 1);
+                    AutoLogOff.CreateLogoutThread(_navigationViewModel, _newUser, 10);
+                }
+                else if (verified == 1)
+                {
+                    Info = "Sie sind bereits eingeloggt!";
                 }
                 else
                 {

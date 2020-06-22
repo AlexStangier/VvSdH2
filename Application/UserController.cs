@@ -9,22 +9,27 @@ namespace Application
 {
     public class UserController : IUser
     {
-        public async Task<bool> Login(string username, string password)
+        public async Task<int> Login(string username, string password)
         {
             using var context = new ReservationContext();
             var foundUser = await context.Users.FirstOrDefaultAsync(x => x.Username.Equals(username));
             if (foundUser?.Password.Equals(password) ?? false)
             {
-                if (foundUser.HasCurrentSession == false)
+                if (foundUser.HasCurrentSession)
                 {
-                    foundUser.HasCurrentSession = true;
-                    context.SaveChanges();
+                    return 1;
+                }
 
-                    return foundUser?.HasCurrentSession ?? false;
+                foundUser.HasCurrentSession = true;
+                context.SaveChanges();
+
+                if (foundUser?.HasCurrentSession ?? false)
+                {
+                    return 2;
                 }
             }
 
-            return false;
+            return 0;
         }
 
         public async Task<bool> Logout(string username)
