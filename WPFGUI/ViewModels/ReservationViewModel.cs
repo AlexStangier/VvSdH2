@@ -374,6 +374,7 @@ namespace WPFGUI.ViewModels
                         {
                             MessageBox.Show("Reservierung war nicht erfolgreich. Versuchen Sie es nochmal.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
+                        UpdateRoomStatus();
                         break;
                     case MessageBoxResult.No:
                         break;
