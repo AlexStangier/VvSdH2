@@ -37,6 +37,10 @@ namespace Application
         {
             try
             {
+#if DEBUG
+                message = $"Mail would have been send to {subject}\n\n{message}";
+                subject = "VvSdH2@web.de";
+#endif
                 var smtp = new SmtpClient(mailServer, port);
                 smtp.Credentials = new NetworkCredential(mailName, mailPW);
                 smtp.EnableSsl = true;
