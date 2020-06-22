@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ApplicationShared;
 using Core;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Query.ExpressionTranslators.Internal;
 
 namespace Application
 {
@@ -156,8 +157,17 @@ namespace Application
             var concreteUser = await context.Users.FindAsync(user.Username);
 
             return await context.Reservations.Where(x => x.User == concreteUser)
-                .Where(x => x.EndTime >= DateTime.Now)
-                .ToListAsync();
+                                             .Include(x => x.Room)
+                                             .ToListAsync();
+        }
+
+        public async Task<List<Reservation>> GetAllReservations()
+        {
+            await using var context = new ReservationContext();
+
+            return await context.Reservations.Include(x => x.User)
+                                             .Include(x => x.Room)
+                                             .ToListAsync();
         }
 
         private List<DateTime> getTimestampsFromTimeslot(int slot, DateTime selectedDay)
@@ -200,6 +210,13 @@ namespace Application
             toReturn.Add(newEndDate);
 
             return toReturn;
+        }
+
+        public List<Reservation> RemovePastReservations(List<Reservation> reservations)
+        {
+            var now = DateTime.Now;
+
+            return reservations.Where(x => x.EndTime >= now).ToList();
         }
     }
 }

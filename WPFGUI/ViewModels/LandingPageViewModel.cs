@@ -14,6 +14,8 @@ using System.IO.Packaging;
 using System.Windows.Documents;
 using Core;
 using System.Threading.Tasks;
+using System.Windows;
+using Renci.SshNet.Messages;
 
 namespace WPFGUI.ViewModels
 {
@@ -21,34 +23,48 @@ namespace WPFGUI.ViewModels
     {
         public ICommand ResvCommand { get; set; }
         public ICommand LoginCommand { get; set; }
-
+        public ICommand ListUpdateCommand { get; set; }
         public ICommand CancelReservationCommand { get; set; }
 
         private readonly NavigationViewModel _navigationViewModel;
-        private User user;
+        private readonly User _user;
         private string _loginas = "Eingeloggt als, ";
+
+        //Tabelle
+        public ObservableCollection<Reservation> Reservations { get; }
+        public bool OnlyShowOwnReservations { get; set; } = true;
+        public bool DontShowPastReservations { get; set; } = true;
+
         public LandingPageViewModel(NavigationViewModel navigationViewModel, User newUser)
         {
-            _navigationViewModel = navigationViewModel;
-            user = newUser;
-            ResvCommand = new BaseCommand(OpenResv);
-            LoginCommand = new BaseCommand(OpenLogin);
-            CancelReservationCommand = new BaseCommand(CancelReservation);
-
-            var controller = new BookingController();
-            var result = Task.Run(() => controller.GetUserReservations(newUser));
-            Reservations = new ObservableCollection<Reservation>(result.Result);
+            using var context = new ReservationContext();
+            if (context.Database.CanConnect())
+            {
+                _navigationViewModel = navigationViewModel;
+                _user = newUser;
+                ResvCommand = new BaseCommand(OpenResv);
+                LoginCommand = new BaseCommand(OpenLogin);
+                ListUpdateCommand = new BaseCommand(UpdateReservationsList);
+                CancelReservationCommand = new BaseCommand(CancelReservation);
+                Reservations = new ObservableCollection<Reservation>();
+                UpdateReservationsList(null);
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Laden der Reservirungen", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _user.Username = gUser.username;
+            }
         }
 
         private void OpenResv(object obj)
         {
-            _navigationViewModel.SelectedViewModel = new ReservationViewModel(_navigationViewModel, user);
+            _navigationViewModel.SelectedViewModel = new ReservationViewModel(_navigationViewModel, _user);
         }
 
         private async void OpenLogin(object obj)
         {
             IUser _user = new UserController();
-            var logout = await _user.Logout(user.Username);
+            var logout = await _user.Logout(this._user.Username);
             if (logout)
             {
                 string info = "Sie wurden erfolgreich Ausgeloggt.";
@@ -57,35 +73,66 @@ namespace WPFGUI.ViewModels
                 // close logoutThread
                 AutoLogOff.GetToken.Cancel();
             }
+            else
+            {
+                MessageBox.Show("Fehler beim Abmelden.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
             
         }
-
-
         
         public string LoginAs
         {
-            get {
-                return (_loginas+user.Username); 
-                }
+            get => _loginas+_user.Username;
         }
-
-
-
-        //Tabelle
-        public ObservableCollection<Reservation> Reservations { get; }
 
         public async void CancelReservation(object obj)
         {
             var reservation = obj as Reservation;
             var controller = new BookingController();
-
-            if(await controller.CancelReservation(user, reservation.ReservationId))
+            MessageBoxResult result = MessageBox.Show("Wollen Sie die Reservierung wirklich stonieren?", "Info", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            switch(result)
             {
-                Reservations.Remove(reservation);
+                case MessageBoxResult.Yes:
+                    if (await controller.CancelReservation(_user, reservation.ReservationId))
+                    {
+                        Reservations.Remove(reservation);
+                        MessageBox.Show("Reservierung wurde erfolgreich stoniert.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Fehler beim löschen der Reservierung", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Sets the list source according to the checkbox parameters
+        /// </summary>
+        /// <param name="obj">ignored</param>
+        public void UpdateReservationsList(object obj)
+        {
+            List<Reservation> reservations;
+            var controller = new BookingController();
+
+            if (OnlyShowOwnReservations)
+            {
+                reservations = Task.Run(() => controller.GetUserReservations(_user)).Result;
             }
             else
             {
-                //TODO display error message
+                reservations = Task.Run(() => controller.GetAllReservations()).Result;
+            }
+
+            if(DontShowPastReservations)
+            {
+                reservations = controller.RemovePastReservations(reservations);
+            }
+
+            Reservations.Clear();
+            foreach(var reservation in reservations)
+            {
+                Reservations.Add(reservation);
             }
         }
     }

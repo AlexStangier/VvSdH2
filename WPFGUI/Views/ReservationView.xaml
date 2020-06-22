@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFGUI.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="700" d:DesignWidth="1200">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -18,18 +18,185 @@
             <Button Content="Abmelden" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Width="80" Height="25" Command="{Binding LoginCommand}"/>
         </Grid>
         <Grid Grid.Row="1">
-            <Grid Margin="0,0,576,0">
-                <ComboBox HorizontalAlignment="Left" Margin="52,22,0,0" VerticalAlignment="Top" Width="129" Text="Campus/Gebäude" IsEditable="True" IsReadOnly="True"/>
-                <DatePicker HorizontalAlignment="Left" Margin="52,49,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Margin="52,78,0,0" Text="Uhrzeit Beginn" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
-                <TextBox HorizontalAlignment="Left" Margin="52,101,0,0" Text="Uhrzeit Ende" TextWrapping="Wrap" VerticalAlignment="Top" Width="129" InputScope="Time"/>
-                <ComboBox HorizontalAlignment="Left" Margin="52,124,0,0" VerticalAlignment="Top" Width="129" Text="Raumgröße" IsEditable="True" IsReadOnly="True"/>
-                <Grid Margin="41,151,32,139">
-                    <CheckBox Content="Computerraum" HorizontalAlignment="Left" Margin="15,23,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Steckdosen" HorizontalAlignment="Left" Margin="15,43,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Klimatisiert" HorizontalAlignment="Left" Margin="15,63,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Präsentationsgeräte" HorizontalAlignment="Left" Margin="15,83,0,0" Height="15" VerticalAlignment="Top"/>
+            <Grid Margin="0,0,976,0">
+                <Grid Margin="20,461,32,44">
+                    <Button Content="Hoch" HorizontalAlignment="Left" Margin="113,24,0,0" VerticalAlignment="Top" Width="39" RenderTransformOrigin="0.514,-1.101" Command="{Binding IncFloor}"/>
+                    <Button Content="Runter" HorizontalAlignment="Left" Margin="113,49,0,0" VerticalAlignment="Top" Command="{Binding DecFloor}"/>
+                    <TextBlock Text="{Binding GetFloor}" HorizontalAlignment="Left" Margin="34,31,0,0" VerticalAlignment="Top"/>
                 </Grid>
+                <GroupBox Header="Filter" Margin="12,10,0,0" HorizontalAlignment="Left" Width="200" Height="288" VerticalAlignment="Top">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="91*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Margin="18,133,13,18">
+                            <CheckBox Content="Computerraum" HorizontalAlignment="Left" Margin="15,23,0,0" VerticalAlignment="Top" IsChecked="{Binding IsComputersChecked}"/>
+                            <CheckBox Content="Steckdosen" HorizontalAlignment="Left" Margin="15,43,0,0" VerticalAlignment="Top" IsChecked="{Binding IsPowerOutletsChecked}"/>
+                            <CheckBox Content="Klimatisiert" HorizontalAlignment="Left" Margin="15,63,0,0" VerticalAlignment="Top" IsChecked="{Binding IsAirConditioningChecked}"/>
+                            <CheckBox Content="Präsentationsgeräte" HorizontalAlignment="Left" Margin="15,83,0,0" Height="15" VerticalAlignment="Top" IsChecked="{Binding IsPresenterChecked}" />
+                        </Grid>
+                        <ComboBox HorizontalAlignment="Left" Margin="29,23,0,0" VerticalAlignment="Top" Width="129" Text="Campus/Gebäude" IsEditable="True" IsReadOnly="True" SelectedValuePath="Content" SelectedValue="{Binding SelectedBuilding}">
+                            <ComboBoxItem Name="buildingA" Content="Gebäude A"/>
+                            <ComboBoxItem Name="buildingB" Content="Gebäude B"/>
+                        </ComboBox>
+                        <DatePicker HorizontalAlignment="Left" Margin="30,50,0,0" VerticalAlignment="Top" SelectedDate="{Binding SelectedDate}"/>
+                        <ComboBox HorizontalAlignment="Left" Margin="29,79,0,0" VerticalAlignment="Top" Width="129" Text="Auswahl Timeslot" IsEditable="True" IsReadOnly="True" SelectedValuePath="Name" SelectedValue="{Binding SelectedTimeSlot}">
+                            <ComboBoxItem Name="slot1" Content="8:00 - 9:30"/>
+                            <ComboBoxItem Name="slot2" Content="9:45 - 11:15"/>
+                            <ComboBoxItem Name="slot3" Content="11:35 - 13:00"/>
+                            <ComboBoxItem Name="slot4" Content="14:00 - 15:30"/>
+                            <ComboBoxItem Name="slot5" Content="15:45 - 17:15"/>
+                        </ComboBox>
+                        <ComboBox HorizontalAlignment="Left" Margin="29,106,0,0" VerticalAlignment="Top" Width="129" Text="Raumgröße" IsEditable="True" IsReadOnly="True" SelectedValuePath="Name" SelectedValue="{Binding SelectedRoomSize}">
+                            <ComboBoxItem Name="roomSize1" Content="min 30 Personen"/>
+                            <ComboBoxItem Name="roomSize2" Content="min 50 Personen"/>
+                            <ComboBoxItem Name="roomSize3" Content="min 100 Personen"/>
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+            <Grid Margin="0,10,181,24" HorizontalAlignment="Right" Width="790">
+                <Border Name="room00" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,16,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[0].Background}">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
+                    <Grid Margin="9,9,9,9">
+                        <Label Name="roomNumber00" Content="{Binding Rooms[0].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail00" Content="{Binding Rooms[0].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle00" Content="{Binding Rooms[0].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Name="room01" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="223,16,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[1].Background}">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
+                    <Grid Margin="9,9,9,9">
+                        <Label Name="roomNumber01" Content="{Binding Rooms[1].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail01" Content="{Binding Rooms[1].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle01" Content="{Binding Rooms[1].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Name="room02" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="419,16,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[2].Background}">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
+                    <Grid Margin="9,9,9,9">
+                        <Label Name="roomNumber02" Content="{Binding Rooms[2].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail02" Content="{Binding Rooms[2].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle02" Content="{Binding Rooms[2].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Name="room03" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,16,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[3].Background}">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
+                    <Grid Margin="9,9,9,9">
+                        <Label Name="roomNumber03" Content="{Binding Rooms[3].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail03" Content="{Binding Rooms[3].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle03" Content="{Binding Rooms[3].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Name="room04" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="605,127,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[4].Background}">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
+                    <Grid Margin="9,9,9,9">
+                        <Label Name="roomNumber04" Content="{Binding Rooms[4].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail04" Content="{Binding Rooms[4].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle04" Content="{Binding Rooms[4].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Name="room05" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,240,0,0" VerticalAlignment="Top" Width="160" Background="{Binding Rooms[5].Background}">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
+                    <Grid Margin="9,9,9,9">
+                        <Label Name="roomNumber05" Content="{Binding Rooms[5].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail05" Content="{Binding Rooms[5].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle05" Content="{Binding Rooms[5].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Name="room06" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,352,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[6].Background}">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
+                    <Grid Margin="9,9,9,9">
+                        <Label Name="roomNumber06" Content="{Binding Rooms[6].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail06" Content="{Binding Rooms[6].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle06" Content="{Binding Rooms[6].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Name="room07" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="606,468,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[7].Background}">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
+                    <Grid Margin="9,9,9,9">
+                        <Label Name="roomNumber07" Content="{Binding Rooms[7].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail07" Content="{Binding Rooms[7].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle07" Content="{Binding Rooms[7].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Name="room08" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="419,468,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[8].Background}">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
+                    <Grid Margin="9,9,9,9">
+                        <Label Name="roomNumber08" Content="{Binding Rooms[8].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail08" Content="{Binding Rooms[8].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle08" Content="{Binding Rooms[8].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Name="room09" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="223,468,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[9].Background}">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
+                    <Grid Margin="9,9,9,9">
+                        <Label Name="roomNumber09" Content="{Binding Rooms[9].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail09" Content="{Binding Rooms[9].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle09" Content="{Binding Rooms[9].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Name="room10" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,468,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[10].Background}">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
+                    <Grid Margin="9,9,9,9">
+                        <Label Name="roomNumber10" Content="{Binding Rooms[10].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail10" Content="{Binding Rooms[10].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle10" Content="{Binding Rooms[10].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Name="room11" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,352,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[11].Background}">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
+                    <Grid Margin="9,9,9,9">
+                        <Label Name="roomNumber11" Content="{Binding Rooms[11].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail11" Content="{Binding Rooms[11].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle11" Content="{Binding Rooms[11].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Name="room12" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,240,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[12].Background}">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}" />
+                    </Border.InputBindings>
+                    <Grid Margin="9,9,9,9">
+                        <Label Name="roomNumber12" Content="{Binding Rooms[12].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail12" Content="{Binding Rooms[12].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle12" Content="{Binding Rooms[12].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Name="room13" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="100" Margin="19,127,0,0" VerticalAlignment="Top" Width="161" Background="{Binding Rooms[13].Background}">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding LandCommand}"/>
+                    </Border.InputBindings>
+                    <Grid Margin="9,9,9,9">
+                        <Label Name="roomNumber13" Content="{Binding Rooms[13].Number}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Name="roomEmail13" Content="{Binding Rooms[13].Email}" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top"/>
+                        <Label Name="roomTitle13" Content="{Binding Rooms[13].Title}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
             </Grid>
         </Grid>
     </Grid>

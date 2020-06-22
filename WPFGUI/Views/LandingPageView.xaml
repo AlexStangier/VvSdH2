@@ -10,7 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="8*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <TextBlock HorizontalAlignment="Center" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20"><Run Language="de-de" Text="Landing Page"/></TextBlock>
@@ -18,20 +18,41 @@
             <Button Content="Abmelden" Height="25" Width="80" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Command="{Binding LoginCommand}"/>
         </Grid>
         <Grid Grid.Row="1">
-            <ListView ItemsSource="{Binding Reservations}" x:Name="ReservationList">
+            <ListView ItemsSource="{Binding Reservations}" x:Name="ReservationList" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Canvas Height="60" MinWidth="320" Background="#FFDDDDDD" HorizontalAlignment="Stretch">
-                            <Label Canvas.Left="20" Canvas.Top="0" Content="{Binding Room}" Width="300" FontSize="13" FontWeight="Bold"/>
-                            <Label Canvas.Left="20" Canvas.Top="20" Content="{Binding StartTime}" Width="300" FontSize="13" FontWeight="Bold"/>
-                            <Button Canvas.Right="20" Canvas.Top="20" Command="{Binding DataContext.CancelReservationCommand, ElementName=ReservationList}" CommandParameter="{Binding}">Cancel</Button>
+                        <Canvas Height="60" MinWidth="480" Background="#FFDDDDDD" HorizontalAlignment="Stretch">
+                            <TextBlock Canvas.Left="30" Canvas.Top="9" Text="{Binding StartTime}" Width="300" FontSize="13" FontWeight="Bold"/>
+                            <TextBlock Canvas.Left="30" Canvas.Top="33" Text="{Binding EndTime}" Width="300" FontSize="13" FontWeight="Bold"/>
+                            <TextBlock Canvas.Left="220" Canvas.Top="9" Text="{Binding User.Username}" FontSize="13" FontWeight="Bold"/>
+                            <TextBlock Canvas.Left="220" Canvas.Top="33" Width="300" FontSize="13" FontWeight="Bold">
+                                <Run Text="Raum: "/>
+                                <Run Text="{Binding Room.Building}"/>
+                                <Run Text="{Binding Room.RoomNr}" />
+                            </TextBlock>
+                            <Button Canvas.Right="30" Canvas.Top="20" Command="{Binding DataContext.CancelReservationCommand, ElementName=ReservationList}" CommandParameter="{Binding}">Cancel</Button>
                         </Canvas>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
         <Grid Grid.Row="2">
-            <Button Name="reservation" Content="Neue Reservierung" Height="25" Width="150" HorizontalAlignment="Center" Margin="10" Command="{Binding ResvCommand}"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Name="reservation" Content="Neue Reservierung" Height="47" Width="150" HorizontalAlignment="Center"
+                    Command="{Binding ResvCommand}"/>
+            <Grid Grid.Column="2">
+                <CheckBox IsChecked="{Binding OnlyShowOwnReservations}" Content="Nur eigene Reservierungen anzeigen" Margin="30,20,0,0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding ListUpdateCommand}"/>
+                <CheckBox IsChecked="{Binding DontShowPastReservations}" Content="Keine vergangenen Reservierungen anzeigen" Margin="30,45,0,0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding ListUpdateCommand}"/>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>
