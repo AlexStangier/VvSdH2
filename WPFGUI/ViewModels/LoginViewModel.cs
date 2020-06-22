@@ -46,7 +46,7 @@ namespace WPFGUI.ViewModels
             if (context.Database.CanConnect())
             {
                 var verified = await _user.Login(_username, passwordBox.Password);
-                if (verified)
+                if (verified == 2)
                 {
                     User _newUser = new User();
                     _newUser.Username = _username;
@@ -54,6 +54,10 @@ namespace WPFGUI.ViewModels
 
                     // start logout check thread + logout time in min
                     AutoLogOff.CreateLogoutThread(_navigationViewModel, _newUser, 10);
+                }
+                else if (verified == 1)
+                {
+                    Info = "Sie sind bereits eingeloggt!";
                 }
                 else
                 {
