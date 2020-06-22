@@ -53,7 +53,7 @@ namespace WPFGUI.ViewModels
                     _navigationViewModel.SelectedViewModel = new LandingPageViewModel(_navigationViewModel, _newUser);
 
                     // start logout check thread + logout time in min
-                    AutoLogOff.CreateLogoutThread(_navigationViewModel, _newUser, 1);
+                    AutoLogOff.CreateLogoutThread(_navigationViewModel, _newUser, 10);
                 }
                 else
                 {
