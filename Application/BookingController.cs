@@ -24,7 +24,7 @@ namespace Application
 
             if (reservation == null) return false;
             var timestamp = getTimestampsFromTimeslot(newSlot, newTime);
-
+            
             reservation.StartTime = timestamp.start;
             reservation.EndTime = timestamp.end;
             return context.SaveChanges() > 0;
@@ -124,17 +124,25 @@ namespace Application
         /// <param name="userA">User object</param>
         /// <param name="userB">User object</param>
         /// <returns></returns>
-        private async Task<bool> ComparePrivilege(User userA, User userB)
+        public async Task<bool> ComparePrivilege(User userA, User userB)
         {
             await using var context = new ReservationContext();
-            var concreteUserA = await context.Users.Where(x => x.Username.Equals(userA.Username)).Include(y => y.Rights)
+            var concreteUserA = await context.Users
+                .Where(x => x.Username.Equals(userA.Username))
+                .Include(y => y.Rights)
+                .Select(s => s.Rights.PrivilegeLevel)
+                .FirstOrDefaultAsync(); 
+            
+            var concreteUserB = await context.Users
+                .Where(x => x.Username.Equals(userB.Username))
+                .Include(y => y.Rights)
+                .Select(s => s.Rights.PrivilegeLevel)
                 .FirstOrDefaultAsync();
-            var concreteUserB = await context.Users.Where(x => x.Username.Equals(userB.Username)).Include(y => y.Rights)
-                .FirstOrDefaultAsync();
-
-            return concreteUserA.Rights.PrivilegeLevel > concreteUserB.Rights.PrivilegeLevel;
+            
+            return concreteUserA > concreteUserB;
         }
 
+        
         public async Task<bool> CancelReservation(User user, int Id)
         {
             await using var context = new ReservationContext();

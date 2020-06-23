@@ -28,7 +28,7 @@ namespace Tests
         public void SetUp()
         {
             _user = new UserController();
-            _booking =new BookingController();
+            _booking = new BookingController();
             _room = new RoomController();
 
             dummyRoom = new Room();
@@ -182,7 +182,6 @@ namespace Tests
             Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1), testDate, 1,
                 await context.Users.FindAsync("udo@hs-offenburg.de")));
         }**/
-
         [Test]
         public async Task TrySundayRerservation()
         {
@@ -228,7 +227,20 @@ namespace Tests
             Assert.IsTrue(true);
         }
 
-        [OneTimeTearDown]
+        [Test]
+        public async Task TestComparePrivilegeOfInvalidUsers()
+        {
+            Assert.IsFalse(await _booking.ComparePrivilege(new User(), new User()));
+        }
+
+        [Test]
+        public async Task TestComparePrivilegeWithValidUsers()
+        {
+            await using var context = new ReservationContext();
+            Assert.IsFalse(await _booking.ComparePrivilege(await context.Users.FirstAsync(), await context.Users.OrderBy(x => x.Username).LastAsync()));
+        }
+
+    [OneTimeTearDown]
         public void TearDown()
         {
             using var context = new ReservationContext();

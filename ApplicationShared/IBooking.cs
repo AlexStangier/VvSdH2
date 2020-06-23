@@ -11,5 +11,8 @@ namespace ApplicationShared
         Task<bool> CancelReservation(User user, int Id);
         Task<List<Reservation>> GetUserReservations(User user);
         Task<bool> UpdateReservation(Reservation currReservation,DateTime newTime, int newSlot);
+        
+        //This is in here only for Testing purposes
+        Task<bool> ComparePrivilege(User userA, User userB);
     }
 }
