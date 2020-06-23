@@ -164,11 +164,26 @@ namespace Application
             var fittingReservation = await context.Reservations.Include(x => x.User)
                 .FirstOrDefaultAsync(x => x.ReservationId == Id);
 
+            var getPrivilegeUser = await context.Users
+                .Where(x => x.Username.Equals(user.Username))
+                .Include(y => y.Rights)
+                .Select(s => s.Rights.PrivilegeLevel)
+                .FirstOrDefaultAsync();
+
             // Check if cancelling is possible
             if (fittingReservation == null)
                 return false;
 
-            if (!fittingReservation.User.Equals(user))
+            var getPrivilegeFitting = await context.Users
+                .Where(x => x.Username.Equals(fittingReservation.User.Username))
+                .Include(y => y.Rights)
+                .Select(s => s.Rights.PrivilegeLevel)
+                .FirstOrDefaultAsync();
+
+            if (getPrivilegeUser < getPrivilegeFitting && getPrivilegeUser < 4)
+                return false;
+
+            if (getPrivilegeUser == getPrivilegeFitting && !fittingReservation.User.Equals(user) && getPrivilegeUser < 4)
                 return false;
 
             // Cancelling is possible, remove the entry
