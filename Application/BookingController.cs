@@ -112,9 +112,7 @@ namespace Application
                     var success = await context.SaveChangesAsync() > 0;
                     if (success)
                     {
-                        if (await _mail.SendOverbookingMail(existingReservation))
-                            return 1;
-                        if (await _mail.SendConfirmationMail(newReservation))
+                        if (await _mail.SendOverbookingMail(existingReservation) && await _mail.SendConfirmationMail(newReservation))
                             return 1;
 
                         return -3;
