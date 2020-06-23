@@ -39,7 +39,6 @@ namespace WPFGUI.ViewModels
      
         public UpdateWindowViewModel()
         {
-
             _reservation = gReservation.reservation;
             updateResCommand = new BaseCommand(UpdateReservation);
             cancelCommand = new BaseCommand(Cancel);
