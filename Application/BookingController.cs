@@ -44,8 +44,9 @@ namespace Application
 
             try
             {
-                var existingReservation = await context.Reservations.Where(x =>
-                        x.StartTime >= listTimes.start && x.EndTime <= listTimes.end)
+                var existingReservation = await context.Reservations
+                    .Where(x => x.StartTime >= listTimes.start && x.EndTime <= listTimes.end)
+                    .Where(x => x.Room == selectedRoom)
                     .Include(u => u.Room)
                     .Include(y => y.User)
                     .ThenInclude(z => z.Rights).FirstOrDefaultAsync();
