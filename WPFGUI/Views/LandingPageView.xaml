@@ -35,7 +35,8 @@
                                 <Run Text="{Binding Room.Building}"/>
                                 <Run Text="{Binding Room.RoomNr}" />
                             </TextBlock>
-                            <Button Canvas.Right="30" Canvas.Top="20" Command="{Binding DataContext.CancelReservationCommand, ElementName=ReservationList}" CommandParameter="{Binding}">Cancel</Button>
+                            <Button Canvas.Right="30" Canvas.Top="35" Command="{Binding DataContext.CancelReservationCommand, ElementName=ReservationList}" CommandParameter="{Binding}">Löschen</Button>
+                            <Button Canvas.Right="30" Canvas.Top="5" Command="{Binding DataContext.UpdateReservationCommand, ElementName=ReservationList}" CommandParameter="{Binding}">Ändern</Button>
                         </Canvas>
                     </DataTemplate>
                 </ListView.ItemTemplate>

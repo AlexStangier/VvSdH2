@@ -25,6 +25,7 @@ namespace WPFGUI.ViewModels
         public ICommand LoginCommand { get; set; }
         public ICommand ListUpdateCommand { get; set; }
         public ICommand CancelReservationCommand { get; set; }
+        public ICommand UpdateReservationCommand { get; set; }
 
         private readonly NavigationViewModel _navigationViewModel;
         private readonly User _user;
@@ -46,6 +47,7 @@ namespace WPFGUI.ViewModels
                 LoginCommand = new BaseCommand(OpenLogin);
                 ListUpdateCommand = new BaseCommand(UpdateReservationsList);
                 CancelReservationCommand = new BaseCommand(CancelReservation);
+                UpdateReservationCommand = new BaseCommand(UpdateReservation);
                 Reservations = new ObservableCollection<Reservation>();
                 UpdateReservationsList(null);
             }
@@ -104,6 +106,13 @@ namespace WPFGUI.ViewModels
                     }
                     break;
             }
+        }
+
+        public void UpdateReservation(object obj)
+        {
+            gReservation reservation = new gReservation(obj as Reservation);
+            UpdateWindow updateWindow = new UpdateWindow();
+            updateWindow.Show();
         }
 
         /// <summary>
