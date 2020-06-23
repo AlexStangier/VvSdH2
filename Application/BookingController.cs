@@ -12,22 +12,70 @@ namespace Application
     public sealed class BookingController : IBooking
     {
         public async Task<bool> UpdateReservation(Reservation currReservation, DateTime newTime,
-            int newSlot)
+            int newSlot, string currentUser = null)
         {
             await using var context = new ReservationContext();
 
-            var reservation = await context.Reservations
+            var reservationFromCurrentUser = await context.Reservations
                 .Where(x => x.ReservationId == currReservation.ReservationId)
                 .Include(y => y.User)
                 .ThenInclude(z => z.Rights)
+                .Include(r => r.Room)
                 .FirstOrDefaultAsync();
 
-            if (reservation == null) return false;
+            if (reservationFromCurrentUser == null) return false;
             var timestamp = getTimestampsFromTimeslot(newSlot, newTime);
-            
-            reservation.StartTime = timestamp.start;
-            reservation.EndTime = timestamp.end;
-            return context.SaveChanges() > 0;
+
+            if (await context.Holydays.AnyAsync(x =>
+                    x.Date.Month == timestamp.start.Month && x.Date.Day == timestamp.start.Day) &&
+                timestamp.start.DayOfWeek != DayOfWeek.Sunday)
+            {
+                var potentialReservation = await context.Reservations
+                    .Where(x => x.Room.RoomId == reservationFromCurrentUser.Room.RoomId)
+                    .Where(y => y.StartTime.Day == timestamp.start.Day && y.StartTime.Month == timestamp.start.Month &&
+                                y.StartTime.Year == timestamp.start.Year)
+                    .Include(y => y.User)
+                    .ThenInclude(z => z.Rights)
+                    .Include(r => r.Room)
+                    .FirstOrDefaultAsync();
+
+                //Reservation already Exists
+                if (potentialReservation != null)
+                {
+                    if (currentUser != null)
+                    {
+                        /**
+                         * ONLY FOR TESTING PURPOSE 
+                         */
+                        var currUserExcplicit =
+                            context.Users.Where(x => x.Username.Equals(currentUser)).FirstOrDefault();
+                        
+                        if (await ComparePrivilege(reservationFromCurrentUser.User, potentialReservation.User))
+                        {
+                            reservationFromCurrentUser.StartTime = timestamp.start;
+                            reservationFromCurrentUser.EndTime = timestamp.end;
+                            return context.SaveChanges() > 0;
+                        }
+
+                        return false;
+                    }
+                    
+                    if (await ComparePrivilege(reservationFromCurrentUser.User, potentialReservation.User))
+                    {
+                        reservationFromCurrentUser.StartTime = timestamp.start;
+                        reservationFromCurrentUser.EndTime = timestamp.end;
+                        return context.SaveChanges() > 0;
+                    }
+
+                    return false;
+                }
+
+                reservationFromCurrentUser.StartTime = timestamp.start;
+                reservationFromCurrentUser.EndTime = timestamp.end;
+                return context.SaveChanges() > 0;
+            }
+
+            return false;
         }
 
         public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, int slot, User user)
@@ -131,18 +179,18 @@ namespace Application
                 .Where(x => x.Username.Equals(userA.Username))
                 .Include(y => y.Rights)
                 .Select(s => s.Rights.PrivilegeLevel)
-                .FirstOrDefaultAsync(); 
-            
+                .FirstOrDefaultAsync();
+
             var concreteUserB = await context.Users
                 .Where(x => x.Username.Equals(userB.Username))
                 .Include(y => y.Rights)
                 .Select(s => s.Rights.PrivilegeLevel)
                 .FirstOrDefaultAsync();
-            
+
             return concreteUserA > concreteUserB;
         }
 
-        
+
         public async Task<bool> CancelReservation(User user, int Id)
         {
             await using var context = new ReservationContext();
@@ -168,8 +216,8 @@ namespace Application
             var concreteUser = await context.Users.FindAsync(user.Username);
 
             return await context.Reservations.Where(x => x.User == concreteUser)
-                                             .Include(x => x.Room)
-                                             .ToListAsync();
+                .Include(x => x.Room)
+                .ToListAsync();
         }
 
         public async Task<List<Reservation>> GetAllReservations()
@@ -177,8 +225,8 @@ namespace Application
             await using var context = new ReservationContext();
 
             return await context.Reservations.Include(x => x.User)
-                                             .Include(x => x.Room)
-                                             .ToListAsync();
+                .Include(x => x.Room)
+                .ToListAsync();
         }
 
         private (DateTime start, DateTime end) getTimestampsFromTimeslot(int slot, DateTime selectedDay)

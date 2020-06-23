@@ -97,6 +97,15 @@ namespace Tests
                 .GetResult().IsSuccessful;
             Assert.True(result);
         }
+
+        [Test]
+        public void CheckIfWPFGUIDependsOnCore()
+        {
+            var types = Types.InCurrentDomain();
+            var result = types.That().ResideInNamespace("WPFGUI").Should().HaveDependencyOn("Core").GetResult()
+                .IsSuccessful;
+            Assert.IsTrue(result);
+        }
         
     }
 }

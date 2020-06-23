@@ -220,11 +220,39 @@ namespace Tests
             {
                 var update = await _booking.UpdateReservation(
                     context.Reservations.OrderByDescending(x => x.ReservationId).FirstOrDefault(),
-                    new DateTime(2020, 12, 20), 2);
+                    new DateTime(2040, 5, 22), 2);
                 Assert.IsTrue(update);
             }
 
             Assert.IsTrue(true);
+        }
+
+        [Test]
+        public async Task TryUpdateReservationWithLowerPrivilege()
+        {
+            await using var context = new ReservationContext();
+
+            var room = await context.Rooms.FindAsync(8);
+            var udo = await context.Users.FindAsync("udo@hs-offenburg.de");
+            var date = new DateTime(2040, 5, 22);
+            var slot = 1;
+
+            var alex = await context.Users.FindAsync("alex@stud.hs-offenburg.de");
+
+            var bookingComplete = await _booking.CreateReservation(room, date, slot, udo);
+
+
+            var x = 0;
+
+            var reservation = context.Reservations
+                .Where(x => x.StartTime.Day == date.Day && x.StartTime.Month == date.Month &&
+                            x.StartTime.Year == date.Year)
+                .Include(r => r.Room)
+                .Include( u => u.User)
+                .ThenInclude(r => r.Rights)
+                .Where(y => y.Room.RoomId == 8)
+                .FirstOrDefault();
+            Assert.IsFalse(await _booking.UpdateReservation(reservation, date, 1, alex.Username));
         }
 
         [Test]
@@ -237,10 +265,11 @@ namespace Tests
         public async Task TestComparePrivilegeWithValidUsers()
         {
             await using var context = new ReservationContext();
-            Assert.IsFalse(await _booking.ComparePrivilege(await context.Users.FirstAsync(), await context.Users.OrderBy(x => x.Username).LastAsync()));
+            Assert.IsTrue(await _booking.ComparePrivilege(await context.Users.FindAsync("udo@hs-offenburg.de"),
+                await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
         }
 
-    [OneTimeTearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             using var context = new ReservationContext();
