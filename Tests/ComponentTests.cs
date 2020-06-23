@@ -155,23 +155,29 @@ namespace Tests
         public async Task TryCreateReservationWithInvalidRoom()
         {
             var time = DateTime.Now;
+            var newEndDate = new DateTime(time.Year, time.Month, time.Day);
+            newEndDate = newEndDate.AddDays(1).AddHours(9).AddMinutes(30);
+
             if (time.DayOfWeek == DayOfWeek.Sunday) time.AddDays(1);
-            Assert.False(await _booking.CreateReservation(null, time, 1, dummyUser));
+            Assert.AreEqual(-4, await _booking.CreateReservation(null, newEndDate, 1, dummyUser));
         }
 
         [Test]
         public async Task TryCreateReservationWithInvalidUser()
         {
             var time = DateTime.Now;
+            var newEndDate = new DateTime(time.Year, time.Month, time.Day);
+            newEndDate = newEndDate.AddDays(1).AddHours(9).AddMinutes(30);
+
             if (time.DayOfWeek == DayOfWeek.Sunday) time.AddDays(1);
-            Assert.False(await _booking.CreateReservation(dummyRoom, time, 1, null));
+            Assert.AreEqual(0, await _booking.CreateReservation(dummyRoom, newEndDate, 1, null));
         }
 
         [Test]
         public async Task TryCreateRerservation()
         {
             using var context = new ReservationContext();
-            Assert.True(await _booking.CreateReservation(await context.Rooms.FindAsync(1), testDate, 1,
+            Assert.AreEqual(1, await _booking.CreateReservation(await context.Rooms.FindAsync(1), testDate, 1,
                 await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
         }
 
@@ -186,7 +192,7 @@ namespace Tests
         public async Task TrySundayRerservation()
         {
             using var context = new ReservationContext();
-            Assert.False(await _booking.CreateReservation(await context.Rooms.FindAsync(1),
+            Assert.AreEqual(-2, await _booking.CreateReservation(await context.Rooms.FindAsync(1),
                 new DateTime(2020, 8, 30, 12, 0, 0), 1, await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
         }
 
@@ -194,7 +200,7 @@ namespace Tests
         public async Task TryHolidayRerservation()
         {
             using var context = new ReservationContext();
-            Assert.False(await _booking.CreateReservation(await context.Rooms.FindAsync(1),
+            Assert.AreEqual(-2, await _booking.CreateReservation(await context.Rooms.FindAsync(1),
                 new DateTime(2020, 12, 26, 12, 0, 0), 1, await context.Users.FindAsync("alex@stud.hs-offenburg.de")));
         }
 

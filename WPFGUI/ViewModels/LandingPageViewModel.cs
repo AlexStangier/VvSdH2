@@ -111,8 +111,16 @@ namespace WPFGUI.ViewModels
         public void UpdateReservation(object obj)
         {
             gReservation reservation = new gReservation(obj as Reservation);
-            UpdateWindow updateWindow = new UpdateWindow();
-            updateWindow.Show();
+            if (gUser.username == gReservation.reservation.User.Username)
+            {
+                UpdateWindow updateWindow = new UpdateWindow();
+                updateWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Sie haben keine Berechtigung diese Reservierung zu ändern", "Warnung", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+                
         }
 
         /// <summary>

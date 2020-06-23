@@ -78,7 +78,7 @@ namespace Application
             return false;
         }
 
-        public async Task<bool> CreateReservation(Room selectedRoom, DateTime timestamp, int slot, User user)
+        public async Task<int> CreateReservation(Room selectedRoom, DateTime timestamp, int slot, User user)
         {
             var _mail = new MailController();
 
@@ -88,7 +88,7 @@ namespace Application
 
             //Cannot Reservate in the past, accounting for lag
             if (listTimes.end < DateTime.Now.AddMinutes(-1))
-                return false;
+                return -1;
 
             try
             {
@@ -106,7 +106,7 @@ namespace Application
 
                 if (isHoliday || timestamp.DayOfWeek == DayOfWeek.Sunday)
                 {
-                    return false;
+                    return -2;
                 }
 
                 if (existingReservation == null)
@@ -126,23 +126,25 @@ namespace Application
                         var success = await context.SaveChangesAsync() > 0;
                         if (success)
                         {
-                            await _mail.SendConfirmationMail(newReservation);
+                            if (await _mail.SendConfirmationMail(newReservation))
+                                return 1;
+
+                            return -3;
                         }
 
-                        return success;
+                        return 0;
                     }
                 }
                 else if (existingReservation.StartTime <= DateTime.Now.AddHours(24))
                 {
                     //Cannot overbook if reservation starts in 24 hours,
                     //no matter how priviledged the users are.
-                    return false;
+                    return -4;
                 }
                 else if (await ComparePrivilege(concreteUser, existingReservation.User))
                 {
                     //Delete Reservation that has to be overbooked
                     context.Reservations.Remove(existingReservation);
-                    await _mail.SendOverbookingMail(existingReservation);
 
                     var newReservation = new Reservation
                     {
@@ -155,14 +157,21 @@ namespace Application
                     //Create new Reservation
                     context.Reservations.Add(newReservation);
                     concreteUser.Reservations.Add(newReservation);
-                    return await context.SaveChangesAsync() > 0;
+                    var success = await context.SaveChangesAsync() > 0;
+                    if (success)
+                    {
+                        if (await _mail.SendOverbookingMail(existingReservation) && await _mail.SendConfirmationMail(newReservation))
+                            return 1;
+
+                        return -3;
+                    }
                 }
 
-                return false;
+                return 0;
             }
             catch (NullReferenceException)
             {
-                return false;
+                return 0;
             }
         }
 
