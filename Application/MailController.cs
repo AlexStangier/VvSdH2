@@ -19,34 +19,43 @@ namespace Application
         public async Task<bool> SendConfirmationMail(Reservation reservation)
         {
             return await SendMail(reservation.User.Username,
-                           "Booking Succeeded!",
-                           $"Room {reservation.Room.RoomNr} in building {reservation.Room.Building} was " +
-                           $"reservated successfully. Thanks for using VvSdH!"); ;
+                           "Buchung erfolgreich!",
+                           $"Raum {reservation.Room.RoomNr} in Gebäude {reservation.Room.Building} wurde " +
+                           $"erfolgreich reserviert. Vielen Dank, dass Sie VvSdH nutzen!"); ;
         } 
 
         public async Task<bool> SendOverbookingMail(Reservation overbookedReservation)
         {
             return await SendMail(overbookedReservation.User.Username,
-                           "One of your reservations was overbooked",
-                           $"Please be aware that your reservations of room {overbookedReservation.Room.RoomNr} " +
-                           $"in building {overbookedReservation.Room.Building} has been overbooked. " +
-                           $"Please login to VvSdH for further information, or to book another room.");
+                           "Eine Ihrer Reservierungen wurde überbucht!",
+                           $"Bitte beachten Sie, dass ihre Reservierung von Raum {overbookedReservation.Room.RoomNr} " +
+                           $"in Gebäude {overbookedReservation.Room.Building} überbucht wurde. " +
+                           $"Nutzen sie VvSdH, um einen neuen Raum zu buchen!");
         }
+
+        private const bool SendAllMailsToOneAddress = true;
 
         public async Task<bool> SendMail(string toAddress, string subject, string message)
         {
             try
             {
-#if DEBUG
-                message = $"Mail would have been send to {toAddress}\n\n{message}";
-                toAddress = "VvSdH2@web.de";
-#endif
+                if(SendAllMailsToOneAddress)
+                {
+                    message = $"Mail wäre an {toAddress} gesendet worden.\n\n{message}";
+                    toAddress = "VvSdH2@web.de";
+                }
+
                 var smtp = new SmtpClient(mailServer, port);
                 smtp.Credentials = new NetworkCredential(mailName, mailPW);
                 smtp.EnableSsl = true;
 
                 var mail = new MailMessage(mailName, toAddress, subject, message);
                 await smtp.SendMailAsync(mail);
+                return true;
+            }
+            catch(SmtpFailedRecipientException)
+            {
+                // This exception can occur, because the server thinks this is Spam
                 return true;
             }
             catch(Exception)
