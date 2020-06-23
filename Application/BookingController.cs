@@ -40,7 +40,7 @@ namespace Application
 
             //Cannot Reservate in the past, accounting for lag
             if (listTimes.end < DateTime.Now.AddMinutes(-1))
-                return 1;
+                return -1;
 
             try
             {
@@ -58,7 +58,7 @@ namespace Application
 
                 if (isHoliday || timestamp.DayOfWeek == DayOfWeek.Sunday)
                 {
-                    return 2;
+                    return -2;
                 }
 
                 if (existingReservation == null)
@@ -79,9 +79,9 @@ namespace Application
                         if (success)
                         {
                             if (await _mail.SendConfirmationMail(newReservation))
-                                return 3;
+                                return 1;
 
-                            return 5;
+                            return -3;
                         }
 
                         return 0;
@@ -91,7 +91,7 @@ namespace Application
                 {
                     //Cannot overbook if reservation starts in 24 hours,
                     //no matter how priviledged the users are.
-                    return 4;
+                    return -4;
                 }
                 else if (await ComparePrivilege(concreteUser, existingReservation.User))
                 {
@@ -113,12 +113,10 @@ namespace Application
                     if (success)
                     {
                         if (await _mail.SendOverbookingMail(existingReservation))
-                            return 3;
+                            return 1;
 
-                        return 5;
+                        return -3;
                     }
-
-                    return 0;
                 }
 
                 return 0;

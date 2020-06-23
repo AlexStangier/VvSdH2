@@ -388,23 +388,23 @@ namespace WPFGUI.ViewModels
 
                         if (message == 1)
                         {
+                            MessageBox.Show("Reservierung erfolgreich.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else if (message == -1)
+                        {
                             MessageBox.Show("Es kann kein Rückwirkendes Datum ausgewählt werden. Versuchen Sie es nochmal.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
-                        else if (message == 2)
+                        else if (message == -2)
                         {
                             MessageBox.Show("Sie können an einem Sonntag oder Feiertag keine Reservierung vornehmen.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
-                        else if (message == 3)
-                        {
-                            MessageBox.Show("Reservierung erfolgreich.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
-                        else if (message == 4)
-                        {
-                            MessageBox.Show("Sie können keine Reservierungen 24 Stunden vor Beginn der Reservierung überbuchen.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                        else if (message == 5)
+                        else if (message == -3)
                         {
                             MessageBox.Show("Fehler beim Senden der e-Mails.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        else if (message == -4)
+                        {
+                            MessageBox.Show("Sie können keine Reservierungen 24 Stunden vor Beginn der Reservierung überbuchen.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                         else
                         {
