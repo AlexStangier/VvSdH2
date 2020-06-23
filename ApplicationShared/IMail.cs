@@ -8,7 +8,7 @@ namespace ApplicationShared
 {
     public interface IMail
     {
-        Task SendConfirmationMail(Reservation reservation);
-        Task SendOverbookingMail(Reservation overbookedReservation);
+        Task<bool> SendConfirmationMail(Reservation reservation);
+        Task<bool> SendOverbookingMail(Reservation overbookedReservation);
     }
 }
