@@ -32,6 +32,9 @@ namespace Application
 
         public async Task<int> CreateReservation(Room selectedRoom, DateTime timestamp, int slot, User user)
         {
+            if (selectedRoom == null)
+                return -4;
+
             var _mail = new MailController();
 
             await using var context = new ReservationContext();
