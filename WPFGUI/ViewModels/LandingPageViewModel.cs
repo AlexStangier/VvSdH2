@@ -30,6 +30,7 @@ namespace WPFGUI.ViewModels
         private readonly NavigationViewModel _navigationViewModel;
         private readonly User _user;
         private string _loginas = "Eingeloggt als, ";
+        private List<Reservation> reservations;
 
         //Tabelle
         public ObservableCollection<Reservation> Reservations { get; }
@@ -110,7 +111,7 @@ namespace WPFGUI.ViewModels
 
         public void UpdateReservation(object obj)
         {
-            gReservation reservation = new gReservation(obj as Reservation);
+            gReservation reservation = new gReservation(obj as Reservation, reservations);
             if (gUser.username == gReservation.reservation.User.Username)
             {
                 UpdateWindow updateWindow = new UpdateWindow();
@@ -129,7 +130,6 @@ namespace WPFGUI.ViewModels
         /// <param name="obj">ignored</param>
         public void UpdateReservationsList(object obj)
         {
-            List<Reservation> reservations;
             var controller = new BookingController();
 
             if (OnlyShowOwnReservations)

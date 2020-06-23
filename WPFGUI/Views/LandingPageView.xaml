@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFGUI.Views"
+             xml:lang="de-DE"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1200">
     <Grid Background="White">
@@ -18,7 +19,7 @@
             <Button Content="Abmelden" Height="25" Width="80" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Command="{Binding LoginCommand}"/>
         </Grid>
         <Grid Grid.Row="1">
-            <ListView ItemsSource="{Binding Reservations}" x:Name="ReservationList" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView ItemsSource="{Binding Reservations, StringFormat={}{0:f}}" x:Name="ReservationList" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal" />

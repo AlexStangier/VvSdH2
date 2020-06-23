@@ -13,6 +13,7 @@
             <ComboBoxItem Name="slot3" Content="11:35 - 13:00"/>
             <ComboBoxItem Name="slot4" Content="14:00 - 15:30"/>
             <ComboBoxItem Name="slot5" Content="15:45 - 17:15"/>
+            <ComboBoxItem Name="slot6" Content="17:30 - 19:00"/>
         </ComboBox>
         <TextBlock HorizontalAlignment="Center" Margin="0,20,0,0" Text="Wählen Sie einen neuen Timeslot aus." TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button Content="Reservierung ändern" Margin="164,180,0,0" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="113" Command="{Binding updateResCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=updateWindow}"/>

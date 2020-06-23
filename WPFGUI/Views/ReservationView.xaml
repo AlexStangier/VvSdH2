@@ -47,6 +47,7 @@
                             <ComboBoxItem Name="slot3" Content="11:35 - 13:00"/>
                             <ComboBoxItem Name="slot4" Content="14:00 - 15:30"/>
                             <ComboBoxItem Name="slot5" Content="15:45 - 17:15"/>
+                            <ComboBoxItem Name="slot6" Content="17:30 - 19:00"/>
                         </ComboBox>
                         <ComboBox HorizontalAlignment="Left" Margin="29,106,0,0" VerticalAlignment="Top" Width="129" Text="Raumgröße" IsEditable="True" IsReadOnly="True" SelectedValuePath="Name" SelectedValue="{Binding SelectedRoomSize}">
                             <ComboBoxItem Name="roomSize1" Content="min 30 Personen"/>

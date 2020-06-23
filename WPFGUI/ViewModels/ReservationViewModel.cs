@@ -381,6 +381,7 @@ namespace WPFGUI.ViewModels
                             "slot3" => 3,
                             "slot4" => 4,
                             "slot5" => 5,
+                            "slot6" => 6,
                             _ => -1
                         };
 

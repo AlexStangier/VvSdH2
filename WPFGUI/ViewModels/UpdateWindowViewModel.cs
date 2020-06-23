@@ -8,6 +8,7 @@ using System.Windows.Input;
 using WPFGUI.Interface;
 using Application;
 using System.Windows;
+using System.Linq;
 
 namespace WPFGUI.ViewModels
 {
@@ -58,18 +59,26 @@ namespace WPFGUI.ViewModels
                 "slot3" => 3,
                 "slot4" => 4,
                 "slot5" => 5,
+                "slot6" => 6,
                 _ => -1
             };
             if(timeslot != -1) 
             {
-                if (await controller.UpdateReservation(_reservation, SelectedDate, timeslot))
+                if (gReservation.reservations.Any(x => x.Room.RoomId == _reservation.Room.RoomId && x.StartTime == getTimestampsFromTimeslot(timeslot, SelectedDate)))
                 {
-                    MessageBox.Show("Reservierung erfolgreich geändert.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-                    window.Close();
+                    MessageBox.Show("Reservierung konnte nicht geändert werden, da sie mit einer anderen Reservierung kollidiert.","Fehler",MessageBoxButton.OK,MessageBoxImage.Error);
                 }
                 else
                 {
-                    MessageBox.Show("Reservierung konnte nicht geändert werden.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (await controller.UpdateReservation(_reservation, SelectedDate, timeslot))
+                    {
+                        MessageBox.Show("Reservierung erfolgreich geändert.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                        window.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Reservierung konnte nicht geändert werden.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
             else
@@ -83,6 +92,39 @@ namespace WPFGUI.ViewModels
         {
             var window = obj as Window;
             window.Close();
+        }
+
+        private DateTime getTimestampsFromTimeslot(int slot, DateTime selectedDay)
+        {
+            var toReturn = new List<DateTime>();
+            var newStartDate = new DateTime(selectedDay.Year, selectedDay.Month, selectedDay.Day);
+            var newEndDate = new DateTime(selectedDay.Year, selectedDay.Month, selectedDay.Day);
+
+            switch (slot)
+            {
+                case 1:
+                    newStartDate = newStartDate.AddHours(8).AddMinutes(0);
+                    break;
+                case 2:
+                    newStartDate = newStartDate.AddHours(9).AddMinutes(45);
+                    break;
+                case 3:
+                    newStartDate = newStartDate.AddHours(11).AddMinutes(35);
+                    break;
+                case 4:
+                    newStartDate = newStartDate.AddHours(14).AddMinutes(0);
+                    break;
+                case 5:
+                    newStartDate = newStartDate.AddHours(15).AddMinutes(45);
+                    break;
+                case 6:
+                    newStartDate.AddHours(17).AddMinutes(30);
+                    break;
+                default:
+                    throw new Exception("Slot index was out of Range");
+            }
+
+            return newStartDate;
         }
     }
 }
