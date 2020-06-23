@@ -115,6 +115,7 @@ namespace WPFGUI.ViewModels
             {
                 UpdateWindow updateWindow = new UpdateWindow();
                 updateWindow.ShowDialog();
+                UpdateReservationsList(this);
             }
             else
             {
