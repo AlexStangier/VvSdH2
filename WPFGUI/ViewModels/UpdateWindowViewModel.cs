@@ -64,7 +64,9 @@ namespace WPFGUI.ViewModels
             };
             if(timeslot != -1) 
             {
-                if (gReservation.reservations.Any(x => x.Room.RoomId == _reservation.Room.RoomId && x.StartTime == getTimestampsFromTimeslot(timeslot, SelectedDate)))
+                await using var context = new ReservationContext();
+                var reservations = context.Reservations.Where(x => x.ReservationId != 0);
+                if (reservations.Any(x => x.Room.RoomId == _reservation.Room.RoomId && x.StartTime == getTimestampsFromTimeslot(timeslot, SelectedDate)))
                 {
                     MessageBox.Show("Reservierung konnte nicht geändert werden, da sie mit einer anderen Reservierung kollidiert.","Fehler",MessageBoxButton.OK,MessageBoxImage.Error);
                 }

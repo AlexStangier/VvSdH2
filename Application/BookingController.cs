@@ -225,7 +225,7 @@ namespace Application
                     newEndDate = newEndDate.AddHours(17).AddMinutes(15);
                     break;
                 case 6:
-                    newStartDate.AddHours(17).AddMinutes(30);
+                    newStartDate = newStartDate.AddHours(17).AddMinutes(30);
                     newEndDate = newEndDate.AddHours(19).AddMinutes(00);
                     break;
                 default:
