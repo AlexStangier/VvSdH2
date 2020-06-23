@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFGUI"
         mc:Ignorable="d"
-        Title="Reservierung" Height="250" Width="400" Icon="/favicon.ico">
+        Title="Reservierung" Height="250" Width="400" Icon="/favicon.ico" x:Name="updateWindow">
     <Grid>
         <ComboBox HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Width="200" Text="Auswahl Timeslot" IsEditable="True" IsReadOnly="True" SelectedValuePath="Name" SelectedValue="{Binding SelectedTimeSlot}">
             <ComboBoxItem Name="slot1" Content="8:00 - 9:30"/>
@@ -15,8 +15,9 @@
             <ComboBoxItem Name="slot5" Content="15:45 - 17:15"/>
         </ComboBox>
         <TextBlock HorizontalAlignment="Center" Margin="0,20,0,0" Text="Wählen Sie einen neuen Timeslot aus." TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button Content="Reservierung ändern" Margin="260,177,0,0" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="113" Command="{Binding updateResCommand}"/>
-        <DatePicker HorizontalAlignment="Center" Margin="0,93,0,0" VerticalAlignment="Top" Width="200" SelectedDate="{Binding SelectedDate}"/>
+        <Button Content="Reservierung ändern" Margin="164,180,0,0" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="113" Command="{Binding updateResCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=updateWindow}"/>
+        <DatePicker HorizontalAlignment="Center" Margin="0,93,0,0" VerticalAlignment="Top" Width="200" IsEnabled="False" SelectedDate="{Binding SelectedDate}"/>
+        <Button Content="Abbrechen" HorizontalAlignment="Left" Margin="310,180,0,0" VerticalAlignment="Top" Command="{Binding cancelCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=updateWindow}"/>
 
     </Grid>
 </Window>

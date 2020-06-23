@@ -114,6 +114,8 @@ namespace Application
                     {
                         if (await _mail.SendOverbookingMail(existingReservation))
                             return 1;
+                        if (await _mail.SendConfirmationMail(newReservation))
+                            return 1;
 
                         return -3;
                     }

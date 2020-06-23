@@ -49,14 +49,10 @@ namespace Application
                 await smtp.SendMailAsync(mail);
                 return true;
             }
-            catch(SmtpFailedRecipientException)
+            catch(Exception)
             {
                 // User does not exist
-                return false;
-            }
-            catch(FormatException)
-            {
-                //Invalid user address
+                // Invalid adress, etc
                 return false;
             }
         }

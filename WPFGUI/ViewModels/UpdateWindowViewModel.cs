@@ -35,11 +35,14 @@ namespace WPFGUI.ViewModels
         }
 
         public ICommand updateResCommand { get; set; }
+        public ICommand cancelCommand { get; set; }
+     
         public UpdateWindowViewModel()
         {
 
             _reservation = gReservation.reservation;
             updateResCommand = new BaseCommand(UpdateReservation);
+            cancelCommand = new BaseCommand(Cancel);
             SelectedDate = gReservation.reservation.StartTime.Date;
         }
 
@@ -47,7 +50,7 @@ namespace WPFGUI.ViewModels
         public async void UpdateReservation(object obj)
         {
             var controller = new BookingController();
-
+            var window = obj as Window;
 
             int timeslot = SelectedTimeSlot switch
             {
@@ -63,6 +66,7 @@ namespace WPFGUI.ViewModels
                 if (await controller.UpdateReservation(_reservation, SelectedDate, timeslot))
                 {
                     MessageBox.Show("Reservierung erfolgreich geändert.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    window.Close();
                 }
                 else
                 {
@@ -75,5 +79,11 @@ namespace WPFGUI.ViewModels
             }
             
         } 
+
+        public void Cancel(object obj)
+        {
+            var window = obj as Window;
+            window.Close();
+        }
     }
 }
