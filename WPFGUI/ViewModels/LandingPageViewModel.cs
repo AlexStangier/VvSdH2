@@ -112,7 +112,7 @@ namespace WPFGUI.ViewModels
         {
             gReservation reservation = new gReservation(obj as Reservation);
             UpdateWindow updateWindow = new UpdateWindow();
-            updateWindow.Show();
+            updateWindow.ShowDialog();
         }
 
         /// <summary>
