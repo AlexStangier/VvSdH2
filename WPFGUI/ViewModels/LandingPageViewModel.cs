@@ -16,6 +16,9 @@ using Core;
 using System.Threading.Tasks;
 using System.Windows;
 using Renci.SshNet.Messages;
+using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Crypto.Digests;
 
 namespace WPFGUI.ViewModels
 {
@@ -109,10 +112,15 @@ namespace WPFGUI.ViewModels
             }
         }
 
-        public void UpdateReservation(object obj)
+        public async void UpdateReservation(object obj)
         {
             gReservation reservation = new gReservation(obj as Reservation, reservations);
-            if (gUser.username == gReservation.reservation.User.Username)
+            await using var context = new ReservationContext();
+            var concreteUserA = context.Users
+                .Where(x => x.Username.Equals(gUser.username))
+                .Include(y => y.Rights)
+                .FirstOrDefault();
+            if (gUser.username.Equals(gReservation.reservation.User.Username) || concreteUserA.Rights.PrivilegeLevel > 3)
             {
                 UpdateWindow updateWindow = new UpdateWindow();
                 updateWindow.ShowDialog();
