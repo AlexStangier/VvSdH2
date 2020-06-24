@@ -20,6 +20,7 @@ using System.Diagnostics;
 using System.Windows.Navigation;
 using System.Windows;
 using System.Windows.Markup;
+using Microsoft.EntityFrameworkCore;
 
 namespace WPFGUI.ViewModels
 {
@@ -257,6 +258,7 @@ namespace WPFGUI.ViewModels
         private readonly NavigationViewModel _navigationViewModel;
         private User user;
         private string _loginas = "Eingeloggt als, ";
+        private int timeslot;
         public ReservationViewModel(NavigationViewModel navigationViewModel, User newUser)
         {
             Rooms = new[] {
@@ -369,21 +371,22 @@ namespace WPFGUI.ViewModels
                 var controller = new BookingController();
                 using var context = new ReservationContext();
                 var room = context.Rooms.Where(x => x.RoomNr == clickedRoom.Number && x.Building == clickedRoom.Building).FirstOrDefault();
-                
-                MessageBoxResult result = MessageBox.Show("Stimmt Ihre Reservierung?" + " Raum: " + clickedRoom.Number + " Gebäude: " + SelectedBuilding + " Datum: " + SelectedDate.ToShortDateString() + " Slot: " + SelectedTimeSlot + ".", "Info", MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+                timeslot = SelectedTimeSlot switch
+                {
+                    "slot1" => 1,
+                    "slot2" => 2,
+                    "slot3" => 3,
+                    "slot4" => 4,
+                    "slot5" => 5,
+                    "slot6" => 6,
+                    _ => -1
+                };
+
+                MessageBoxResult result = MessageBox.Show($"Stimmt Ihre Reservierung? \nRaum:  {clickedRoom.Number} \nGebäude:  {SelectedBuilding } \nDatum:  {SelectedDate.ToShortDateString()} \nBlock:  { timeslot}.\nKlicken Sie Nein zum ändern der Reservierung.", "Info", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 switch (result)
                 {
                     case MessageBoxResult.Yes:
-                        int timeslot = SelectedTimeSlot switch
-                        {
-                            "slot1" => 1,
-                            "slot2" => 2,
-                            "slot3" => 3,
-                            "slot4" => 4,
-                            "slot5" => 5,
-                            "slot6" => 6,
-                            _ => -1
-                        };
 
                         var message = await controller.CreateReservation(room, SelectedDate, timeslot, user);
 
@@ -414,11 +417,33 @@ namespace WPFGUI.ViewModels
                         UpdateRoomStatus();
                         break;
                     case MessageBoxResult.No:
+                        updateReservation(clickedRoom);
                         break;
                 }
             }
         }
 
+        public async void updateReservation(RoomStruct selectedRoom)
+        {
+            await using var context = new ReservationContext();
+            IBooking booking = new BookingController();
+            var timestamp = booking.getTimestampsFromTimeslot(timeslot, SelectedDate);
+            gReservation.reservation = context.Reservations.Where(x => x.Room.RoomId == selectedRoom.RoomID && x.StartTime == timestamp.start).Include(y => y.User).Include(z => z.Room).FirstOrDefault();
+            var concreteUserA = context.Users
+              .Where(x => x.Username.Equals(gUser.username))
+              .Include(y => y.Rights)
+              .FirstOrDefault();
+            if (gUser.username.Equals(gReservation.reservation.User.Username) || concreteUserA.Rights.PrivilegeLevel > 3)
+            {
+                UpdateWindow updateWindow = new UpdateWindow();
+                updateWindow.ShowDialog();
+                UpdateRoomStatus();
+            }
+            else
+            {
+                MessageBox.Show("Sie haben keine Berechtigung diese Reservierung zu ändern", "Warnung", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
         public string LoginAs
         {
             get => _loginas + user.Username;
