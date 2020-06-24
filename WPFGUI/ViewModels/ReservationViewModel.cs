@@ -521,6 +521,10 @@ namespace WPFGUI.ViewModels
                             ts = new TimeSpan(15, 45, 0);
                             timestamp = timestamp.Date + ts;
                             break;
+                        case "slot6":
+                            ts = new TimeSpan(17, 30, 0);
+                            timestamp = timestamp.Date + ts;
+                            break;
                     }
 
                     (string Username, string RightsName) = await _room.GetReservationForRoom(r, timestamp);
