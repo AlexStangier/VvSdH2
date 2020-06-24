@@ -154,40 +154,37 @@ namespace Application
                 .FirstOrDefaultAsync();
 
             return concreteUserA > concreteUserB;
-             
-            return concreteUserA > concreteUserB;
         }
 
         public async Task<bool> CancelReservation(User user, int Id)
         {
             await using var context = new ReservationContext();
-            var fittingReservation = await context.Reservations.Include(x => x.User)
+            
+            var userFromReservation = await context.Reservations
+                .Include(x => x.User)
+                .ThenInclude(r => r.Rights)
                 .FirstOrDefaultAsync(x => x.ReservationId == Id);
 
-            var getPrivilegeUser = await context.Users
+            var currentUser = await context.Users
                 .Where(x => x.Username.Equals(user.Username))
                 .Include(y => y.Rights)
                 .Select(s => s.Rights.PrivilegeLevel)
                 .FirstOrDefaultAsync();
 
             // Check if cancelling is possible
-            if (fittingReservation == null)
+            if (userFromReservation == null)
                 return false;
 
-            var getPrivilegeFitting = await context.Users
-                .Where(x => x.Username.Equals(fittingReservation.User.Username))
-                .Include(y => y.Rights)
-                .Select(s => s.Rights.PrivilegeLevel)
-                .FirstOrDefaultAsync();
-
-            if (getPrivilegeUser < getPrivilegeFitting && getPrivilegeUser < 4)
+            var getFittingPrivilege = userFromReservation.User.Rights.PrivilegeLevel;
+            
+            if (currentUser < getFittingPrivilege && currentUser < 4)
                 return false;
 
-            if (getPrivilegeUser == getPrivilegeFitting && !fittingReservation.User.Equals(user) && getPrivilegeUser < 4)
+            if (currentUser == getFittingPrivilege && !userFromReservation.User.Equals(user) && currentUser < 4)
                 return false;
 
             // Cancelling is possible, remove the entry
-            context.Reservations.Remove(fittingReservation);
+            context.Reservations.Remove(userFromReservation);
             return context.SaveChanges() > 0;
         }
 
