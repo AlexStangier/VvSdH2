@@ -1,25 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using WPFGUI.ViewModels;
 using WPFGUI.Interface;
 using System.Windows.Input;
 using Core;
 using ApplicationShared;
 using Application;
-using System.Windows.Ink;
-using Org.BouncyCastle.Asn1.Mozilla;
-using System.Reflection;
 using System.Linq;
 using System.ComponentModel;
 using Attribute = Core.Attribute;
-using System.Globalization;
-using System.Runtime.Intrinsics.X86;
 using System.Diagnostics;
-using System.Windows.Navigation;
 using System.Windows;
-using System.Windows.Markup;
 using Microsoft.EntityFrameworkCore;
 
 namespace WPFGUI.ViewModels

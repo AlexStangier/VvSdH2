@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using ApplicationShared;
 using Core;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Query.ExpressionTranslators.Internal;
 
 namespace Application
 {
