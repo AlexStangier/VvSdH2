@@ -433,15 +433,18 @@ namespace WPFGUI.ViewModels
               .Where(x => x.Username.Equals(gUser.username))
               .Include(y => y.Rights)
               .FirstOrDefault();
-            if (gUser.username.Equals(gReservation.reservation.User.Username) || concreteUserA.Rights.PrivilegeLevel > 3)
+            if (gReservation.reservation != null)
             {
-                UpdateWindow updateWindow = new UpdateWindow();
-                updateWindow.ShowDialog();
-                UpdateRoomStatus();
-            }
-            else
-            {
-                MessageBox.Show("Sie haben keine Berechtigung diese Reservierung zu ändern", "Warnung", MessageBoxButton.OK, MessageBoxImage.Warning);
+                if (gUser.username.Equals(gReservation.reservation.User.Username) || concreteUserA.Rights.PrivilegeLevel > 3)
+                {
+                    UpdateWindow updateWindow = new UpdateWindow();
+                    updateWindow.ShowDialog();
+                    UpdateRoomStatus();
+                }
+                else
+                {
+                    MessageBox.Show("Sie haben keine Berechtigung diese Reservierung zu ändern.", "Warnung", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
         }
         public string LoginAs
