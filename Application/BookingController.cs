@@ -208,7 +208,7 @@ namespace Application
                                              .ToListAsync();
         }
 
-        private (DateTime start, DateTime end) getTimestampsFromTimeslot(int slot, DateTime selectedDay)
+        public (DateTime start, DateTime end) getTimestampsFromTimeslot(int slot, DateTime selectedDay)
         {
             var toReturn = new List<DateTime>();
             var newStartDate = new DateTime(selectedDay.Year, selectedDay.Month, selectedDay.Day);

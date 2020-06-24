@@ -12,5 +12,7 @@ namespace ApplicationShared
         Task<List<Reservation>> GetUserReservations(User user);
         Task<bool> UpdateReservation(Reservation currReservation,DateTime newTime, int newSlot);
         Task<bool> ComparePrivilege(User userA, User userB);
+
+        (DateTime start, DateTime end) getTimestampsFromTimeslot(int slot, DateTime selectedDay);
     }
 }
