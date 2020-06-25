@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-using System.Linq;
-using System.Drawing;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.ComponentModel;
 using System.Windows.Input;
-using WPFGUI.ViewModels;
 using WPFGUI.Interface;
 using ApplicationShared;
 using Application;
 using Core;
-using System.IO.Packaging;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 

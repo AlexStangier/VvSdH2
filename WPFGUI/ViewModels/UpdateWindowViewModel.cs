@@ -1,9 +1,6 @@
 ﻿using Core;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.IO.Packaging;
-using System.Text;
 using System.Windows.Input;
 using WPFGUI.Interface;
 using Application;

@@ -1,24 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Drawing;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using WPFGUI.ViewModels;
 using WPFGUI.Interface;
 using ApplicationShared;
 using Application;
-using System.IO.Packaging;
-using System.Windows.Documents;
 using Core;
 using System.Threading.Tasks;
 using System.Windows;
-using Renci.SshNet.Messages;
-using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Crypto.Digests;
 
 namespace WPFGUI.ViewModels
 {
